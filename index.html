@@ -295,55 +295,134 @@
     }
 
     /* ==========================================
-       CSS STRUKTUR ORGANISASI TREE (DKM CHART)
-       ========================================== */
-    .tree-container { overflow-x: auto; padding: 10px 0; }
-    .tree { display: flex; flex-direction: column; align-items: center; position: relative; }
-    .node-box {
-      background: white; border: 2px solid var(--primary); border-radius: 8px;
-      padding: 10px 14px; text-align: center; box-shadow: 0 4px 10px rgba(0,0,0,0.05);
-      min-width: 180px; position: relative; z-index: 2; margin: 6px;
-    }
-    .node-box .title { font-size: 0.72rem; font-weight: 700; color: var(--secondary); text-transform: uppercase; }
-    .node-box .name { font-size: 0.85rem; font-weight: 600; color: var(--text-dark); }
-    
-    .node-pembina { border-color: var(--accent-gold); background: #fffdf0; }
-    .node-pembina .title { color: #b7950b; }
-    .node-ketua { background: var(--primary); color: white; border-color: var(--primary); }
-    .node-ketua .title, .node-ketua .name { color: white; }
-    .node-sekben { background: #f0fdf4; border-color: var(--secondary); }
-    .node-bidang { background: #f8fafc; border-color: #3b82f6; }
-    .node-bidang .title { color: #2563eb; }
-    .node-seksi { background: #ffffff; border-color: #64748b; font-size: 0.8rem; min-width: 160px; }
+   CSS STRUKTUR ORGANISASI TREE (WITH LINES)
+   ========================================== */
+.tree-container {
+  width: 100%;
+  overflow-x: auto;
+  padding: 1rem 0;
+}
 
-    .level { display: flex; justify-content: center; width: 100%; gap: 15px; flex-wrap: wrap; margin-bottom: 20px; }
-    .sub-group { display: flex; flex-direction: column; align-items: center; }
-    .seksi-container { display: flex; flex-direction: column; gap: 8px; width: 100%; align-items: center; }
+.tree {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  min-width: 650px;
+  position: relative;
+}
 
-    /* Footer */
-    footer {
-      background: var(--primary); color: white;
-      padding: 2.5rem 1.5rem 1.2rem; margin-top: 3rem;
-      border-top: 4px solid var(--accent-gold);
-    }
-    .footer-container {
-      max-width: 1350px; margin: 0 auto;
-      display: grid; grid-template-columns: repeat(auto-fit, minmax(250px, 1fr)); gap: 2rem;
-      margin-bottom: 1.5rem;
-    }
-    .footer-bottom {
-      text-align: center; padding-top: 1.2rem;
-      border-top: 1px solid rgba(255,255,255,0.1);
-      font-size: 0.82rem; opacity: 0.8;
-    }
+.level {
+  display: flex;
+  justify-content: center;
+  gap: 1.5rem;
+  width: 100%;
+  margin-bottom: 2rem;
+  position: relative;
+}
 
-    @media (max-width: 768px) {
-      .hero-title { font-size: 1.5rem; }
-      .hero-salam { font-size: 1.7rem; }
-      .nav-container { flex-direction: column; align-items: stretch; text-align: center; }
-      .brand { justify-content: center; }
-      .time-widget { text-align: center; }
-    }
+.level::before {
+  content: '';
+  position: absolute;
+  top: -1rem;
+  left: 50%;
+  width: 2px;
+  height: 1rem;
+  background-color: var(--primary, #0B8F3A);
+}
+
+.level:first-child::before {
+  display: none;
+}
+
+.node-box {
+  background: #ffffff;
+  border: 1.5px solid var(--primary, #0B8F3A);
+  border-radius: 8px;
+  padding: 0.6rem 1rem;
+  text-align: center;
+  box-shadow: 0 3px 6px rgba(0,0,0,0.06);
+  position: relative;
+  z-index: 2;
+  min-width: 150px;
+}
+
+.node-box .title {
+  font-size: 0.75rem;
+  font-weight: 600;
+  color: var(--secondary, #4B6B94);
+  text-transform: uppercase;
+  margin-bottom: 0.2rem;
+}
+
+.node-box .name {
+  font-size: 0.88rem;
+  font-weight: 700;
+  color: #222222;
+}
+
+/* Warna Pembeda Level */
+.node-pembina { border-color: #8e44ad; }
+.node-pembina .title { color: #8e44ad; }
+
+.node-ketua { border-color: #0B8F3A; background: #f0fff4; }
+.node-ketua .title { color: #0B8F3A; }
+
+.node-sekben { border-color: #2980b9; }
+.node-sekben .title { color: #2980b9; }
+
+.node-bidang { border-color: #d35400; background: #fffaf5; }
+.node-bidang .title { color: #d35400; }
+
+.node-seksi { border-color: #7f8c8d; }
+.node-seksi .title { color: #555555; }
+
+/* Sub-group & Seksi */
+.sub-group {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  flex: 1;
+  position: relative;
+}
+
+.sub-group::before {
+  content: '';
+  position: absolute;
+  top: -1rem;
+  left: 50%;
+  width: 2px;
+  height: 1rem;
+  background-color: var(--primary, #0B8F3A);
+}
+
+.seksi-container {
+  display: flex;
+  flex-direction: column;
+  gap: 0.8rem;
+  margin-top: 1rem;
+  width: 100%;
+  align-items: center;
+  position: relative;
+}
+
+.seksi-container::before {
+  content: '';
+  position: absolute;
+  top: -1rem;
+  left: 50%;
+  width: 2px;
+  height: calc(100% - 1.5rem);
+  background-color: #cbd5e1;
+  z-index: 1;
+}
+
+.line-connector {
+  position: absolute;
+  top: -1rem;
+  height: 2px;
+  background-color: var(--primary, #0B8F3A);
+  z-index: 1;
+}
 	
 	/* Modal / Lightbox untuk View Foto */
 /* Modal / Lightbox untuk View Foto Ukuran 100% Asli */
@@ -641,118 +720,128 @@
           </ol>
         </div>
 
-        <!-- BAGAN STRUKTUR ORGANISASI TREE -->
-        <h3 class="card-title"><i class="fa-solid fa-sitemap"></i> Bagan Struktur Organisasi DKM (2024–2029)</h3>
-        <div class="tree-container">
-          <div class="tree">
-            <!-- LEVEL 1: PEMBINA -->
-            <div class="level">
-              <div class="node-box node-pembina">
-                <div class="title">Pembina / Penasehat</div>
-                <div class="name">Ust. Oman Abdurohman</div>
-              </div>
-              <div class="node-box node-pembina">
-                <div class="title">Pembina / Penasehat</div>
-                <div class="name">Bp. H. Cecep Sunarya</div>
-              </div>
-            </div>
+       <!-- BAGAN STRUKTUR ORGANISASI TREE -->
+<h3 class="card-title"><i class="fa-solid fa-sitemap"></i> Bagan Struktur Organisasi DKM (2024–2029)</h3>
 
-            <!-- LEVEL 2: KETUA -->
-            <div class="level">
-              <div class="node-box node-ketua">
-                <div class="title">Ketua DKM Masjid</div>
-                <div class="name">H. Sulaeman</div>
-              </div>
-            </div>
+<div class="tree-container">
+  <div class="tree">
+    
+    <!-- LEVEL 1: PEMBINA -->
+    <div class="level">
+      <!-- Garis Horizontal Pembina -->
+      <div class="line-connector" style="width: 50%;"></div>
 
-            <!-- LEVEL 3: SEKRETARIS & BENDAHARA -->
-            <div class="level">
-              <div class="node-box node-sekben">
-                <div class="title">Sekretaris</div>
-                <div class="name">Hariyono</div>
-              </div>
-              <div class="node-box node-sekben">
-                <div class="title">Bendahara</div>
-                <div class="name">Ujang Sopian</div>
-              </div>
-            </div>
+      <div class="node-box node-pembina">
+        <div class="title">Pembina / Penasehat</div>
+        <div class="name">Ust. Oman Abdurohman</div>
+      </div>
+      <div class="node-box node-pembina">
+        <div class="title">Pembina / Penasehat</div>
+        <div class="name">Bp. H. Cecep Sunarya</div>
+      </div>
+    </div>
 
-            <!-- LEVEL 4: WAKIL KETUA & SEKSI -->
-            <div class="level">
-              <!-- Bidang Idaroh -->
-              <div class="sub-group">
-                <div class="node-box node-bidang">
-                  <div class="title">Wakil Ketua I / Idaroh</div>
-                  <div class="name">Rahman</div>
-                </div>
-                <div class="seksi-container">
-                  <div class="node-box node-seksi">
-                    <div class="title">Seksi Peribadatan</div>
-                    <div class="name">Ust. Opik</div>
-                  </div>
-                </div>
-              </div>
+    <!-- LEVEL 2: KETUA -->
+    <div class="level">
+      <div class="node-box node-ketua">
+        <div class="title">Ketua DKM Masjid</div>
+        <div class="name">H. Sulaeman</div>
+      </div>
+    </div>
 
-              <!-- Bidang Imaroh -->
-              <div class="sub-group">
-                <div class="node-box node-bidang">
-                  <div class="title">Wakil Ketua II / Imaroh</div>
-                  <div class="name">Hendra Gunawan</div>
-                </div>
-                <div class="seksi-container">
-                  <div class="node-box node-seksi">
-                    <div class="title">Seksi PHBI & Dakwah</div>
-                    <div class="name">Mulyana</div>
-                  </div>
-                  <div class="node-box node-seksi">
-                    <div class="title">Seksi Remaja & Pemuda</div>
-                    <div class="name">Dimas</div>
-                  </div>
-                  <div class="node-box node-seksi">
-                    <div class="title">Seksi Adm & Dokumentasi</div>
-                    <div class="name">Wawan</div>
-                  </div>
-                  <div class="node-box node-seksi">
-                    <div class="title">Seksi IT & Medsos</div>
-                    <div class="name">Genta</div>
-                  </div>
-                </div>
-              </div>
+    <!-- LEVEL 3: SEKRETARIS & BENDAHARA -->
+    <div class="level">
+      <!-- Garis Horizontal Sek-Ben -->
+      <div class="line-connector" style="width: 40%;"></div>
 
-              <!-- Bidang Ri'ayah -->
-              <div class="sub-group">
-                <div class="node-box node-bidang">
-                  <div class="title">Wakil Ketua III / Ri’ayah</div>
-                  <div class="name">Andi Suryandi</div>
-                </div>
-                <div class="seksi-container">
-                  <div class="node-box node-seksi">
-                    <div class="title">Seksi Pemeliharaan Bangunan</div>
-                    <div class="name">Nurul</div>
-                  </div>
-                  <div class="node-box node-seksi">
-                    <div class="title">Seksi Perencanaan & Usaha</div>
-                    <div class="name">H. Andri</div>
-                  </div>
-                  <div class="node-box node-seksi">
-                    <div class="title">Seksi Perlengkapan</div>
-                    <div class="name">Abifil Bait</div>
-                  </div>
-                  <div class="node-box node-seksi">
-                    <div class="title">Seksi Keamanan</div>
-                    <div class="name">Tim Keamanan</div>
-                  </div>
-                </div>
-              </div>
-            </div>
+      <div class="node-box node-sekben">
+        <div class="title">Sekretaris</div>
+        <div class="name">Hariyono</div>
+      </div>
+      <div class="node-box node-sekben">
+        <div class="title">Bendahara</div>
+        <div class="name">Ujang Sopian</div>
+      </div>
+    </div>
+
+    <!-- LEVEL 4: WAKIL KETUA & SEKSI -->
+    <div class="level" style="margin-bottom: 0;">
+      <!-- Garis Horizontal Utama Pembagi 3 Bidang -->
+      <div class="line-connector" style="width: 70%;"></div>
+
+      <!-- Bidang Idaroh -->
+      <div class="sub-group">
+        <div class="node-box node-bidang">
+          <div class="title">Wakil Ketua I / Idaroh</div>
+          <div class="name">Rahman</div>
+        </div>
+        <div class="seksi-container">
+          <div class="node-box node-seksi">
+            <div class="title">Seksi Peribadatan</div>
+            <div class="name">Ust. Opik</div>
           </div>
         </div>
-
-        <p style="font-size:0.8rem; color:var(--text-muted); text-align:right; margin-top:1rem;">
-          Musyawarah Pemilihan & Pengesahan Berita Acara: Sukabumi, 3 Maret 2024 (Disahkan Ketua RT 04, Ketua RW 06, Panitia, & Kepala Desa Parungseah).
-        </p>
       </div>
-    </section>
+
+      <!-- Bidang Imaroh -->
+      <div class="sub-group">
+        <div class="node-box node-bidang">
+          <div class="title">Wakil Ketua II / Imaroh</div>
+          <div class="name">Hendra Gunawan</div>
+        </div>
+        <div class="seksi-container">
+          <div class="node-box node-seksi">
+            <div class="title">Seksi PHBI & Dakwah</div>
+            <div class="name">Mulyana</div>
+          </div>
+          <div class="node-box node-seksi">
+            <div class="title">Seksi Remaja & Pemuda</div>
+            <div class="name">Dimas</div>
+          </div>
+          <div class="node-box node-seksi">
+            <div class="title">Seksi Adm & Dokumentasi</div>
+            <div class="name">Wawan</div>
+          </div>
+          <div class="node-box node-seksi">
+            <div class="title">Seksi IT & Medsos</div>
+            <div class="name">Genta</div>
+          </div>
+        </div>
+      </div>
+
+      <!-- Bidang Ri'ayah -->
+      <div class="sub-group">
+        <div class="node-box node-bidang">
+          <div class="title">Wakil Ketua III / Ri’ayah</div>
+          <div class="name">Andi Suryandi</div>
+        </div>
+        <div class="seksi-container">
+          <div class="node-box node-seksi">
+            <div class="title">Seksi Pemeliharaan Bangunan</div>
+            <div class="name">Nurul</div>
+          </div>
+          <div class="node-box node-seksi">
+            <div class="title">Seksi Perencanaan & Usaha</div>
+            <div class="name">H. Andri</div>
+          </div>
+          <div class="node-box node-seksi">
+            <div class="title">Seksi Perlengkapan</div>
+            <div class="name">Abifil Bait</div>
+          </div>
+          <div class="node-box node-seksi">
+            <div class="title">Seksi Keamanan</div>
+            <div class="name">Tim Keamanan</div>
+          </div>
+        </div>
+      </div>
+
+    </div>
+  </div>
+</div>
+
+<p style="font-size:0.8rem; color:var(--text-muted); text-align:right; margin-top:1rem;">
+  Musyawarah Pemilihan & Pengesahan Berita Acara: Sukabumi, 3 Maret 2024 (Disahkan Ketua RT 04, Ketua RW 06, Panitia, & Kepala Desa Parungseah).
+</p>
 
     <!-- ================= TAB 4: KEGIATAN & PHBI ================= -->
     <section id="tab-kegiatan" class="tab-content">
