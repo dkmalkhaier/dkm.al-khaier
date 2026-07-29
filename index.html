@@ -344,6 +344,44 @@
       .brand { justify-content: center; }
       .time-widget { text-align: center; }
     }
+	
+	/* Modal / Lightbox untuk View Foto */
+.img-modal {
+  display: none;
+  position: fixed;
+  z-index: 9999;
+  left: 0;
+  top: 0;
+  width: 100%;
+  height: 100%;
+  background-color: rgba(0, 0, 0, 0.85);
+  align-items: center;
+  justify-content: center;
+  flex-direction: column;
+}
+.img-modal.active {
+  display: flex;
+}
+.img-modal-content {
+  max-width: 90%;
+  max-height: 80vh;
+  aspect-ratio: 9 / 16;
+  object-fit: contain;
+  border-radius: 8px;
+  box-shadow: 0 10px 25px rgba(0,0,0,0.5);
+  pointer-events: none;
+  user-select: none;
+}
+.img-modal-close {
+  position: absolute;
+  top: 20px;
+  right: 25px;
+  color: #fff;
+  font-size: 35px;
+  font-weight: bold;
+  cursor: pointer;
+}
+	
   </style>
 </head>
 <body>
@@ -462,34 +500,37 @@
 
  
    <!-- ================= TAB 2: PROFIL & SEJARAH ================= -->
-    <!-- ================= TAB 2: PROFIL & SEJARAH ================= -->
     <section id="tab-profil" class="tab-content">
       <div class="card">
         <h3 class="card-title"><i class="fa-solid fa-landmark"></i> Sejarah Terbentuknya Masjid Jami Al Khair Parungseah</h3>
         
-        <!-- FOTO & INFOGRAFIS SEJARAH (RASIO 9:16 UTUH, TANPA TERPOTONG) -->
-        <div class="grid-2" style="margin-bottom: 1.8rem; gap: 1.2rem;">
+        <!-- FOTO & INFOGRAFIS (UKURAN KECIL, RINGKAS, BISA DI-KLIK UNTUK VIEW ASLI) -->
+        <div style="display: flex; gap: 1rem; justify-content: center; margin-bottom: 1.5rem; flex-wrap: wrap;">
           
-          <!-- FOTO 1: BANGUNAN MASJID -->
-          <div style="background:white; border-radius:12px; overflow:hidden; border:1px solid var(--border); box-shadow: 0 4px 12px rgba(0,0,0,0.05); text-align:center; padding: 0.8rem;">
-            <div style="width:100%; aspect-ratio: 9 / 16; overflow:hidden; border-radius:8px; background:#1e1e1e; display:flex; align-items:center; justify-content:center;">
+          <!-- THUMBNAIL FOTO 1 -->
+          <div style="width: 140px; text-align: center; cursor: pointer;" onclick="openImageModal('https://lh3.googleusercontent.com/d/1BSBMhzmqApwLz7X4QtYt7IxP5oXE9a3o', 'Bangunan Masjid Jami Al Khair')">
+            <div style="width: 100%; aspect-ratio: 9 / 16; overflow: hidden; border-radius: 8px; border: 1px solid var(--border); background: #f5f5f5; box-shadow: 0 2px 8px rgba(0,0,0,0.08); transition: transform 0.2s;" onmouseover="this.style.transform='scale(1.03)'" onmouseout="this.style.transform='scale(1)'">
               <img src="https://lh3.googleusercontent.com/d/1BSBMhzmqApwLz7X4QtYt7IxP5oXE9a3o" 
                    alt="Bangunan Masjid Jami Al Khair" 
                    oncontextmenu="return false;"
-                   style="width:100%; height:100%; object-fit:contain; pointer-events: none; user-select: none;">
+                   style="width: 100%; height: 100%; object-fit: cover; pointer-events: none;">
             </div>
-            <h5 style="color:var(--primary); font-size:0.9rem; margin-top:0.6rem;"><i class="fa-solid fa-image"></i> Bangunan Masjid Jami Al Khair</h5>
+            <span style="font-size: 0.75rem; color: var(--primary); font-weight: 600; margin-top: 0.4rem; display: block;">
+              <i class="fa-solid fa-magnifying-glass-plus"></i> Bangunan Masjid
+            </span>
           </div>
 
-          <!-- FOTO 2: INFOGRAFIS SEJARAH -->
-          <div style="background:white; border-radius:12px; overflow:hidden; border:1px solid var(--border); box-shadow: 0 4px 12px rgba(0,0,0,0.05); text-align:center; padding: 0.8rem;">
-            <div style="width:100%; aspect-ratio: 9 / 16; overflow:hidden; border-radius:8px; background:#1e1e1e; display:flex; align-items:center; justify-content:center;">
+          <!-- THUMBNAIL FOTO 2 -->
+          <div style="width: 140px; text-align: center; cursor: pointer;" onclick="openImageModal('https://lh3.googleusercontent.com/d/18OJwQ8aVMx7mXKWAkWdbcMvEWmIYDxyo', 'Infografis & Dokumentasi Sejarah')">
+            <div style="width: 100%; aspect-ratio: 9 / 16; overflow: hidden; border-radius: 8px; border: 1px solid var(--border); background: #f5f5f5; box-shadow: 0 2px 8px rgba(0,0,0,0.08); transition: transform 0.2s;" onmouseover="this.style.transform='scale(1.03)'" onmouseout="this.style.transform='scale(1)'">
               <img src="https://lh3.googleusercontent.com/d/18OJwQ8aVMx7mXKWAkWdbcMvEWmIYDxyo" 
                    alt="Infografis Sejarah & Kegiatan Masjid" 
                    oncontextmenu="return false;"
-                   style="width:100%; height:100%; object-fit:contain; pointer-events: none; user-select: none;">
+                   style="width: 100%; height: 100%; object-fit: cover; pointer-events: none;">
             </div>
-            <h5 style="color:var(--primary); font-size:0.9rem; margin-top:0.6rem;"><i class="fa-solid fa-file-image"></i> Infografis & Dokumentasi Sejarah</h5>
+            <span style="font-size: 0.75rem; color: var(--primary); font-weight: 600; margin-top: 0.4rem; display: block;">
+              <i class="fa-solid fa-magnifying-glass-plus"></i> Infografis Sejarah
+            </span>
           </div>
 
         </div>
@@ -528,6 +569,13 @@
         </div>
       </div>
     </section>
+
+    <!-- MODAL POPUP UNTUK PRATINJAU FOTO -->
+    <div id="imgModal" class="img-modal" onclick="closeImageModal()">
+      <span class="img-modal-close" onclick="closeImageModal()">&times;</span>
+      <img id="modalImg" class="img-modal-content" src="" alt="View Foto" oncontextmenu="return false;">
+      <p id="modalCaption" style="color: white; margin-top: 10px; font-size: 0.9rem; text-align: center;"></p>
+    </div>
 
     <!-- ================= TAB 3: KEPENGURUSAN DKM ================= -->
     <section id="tab-dkm" class="tab-content">
@@ -1005,6 +1053,22 @@
       list.prepend(item);
       document.getElementById('commentForm').reset();
     }
+	
+	function openImageModal(src, caption) {
+  const modal = document.getElementById('imgModal');
+  const modalImg = document.getElementById('modalImg');
+  const modalCaption = document.getElementById('modalCaption');
+  
+  modal.classList.add('active');
+  modalImg.src = src;
+  modalCaption.innerText = caption;
+}
+
+function closeImageModal() {
+  const modal = document.getElementById('imgModal');
+  modal.classList.remove('active');
+}
+	
   </script>
 </body>
 </html>
