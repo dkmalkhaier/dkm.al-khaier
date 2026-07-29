@@ -300,6 +300,7 @@
 .tree-container {
   width: 100%;
   overflow-x: auto;
+  -webkit-overflow-scrolling: touch;
   padding: 1.5rem 0;
 }
 
@@ -562,6 +563,50 @@
 
 .modal-body li {
   margin-bottom: 0.5rem;
+}
+
+/* CSS untuk Modal Preview Gambar (Profil & Sejarah) */
+.img-modal {
+  display: none;
+  position: fixed;
+  z-index: 10000;
+  left: 0;
+  top: 0;
+  width: 100%;
+  height: 100%;
+  background-color: rgba(0, 0, 0, 0.85);
+  backdrop-filter: blur(5px);
+  justify-content: center;
+  align-items: center;
+  flex-direction: column;
+  padding: 20px;
+}
+
+.img-modal.active {
+  display: flex;
+}
+
+.img-modal-content {
+  max-width: 90%;
+  max-height: 80vh;
+  border-radius: 8px;
+  box-shadow: 0 5px 25px rgba(0,0,0,0.5);
+  object-fit: contain;
+}
+
+.img-modal-close {
+  position: absolute;
+  top: 20px;
+  right: 30px;
+  color: #fff;
+  font-size: 2.5rem;
+  font-weight: bold;
+  cursor: pointer;
+  transition: color 0.2s;
+}
+
+.img-modal-close:hover {
+  color: var(--accent-gold);
 }
 	  
   </style>
@@ -939,10 +984,10 @@
   </div>
 </div>
 
-
+<style>
 		  
 <!-- STYLE UNTUK DESKRIPSI TUGAS DKM -->
-<style>
+
   .tugas-dkm-container {
     padding: 1.5rem 0;
     font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
@@ -1127,7 +1172,7 @@
             <p style="font-size:0.85rem; margin-top:0.4rem; margin-bottom:0.8rem;">
               Hubungi Bendahara DKM (Bp. Ujang Sopian) untuk konfirmasi donasi & penjemputan infaq.
             </p>
-            <a href="https://wa.me/6281234567890?text=Assalamu'alaikum%20Pengurus%20DKM%20Al-Khaier,%20saya%20ingin%20berdonasi/infaq." target="_blank" class="btn btn-accent" style="width: 100%;">
+            <a href="https://wa.me/6289614021972?text=Assalamu'alaikum%20Pengurus%20DKM%20Al-Khaier,%20saya%20ingin%20berdonasi/infaq." target="_blank" class="btn btn-accent" style="width: 100%;">
               <i class="fa-brands fa-whatsapp"></i> Hubungi Bendahara DKM
             </a>
           </div>
@@ -1299,25 +1344,35 @@
   <!-- 6. JAVASCRIPT LOGIC -->
   <script>
     // Tab Navigation Logic
-    function switchTab(tabId) {
-      const navItems = document.querySelectorAll('.nav-item');
-      navItems.forEach(item => item.classList.remove('active'));
+    // Tab Navigation Logic (Sudah Perbaiki)
+function switchTab(tabId) {
+  // 1. Hilangkan akhiran/awalan 'tab-' agar ID terstandarisasi
+  const cleanId = tabId.replace('tab-', '');
 
-      const contents = document.querySelectorAll('.tab-content');
-      contents.forEach(content => content.classList.remove('active'));
+  // 2. Sembunyikan semua tab & lepas class active dari nav
+  const navItems = document.querySelectorAll('.nav-item');
+  navItems.forEach(item => item.classList.remove('active'));
 
-      const targetContent = document.getElementById(`tab-${tabId}`);
-      if (targetContent) {
-        targetContent.classList.add('active');
-      }
+  const contents = document.querySelectorAll('.tab-content');
+  contents.forEach(content => content.classList.remove('active'));
 
-      const activeNav = Array.from(navItems).find(item => item.getAttribute('onclick').includes(tabId));
-      if (activeNav) {
-        activeNav.classList.add('active');
-      }
+  // 3. Tampilkan section target
+  const targetContent = document.getElementById(`tab-${cleanId}`) || document.getElementById(cleanId);
+  if (targetContent) {
+    targetContent.classList.add('active');
+  }
 
-      window.scrollTo({ top: 100, behavior: 'smooth' });
+  // 4. Aktifkan tombol nav yang bersangkutan
+  navItems.forEach(item => {
+    const attr = item.getAttribute('onclick');
+    if (attr && attr.includes(cleanId)) {
+      item.classList.add('active');
     }
+  });
+
+  // 5. Scroll halus ke atas konten
+  window.scrollTo({ top: 100, behavior: 'smooth' });
+}
 
     // Realtime Clock
     function updateClock() {
