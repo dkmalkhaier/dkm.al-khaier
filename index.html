@@ -1364,6 +1364,7 @@
         <!-- 3. ARSIP VIDEO REKAMAN AUDIENS & PRESENTASI DKM -->
        <!-- ================= TAB: ARSIP & LITERASI ISLAM ================= -->
    <!-- ================= TAB: ARSIP & DOKUMEN ================= -->
+   <!-- ================= TAB: ARSIP & DOKUMEN (READ ONLY) ================= -->
     <section id="tab-arsip" class="tab-content">
       
       <!-- DESKRIPSI UTAMA ARSIP DOKUMEN -->
@@ -1376,13 +1377,13 @@
 
       <div class="card">
         
-        <!-- 1. DOKUMEN FILE PDF VIEW & DOWNLOAD -->
+        <!-- 1. DOKUMEN FILE PDF VIEW ONLY (TANPA DOWNLOAD) -->
         <div style="display: flex; justify-content: space-between; align-items: center; flex-wrap: wrap; gap: 1rem; margin-bottom: 1.2rem; border-bottom: 2px solid var(--border); padding-bottom: 0.8rem;">
           <h4 style="color: var(--primary); font-size: 1.1rem; margin: 0;">
-            <i class="fa-solid fa-file-pdf" style="color: #e53e3e;"></i> Dokumen Administrasi & SK (PDF)
+            <i class="fa-solid fa-file-pdf" style="color: #e53e3e;"></i> Dokumen Administrasi & SK (Pratinjau / Read-Only)
           </h4>
-          <span style="font-size: 0.8rem; color: var(--text-muted); background: #f0f4f1; padding: 0.3rem 0.8rem; border-radius: 20px;">
-            <i class="fa-solid fa-shield-halved"></i> Dokumen Resmi
+          <span style="font-size: 0.8rem; color: #c53030; background: #fff5f5; border: 1px solid #feb2b2; padding: 0.3rem 0.8rem; border-radius: 20px; font-weight: 600;">
+            <i class="fa-solid fa-lock"></i> Hanya untuk Dibaca
           </span>
         </div>
 
@@ -1390,24 +1391,19 @@
           
           <!-- Dokumen PDF 1 -->
           <div style="background: white; border: 1px solid var(--border); border-radius: 10px; padding: 1.2rem; box-shadow: 0 2px 8px rgba(0,0,0,0.02);">
-            <div style="display: flex; justify-content: space-between; align-items: flex-start; flex-wrap: wrap; gap: 1rem; margin-bottom: 1rem;">
-              <div>
-                <h5 style="color: var(--primary); font-size: 1rem; margin-bottom: 0.3rem;">
-                  <i class="fa-solid fa-file-signature"></i> Surat Keputusan (SK) Pengurus DKM
-                </h5>
-                <p style="font-size: 0.83rem; color: var(--text-muted); margin: 0;">
-                  Dokumen legalitas kepengurusan, Surat Keputusan, & Program Kerja Utama DKM Masjid Jami Al-Khaier.
-                </p>
-              </div>
-              <a href="#" target="_blank" class="btn btn-primary" style="font-size: 0.8rem; padding: 0.4rem 0.8rem;">
-                <i class="fa-solid fa-download"></i> Unduh File PDF
-              </a>
+            <div style="margin-bottom: 1rem;">
+              <h5 style="color: var(--primary); font-size: 1rem; margin-bottom: 0.3rem;">
+                <i class="fa-solid fa-file-signature"></i> Surat Keputusan (SK) Pengurus DKM
+              </h5>
+              <p style="font-size: 0.83rem; color: var(--text-muted); margin: 0;">
+                Dokumen legalitas kepengurusan, Surat Keputusan, & Program Kerja Utama DKM Masjid Jami Al-Khaier.
+              </p>
             </div>
 
-            <!-- PDF Viewer Interactive -->
-            <div style="width: 100%; height: 380px; border-radius: 8px; overflow: hidden; border: 1px solid var(--border); background: #f8fafc;">
+            <!-- Frame PDF View Only dengan #toolbar=0 untuk menyembunyikan bilah download -->
+            <div style="width: 100%; height: 450px; border-radius: 8px; overflow: hidden; border: 1px solid var(--border); background: #f8fafc; position: relative;">
               <iframe 
-                src="https://docs.google.com/viewer?url=https://www.w3.org/WAI/ER/tests/xhtml/testfiles/resources/pdf/dummy.pdf&embedded=true" 
+                src="https://docs.google.com/viewer?url=https://www.w3.org/WAI/ER/tests/xhtml/testfiles/resources/pdf/dummy.pdf&embedded=true#toolbar=0&navpanes=0" 
                 style="width: 100%; height: 100%; border: none;">
               </iframe>
             </div>
@@ -1415,24 +1411,19 @@
 
           <!-- Dokumen PDF 2 -->
           <div style="background: white; border: 1px solid var(--border); border-radius: 10px; padding: 1.2rem; box-shadow: 0 2px 8px rgba(0,0,0,0.02);">
-            <div style="display: flex; justify-content: space-between; align-items: flex-start; flex-wrap: wrap; gap: 1rem; margin-bottom: 1rem;">
-              <div>
-                <h5 style="color: var(--primary); font-size: 1rem; margin-bottom: 0.3rem;">
-                  <i class="fa-solid fa-clipboard-list"></i> Notulen Rapat & Laporan Pertanggungjawaban (LPJ)
-                </h5>
-                <p style="font-size: 0.83rem; color: var(--text-muted); margin: 0;">
-                  Rekapan berita acara musyawarah jamaah, notulen rapat evaluasi, dan laporan pertanggungjawaban kegiatan.
-                </p>
-              </div>
-              <a href="#" target="_blank" class="btn btn-primary" style="font-size: 0.8rem; padding: 0.4rem 0.8rem;">
-                <i class="fa-solid fa-download"></i> Unduh File PDF
-              </a>
+            <div style="margin-bottom: 1rem;">
+              <h5 style="color: var(--primary); font-size: 1rem; margin-bottom: 0.3rem;">
+                <i class="fa-solid fa-clipboard-list"></i> Notulen Rapat & Laporan Pertanggungjawaban (LPJ)
+              </h5>
+              <p style="font-size: 0.83rem; color: var(--text-muted); margin: 0;">
+                Rekapan berita acara musyawarah jamaah, notulen rapat evaluasi, dan laporan pertanggungjawaban kegiatan.
+              </p>
             </div>
 
-            <!-- PDF Viewer Interactive -->
-            <div style="width: 100%; height: 380px; border-radius: 8px; overflow: hidden; border: 1px solid var(--border); background: #f8fafc;">
+            <!-- Frame PDF View Only dengan #toolbar=0 -->
+            <div style="width: 100%; height: 450px; border-radius: 8px; overflow: hidden; border: 1px solid var(--border); background: #f8fafc; position: relative;">
               <iframe 
-                src="https://docs.google.com/viewer?url=https://www.w3.org/WAI/ER/tests/xhtml/testfiles/resources/pdf/dummy.pdf&embedded=true" 
+                src="https://docs.google.com/viewer?url=https://www.w3.org/WAI/ER/tests/xhtml/testfiles/resources/pdf/dummy.pdf&embedded=true#toolbar=0&navpanes=0" 
                 style="width: 100%; height: 100%; border: none;">
               </iframe>
             </div>
@@ -1440,7 +1431,7 @@
 
         </div>
 
-        <!-- 2. ARSIP FOTO DOKUMENTASI ADMINISTRASI & BERITA ACARA -->
+        <!-- 2. DOKUMENTASI FOTO BERITA ACARA -->
         <div style="display: flex; justify-content: space-between; align-items: center; flex-wrap: wrap; gap: 1rem; margin-bottom: 1.2rem; border-bottom: 2px solid var(--border); padding-bottom: 0.8rem;">
           <h4 style="color: var(--primary); font-size: 1.1rem; margin: 0;">
             <i class="fa-solid fa-camera-retro" style="color: var(--accent);"></i> Dokumentasi Foto Berita Acara & Administrasi
@@ -1448,7 +1439,6 @@
         </div>
 
         <div style="display: grid; grid-template-columns: repeat(auto-fit, minmax(220px, 1fr)); gap: 1rem; margin-bottom: 2.5rem;">
-          
           <div style="background: white; border: 1px solid var(--border); border-radius: 8px; overflow: hidden; box-shadow: 0 2px 6px rgba(0,0,0,0.02);">
             <img src="https://images.unsplash.com/photo-1554224155-8d04cb21cd6c?auto=format&fit=crop&w=500&q=80" alt="Penandatanganan Berita Acara" style="width: 100%; height: 150px; object-fit: cover;">
             <div style="padding: 0.8rem;">
@@ -1464,10 +1454,9 @@
               <p style="font-size: 0.75rem; color: var(--text-muted); margin: 0;">Rapat pleno pengesahan program kerja DKM.</p>
             </div>
           </div>
-
         </div>
 
-        <!-- 3. ARSIP VIDEO REKAMAN KEGIATAN & PERTANGGUNGJAWABAN -->
+        <!-- 3. VIDEO REKAMAN LAPORAN DKM -->
         <div style="display: flex; justify-content: space-between; align-items: center; flex-wrap: wrap; gap: 1rem; margin-bottom: 1.2rem; border-bottom: 2px solid var(--border); padding-bottom: 0.8rem;">
           <h4 style="color: var(--primary); font-size: 1.1rem; margin: 0;">
             <i class="fa-solid fa-video" style="color: var(--primary);"></i> Video Rekaman Rapat & Laporan Organisasi
@@ -1475,7 +1464,6 @@
         </div>
 
         <div style="display: grid; grid-template-columns: repeat(auto-fit, minmax(280px, 1fr)); gap: 1.2rem;">
-          
           <div style="background: white; border: 1px solid var(--border); border-radius: 10px; overflow: hidden; box-shadow: 0 2px 6px rgba(0,0,0,0.02);">
             <div style="position: relative; padding-bottom: 56.25%; height: 0; overflow: hidden; background: #000;">
               <iframe 
@@ -1490,7 +1478,6 @@
               <p style="font-size: 0.78rem; color: var(--text-muted); margin: 0;">Rekaman transparan laporan pertanggungjawaban pengurus DKM kepada jamaah.</p>
             </div>
           </div>
-
         </div>
 
       </div>
