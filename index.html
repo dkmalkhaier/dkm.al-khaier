@@ -5,7 +5,7 @@
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
   <title>DKM Masjid Jami Al-Khaier - Website Resmi</title>
   
-  <!-- Font Google: Amiri (Kaligrafi) & Poppins / Plus Jakarta Sans -->
+  <!-- Font Google: Amiri & Poppins -->
   <link rel="preconnect" href="https://fonts.googleapis.com">
   <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
   <link href="https://fonts.googleapis.com/css2?family=Amiri:wght@400;700&family=Poppins:wght@300;400;500;600;700&display=swap" rel="stylesheet">
@@ -294,321 +294,310 @@
       border-left: 4px solid var(--secondary); margin-bottom: 0.8rem;
     }
 
-   /* ==========================================
-   CSS STRUKTUR ORGANISASI (SESUAI GAMBAR)
-   ========================================== */
-.tree-container {
-  width: 100%;
-  overflow-x: auto;
-  -webkit-overflow-scrolling: touch;
-  padding: 1.5rem 0;
-}
+    /* ==========================================
+       CSS STRUKTUR ORGANISASI
+       ========================================== */
+    .tree-container {
+      width: 100%;
+      overflow-x: auto;
+      -webkit-overflow-scrolling: touch;
+      padding: 1.5rem 0;
+    }
 
-.tree {
-  display: flex;
-  flex-direction: column;
-  align-items: center;
-  min-width: 750px;
-  position: relative;
-}
+    .tree {
+      display: flex;
+      flex-direction: column;
+      align-items: center;
+      min-width: 750px;
+      position: relative;
+    }
 
-.level {
-  display: flex;
-  justify-content: center;
-  align-items: center;
-  position: relative;
-  margin-bottom: 25px;
-}
+    .level {
+      display: flex;
+      justify-content: center;
+      align-items: center;
+      position: relative;
+      margin-bottom: 25px;
+    }
 
-/* Garis Vertikal Antar Level Utama */
-.level::after {
-  content: '';
-  position: absolute;
-  bottom: -25px;
-  left: 50%;
-  width: 2px;
-  height: 25px;
-  background-color: #000000;
-  z-index: 1;
-}
+    .level::after {
+      content: '';
+      position: absolute;
+      bottom: -25px;
+      left: 50%;
+      width: 2px;
+      height: 25px;
+      background-color: #000000;
+      z-index: 1;
+    }
 
-.level:last-child::after {
-  display: none;
-}
+    .level:last-child::after { display: none; }
 
-/* Kotak Node (Persis Desain Gambar) */
-.node-box {
-  background: linear-gradient(180deg, #ffffff 0%, #e6e6e6 100%);
-  border: 1px solid #7f7f7f;
-  border-radius: 12px;
-  padding: 8px 14px;
-  text-align: center;
-  box-shadow: 0 2px 5px rgba(0,0,0,0.15);
-  min-width: 200px;
-  position: relative;
-  z-index: 2;
-}
+    .node-box {
+      background: linear-gradient(180deg, #ffffff 0%, #e6e6e6 100%);
+      border: 1px solid #7f7f7f;
+      border-radius: 12px;
+      padding: 8px 14px;
+      text-align: center;
+      box-shadow: 0 2px 5px rgba(0,0,0,0.15);
+      min-width: 200px;
+      position: relative;
+      z-index: 2;
+      cursor: pointer;
+      transition: transform 0.2s ease, box-shadow 0.2s ease;
+    }
 
-.node-box .title {
-  font-size: 0.72rem;
-  font-weight: 800;
-  color: #000000;
-  text-transform: uppercase;
-  margin-bottom: 3px;
-}
+    .node-box:hover {
+      transform: translateY(-3px) scale(1.02);
+      box-shadow: 0 6px 14px rgba(0,0,0,0.25) !important;
+    }
 
-.node-box .title mark, 
-.node-box .title {
-  background-color: #ffff00; /* Highlight Kuning untuk Judul */
-  padding: 1px 4px;
-  border-radius: 2px;
-}
+    .node-box .title {
+      font-size: 0.72rem;
+      font-weight: 800;
+      color: #000000;
+      text-transform: uppercase;
+      margin-bottom: 3px;
+      background-color: #ffff00;
+      padding: 1px 4px;
+      border-radius: 2px;
+      display: inline-block;
+    }
 
-.node-box .name {
-  font-size: 0.88rem;
-  font-weight: 700;
-  color: #000000;
-  line-height: 1.3;
-}
+    .node-box .name {
+      font-size: 0.88rem;
+      font-weight: 700;
+      color: #000000;
+      line-height: 1.3;
+    }
 
-/* Level 3: Sekretaris & Bendahara */
-.level-sekben {
-  gap: 40px;
-}
+    .level-sekben { gap: 40px; }
+    .line-connector-sekben {
+      position: absolute;
+      top: -15px;
+      width: 240px;
+      height: 2px;
+      background-color: #000000;
+    }
 
-.line-connector-sekben {
-  position: absolute;
-  top: -15px;
-  width: 240px;
-  height: 2px;
-  background-color: #000000;
-}
+    .level-sekben::before {
+      content: '';
+      position: absolute;
+      top: -15px;
+      left: 50%;
+      width: 2px;
+      height: 15px;
+      background-color: #000000;
+    }
 
-.level-sekben::before {
-  content: '';
-  position: absolute;
-  top: -15px;
-  left: 50%;
-  width: 2px;
-  height: 15px;
-  background-color: #000000;
-}
+    .level-bidang {
+      display: flex;
+      justify-content: center;
+      gap: 20px;
+      margin-bottom: 0;
+    }
 
-/* Level 4: Bidang & Seksi */
-.level-bidang {
-  display: flex;
-  justify-content: center;
-  gap: 20px;
-  margin-bottom: 0;
-}
+    .line-connector-bidang {
+      position: absolute;
+      top: -15px;
+      width: 70%;
+      height: 2px;
+      background-color: #000000;
+    }
 
-.line-connector-bidang {
-  position: absolute;
-  top: -15px;
-  width: 70%;
-  height: 2px;
-  background-color: #000000;
-}
+    .level-bidang::before {
+      content: '';
+      position: absolute;
+      top: -15px;
+      left: 50%;
+      width: 2px;
+      height: 15px;
+      background-color: #000000;
+    }
 
-.level-bidang::before {
-  content: '';
-  position: absolute;
-  top: -15px;
-  left: 50%;
-  width: 2px;
-  height: 15px;
-  background-color: #000000;
-}
+    .sub-group {
+      display: flex;
+      flex-direction: column;
+      align-items: center;
+      position: relative;
+    }
 
-.sub-group {
-  display: flex;
-  flex-direction: column;
-  align-items: center;
-  position: relative;
-}
+    .sub-group::before {
+      content: '';
+      position: absolute;
+      top: -15px;
+      left: 50%;
+      width: 2px;
+      height: 15px;
+      background-color: #000000;
+    }
 
-.sub-group::before {
-  content: '';
-  position: absolute;
-  top: -15px;
-  left: 50%;
-  width: 2px;
-  height: 15px;
-  background-color: #000000;
-}
+    .seksi-container {
+      display: flex;
+      flex-direction: column;
+      gap: 15px;
+      margin-top: 15px;
+      align-items: center;
+      position: relative;
+    }
 
-.seksi-container {
-  display: flex;
-  flex-direction: column;
-  gap: 15px;
-  margin-top: 15px;
-  align-items: center;
-  position: relative;
-}
+    .seksi-container::before {
+      content: '';
+      position: absolute;
+      top: -15px;
+      left: 50%;
+      width: 2px;
+      height: calc(100% - 20px);
+      background-color: #000000;
+      z-index: 1;
+    }
 
-/* Garis Vertikal Menghubungkan Seksi ke Bawah */
-.seksi-container::before {
-  content: '';
-  position: absolute;
-  top: -15px;
-  left: 50%;
-  width: 2px;
-  height: calc(100% - 20px);
-  background-color: #000000;
-  z-index: 1;
-}
+    .node-seksi { min-width: 210px; }
 
-.node-seksi {
-  min-width: 210px;
-}
+    /* ==========================================
+       CSS MODAL POPUP & IMAGE PREVIEW
+       ========================================== */
+    .modal-overlay {
+      display: none; 
+      position: fixed;
+      z-index: 9999;
+      left: 0;
+      top: 0;
+      width: 100%;
+      height: 100%;
+      background-color: rgba(0, 0, 0, 0.6);
+      backdrop-filter: blur(3px);
+      justify-content: center;
+      align-items: center;
+      padding: 15px;
+    }
 
-/* ==========================================
-   CSS INTERAKTIF & MODAL POPUP
-   ========================================== */
+    .modal-content {
+      background-color: #ffffff;
+      border-radius: 12px;
+      max-width: 500px;
+      width: 100%;
+      padding: 1.5rem;
+      box-shadow: 0 10px 25px rgba(0,0,0,0.3);
+      position: relative;
+      animation: popupAnim 0.3s ease-out forwards;
+    }
 
-/* Indikator bahwa node-box bisa diklik */
-.node-box {
-  cursor: pointer;
-  transition: transform 0.2s ease, box-shadow 0.2s ease;
-}
+    @keyframes popupAnim {
+      from { opacity: 0; transform: scale(0.8); }
+      to { opacity: 1; transform: scale(1); }
+    }
 
-.node-box:hover {
-  transform: translateY(-3px) scale(1.02);
-  box-shadow: 0 6px 14px rgba(0,0,0,0.25) !important;
-}
+    .modal-close {
+      position: absolute;
+      top: 12px;
+      right: 15px;
+      font-size: 1.5rem;
+      font-weight: bold;
+      color: #64748b;
+      cursor: pointer;
+      line-height: 1;
+    }
 
-/* Background Overlay Modal */
-.modal-overlay {
-  display: none; 
-  position: fixed;
-  z-index: 9999;
-  left: 0;
-  top: 0;
-  width: 100%;
-  height: 100%;
-  background-color: rgba(0, 0, 0, 0.6);
-  backdrop-filter: blur(3px);
-  justify-content: center;
-  align-items: center;
-  padding: 15px;
-}
+    .modal-close:hover { color: #ef4444; }
 
-/* Kotak Konten Modal */
-.modal-content {
-  background-color: #ffffff;
-  border-radius: 12px;
-  max-width: 500px;
-  width: 100%;
-  padding: 1.5rem;
-  box-shadow: 0 10px 25px rgba(0,0,0,0.3);
-  position: relative;
-  animation: popupAnim 0.3s ease-out forwards;
-}
+    .modal-header {
+      border-bottom: 2px solid #e2e8f0;
+      padding-bottom: 0.8rem;
+      margin-bottom: 1rem;
+    }
 
-@keyframes popupAnim {
-  from { opacity: 0; transform: scale(0.8); }
-  to { opacity: 1; transform: scale(1); }
-}
+    .modal-header h4 {
+      margin: 0;
+      font-size: 1.1rem;
+      color: #0f172a;
+      text-transform: uppercase;
+      letter-spacing: 0.5px;
+    }
 
-/* Tombol Close (X) */
-.modal-close {
-  position: absolute;
-  top: 12px;
-  right: 15px;
-  font-size: 1.5rem;
-  font-weight: bold;
-  color: #64748b;
-  cursor: pointer;
-  line-height: 1;
-}
+    .modal-body .fungsi-text {
+      font-size: 0.9rem;
+      color: #475569;
+      font-style: italic;
+      margin-bottom: 1rem;
+      background: #f8fafc;
+      padding: 8px 12px;
+      border-left: 4px solid #3b82f6;
+      border-radius: 4px;
+    }
 
-.modal-close:hover {
-  color: #ef4444;
-}
+    .modal-body ul {
+      margin: 0;
+      padding-left: 1.2rem;
+      font-size: 0.88rem;
+      color: #334155;
+      line-height: 1.6;
+    }
 
-/* Header Modal */
-.modal-header {
-  border-bottom: 2px solid #e2e8f0;
-  padding-bottom: 0.8rem;
-  margin-bottom: 1rem;
-}
+    .modal-body li { margin-bottom: 0.5rem; }
 
-.modal-header h4 {
-  margin: 0;
-  font-size: 1.1rem;
-  color: #0f172a;
-  text-transform: uppercase;
-  letter-spacing: 0.5px;
-}
+    /* CSS Modal Gambar */
+    .img-modal {
+      display: none;
+      position: fixed;
+      z-index: 10000;
+      left: 0;
+      top: 0;
+      width: 100%;
+      height: 100%;
+      background-color: rgba(0, 0, 0, 0.85);
+      backdrop-filter: blur(5px);
+      justify-content: center;
+      align-items: center;
+      flex-direction: column;
+      padding: 20px;
+    }
 
-/* Isi Modal */
-.modal-body .fungsi-text {
-  font-size: 0.9rem;
-  color: #475569;
-  font-style: italic;
-  margin-bottom: 1rem;
-  background: #f8fafc;
-  padding: 8px 12px;
-  border-left: 4px solid #3b82f6;
-  border-radius: 4px;
-}
+    .img-modal.active { display: flex; }
 
-.modal-body ul {
-  margin: 0;
-  padding-left: 1.2rem;
-  font-size: 0.88rem;
-  color: #334155;
-  line-height: 1.6;
-}
+    .img-modal-content {
+      max-width: 90%;
+      max-height: 80vh;
+      border-radius: 8px;
+      box-shadow: 0 5px 25px rgba(0,0,0,0.5);
+      object-fit: contain;
+    }
 
-.modal-body li {
-  margin-bottom: 0.5rem;
-}
+    .img-modal-close {
+      position: absolute;
+      top: 20px;
+      right: 30px;
+      color: #fff;
+      font-size: 2.5rem;
+      font-weight: bold;
+      cursor: pointer;
+    }
 
-/* CSS untuk Modal Preview Gambar (Profil & Sejarah) */
-.img-modal {
-  display: none;
-  position: fixed;
-  z-index: 10000;
-  left: 0;
-  top: 0;
-  width: 100%;
-  height: 100%;
-  background-color: rgba(0, 0, 0, 0.85);
-  backdrop-filter: blur(5px);
-  justify-content: center;
-  align-items: center;
-  flex-direction: column;
-  padding: 20px;
-}
+    .img-modal-close:hover { color: var(--accent-gold); }
 
-.img-modal.active {
-  display: flex;
-}
-
-.img-modal-content {
-  max-width: 90%;
-  max-height: 80vh;
-  border-radius: 8px;
-  box-shadow: 0 5px 25px rgba(0,0,0,0.5);
-  object-fit: contain;
-}
-
-.img-modal-close {
-  position: absolute;
-  top: 20px;
-  right: 30px;
-  color: #fff;
-  font-size: 2.5rem;
-  font-weight: bold;
-  cursor: pointer;
-  transition: color 0.2s;
-}
-
-.img-modal-close:hover {
-  color: var(--accent-gold);
-}
-	  
+    /* Footer */
+    footer {
+      background: #062b15;
+      color: white;
+      padding: 2rem 1rem 1rem;
+      margin-top: 3rem;
+      border-top: 3px solid var(--accent-gold);
+    }
+    .footer-container {
+      max-width: 1350px;
+      margin: 0 auto;
+      display: grid;
+      grid-template-columns: repeat(auto-fit, minmax(250px, 1fr));
+      gap: 2rem;
+      margin-bottom: 1.5rem;
+    }
+    .footer-bottom {
+      text-align: center;
+      padding-top: 1rem;
+      border-top: 1px solid rgba(255,255,255,0.1);
+      font-size: 0.8rem;
+      opacity: 0.7;
+    }
   </style>
 </head>
 <body>
@@ -725,96 +714,75 @@
       </div>
     </section>
 
- 
-   <!-- ================= TAB 2: PROFIL & SEJARAH ================= -->
     <!-- ================= TAB 2: PROFIL & SEJARAH ================= -->
-<section id="tab-profil" class="tab-content">
-  <div class="card">
-    <h3 class="card-title"><i class="fa-solid fa-landmark"></i> Sejarah Terbentuknya Masjid Jami Al Khair Parungseah</h3>
-    
-    <h4 style="color:var(--secondary); margin: 0.8rem 0 0.3rem;"><i class="fa-solid fa-seedling"></i> Awal Mula</h4>
-    <p style="font-size:0.9rem; text-align:justify; margin-bottom: 0.8rem;">
-      Masjid Jami Al Khair berdiri di atas tanah wakaf seluas 175 m² yang terletak di Kampung Parungseah Wetan, Kecamatan Sukabumi, Kabupaten Sukabumi, Jawa Barat. Tanah tersebut diwakafkan oleh <strong>Bapak Andri Ridwan</strong>, seorang warga Parungseah yang memiliki niat tulus untuk menyediakan sarana ibadah bagi masyarakat sekitar.
-    </p>
+    <section id="tab-profil" class="tab-content">
+      <div class="card">
+        <h3 class="card-title"><i class="fa-solid fa-landmark"></i> Sejarah Terbentuknya Masjid Jami Al Khair Parungseah</h3>
+        
+        <h4 style="color:var(--secondary); margin: 0.8rem 0 0.3rem;"><i class="fa-solid fa-seedling"></i> Awal Mula</h4>
+        <p style="font-size:0.9rem; text-align:justify; margin-bottom: 0.8rem;">
+          Masjid Jami Al Khair berdiri di atas tanah wakaf seluas 175 m² yang terletak di Kampung Parungseah Wetan, Kecamatan Sukabumi, Kabupaten Sukabumi, Jawa Barat. Tanah tersebut diwakafkan oleh <strong>Bapak Andri Ridwan</strong>, seorang warga Parungseah yang memiliki niat tulus untuk menyediakan sarana ibadah bagi masyarakat sekitar.
+        </p>
 
-    <h4 style="color:var(--secondary); margin: 0.8rem 0 0.3rem;"><i class="fa-solid fa-scroll"></i> Proses Wakaf</h4>
-    <p style="font-size:0.9rem; text-align:justify; margin-bottom: 0.8rem;">
-      Pada hari Jumat, 30 Juli 2021, Bapak Andri Ridwan mengikrarkan wakaf di hadapan Pejabat Pembuat Akta Ikrar Wakaf (PPAIW) Kecamatan Sukabumi, Drs. H. Ade, Nomor: <code>W.2/B-02/KUA.02.28/VIII/2021</code>, sesuai dengan Undang-Undang Nomor 41 Tahun 2004 tentang Wakaf dan Peraturan Pemerintah Nomor 42 Tahun 2006. Tanah wakaf tersebut kemudian disahkan untuk keperluan sarana ibadah, yaitu pembangunan dan pengelolaan Masjid Jami Al Khair.
-    </p>
+        <h4 style="color:var(--secondary); margin: 0.8rem 0 0.3rem;"><i class="fa-solid fa-scroll"></i> Proses Wakaf</h4>
+        <p style="font-size:0.9rem; text-align:justify; margin-bottom: 0.8rem;">
+          Pada hari Jumat, 30 Juli 2021, Bapak Andri Ridwan mengikrarkan wakaf di hadapan Pejabat Pembuat Akta Ikrar Wakaf (PPAIW) Kecamatan Sukabumi, Drs. H. Ade, Nomor: <code>W.2/B-02/KUA.02.28/VIII/2021</code>, sesuai dengan Undang-Undang Nomor 41 Tahun 2004 tentang Wakaf dan Peraturan Pemerintah Nomor 42 Tahun 2006. Tanah wakaf tersebut kemudian disahkan untuk keperluan sarana ibadah, yaitu pembangunan dan pengelolaan Masjid Jami Al Khair.
+        </p>
 
-    <h4 style="color:var(--secondary); margin: 0.8rem 0 0.3rem;"><i class="fa-solid fa-users"></i> Pembentukan Nazhir</h4>
-    <p style="font-size:0.9rem; margin-bottom: 0.5rem;">
-      Untuk mengelola wakaf, dibentuk Nazhir Masjid Jami Al Khaier tertuang dalam Surat Pengesahan Nadzir Nomor: <code>WT.4/B-02/KUA.02.28/VII/2021</code> (Jumat, 30 Dzulhijjah 1442 / 30 Juli 2021):
-    </p>
-    <ul style="font-size:0.88rem; padding-left:1.5rem; margin-bottom:1rem;">
-      <li>Bp. Cecep Sunarya – Ketua</li>
-      <li>Bp. Yudi Rahmat Muharam – Sekretaris</li>
-      <li>Bp. Mulyana, S.Pd – Bendahara</li>
-      <li>Bp. Hendra Gunawan – Anggota</li>
-      <li>Bp. Sulaeman – Anggota</li>
-    </ul>
+        <h4 style="color:var(--secondary); margin: 0.8rem 0 0.3rem;"><i class="fa-solid fa-users"></i> Pembentukan Nazhir</h4>
+        <p style="font-size:0.9rem; margin-bottom: 0.5rem;">
+          Untuk mengelola wakaf, dibentuk Nazhir Masjid Jami Al Khaier tertuang dalam Surat Pengesahan Nadzir Nomor: <code>WT.4/B-02/KUA.02.28/VII/2021</code> (Jumat, 30 Dzulhijjah 1442 / 30 Juli 2021):
+        </p>
+        <ul style="font-size:0.88rem; padding-left:1.5rem; margin-bottom:1rem;">
+          <li>Bp. Cecep Sunarya – Ketua</li>
+          <li>Bp. Yudi Rahmat Muharam – Sekretaris</li>
+          <li>Bp. Mulyana, S.Pd – Bendahara</li>
+          <li>Bp. Hendra Gunawan – Anggota</li>
+          <li>Bp. Sulaeman – Anggota</li>
+        </ul>
 
-    <h4 style="color:var(--secondary); margin: 0.8rem 0 0.3rem;"><i class="fa-solid fa-hammer"></i> Pembangunan Masjid</h4>
-    <p style="font-size:0.9rem; text-align:justify; margin-bottom:1.5rem;">
-      Pembangunan masjid dimulai pada Januari 2018, dengan dukungan dari Asosiasi Internasional untuk Pendidikan dan Dakwah (الرابطة العالمية للتعليم والدعوة) serta donatur dari luar negeri, Turki Yahya Asyqan, yang turut berkontribusi dalam pendanaan pembangunan. Masjid ini diberi nama “Al Khair”, yang berarti kebaikan, sebagai simbol harapan agar tempat ini menjadi sumber keberkahan dan kebaikan bagi umat.
-    </p>
+        <h4 style="color:var(--secondary); margin: 0.8rem 0 0.3rem;"><i class="fa-solid fa-hammer"></i> Pembangunan Masjid</h4>
+        <p style="font-size:0.9rem; text-align:justify; margin-bottom:1.5rem;">
+          Pembangunan masjid dimulai pada Januari 2018, dengan dukungan dari Asosiasi Internasional untuk Pendidikan dan Dakwah (الرابطة العالمية للتعليم والدعوة) serta donatur dari luar negeri, Turki Yahya Asyqan, yang turut berkontribusi dalam pendanaan pembangunan. Masjid ini diberi nama “Al Khair”, yang berarti kebaikan, sebagai simbol harapan agar tempat ini menjadi sumber keberkahan dan kebaikan bagi umat.
+        </p>
 
-    <!-- FOTO & INFOGRAFIS (POSISI SEBELUM BLOCKQUOTE) -->
-    <div style="display: flex; gap: 1rem; justify-content: center; margin-bottom: 1.5rem; flex-wrap: wrap;">
-      
-      <!-- THUMBNAIL FOTO 1 -->
-      <div style="width: 140px; text-align: center; cursor: pointer;" onclick="openImageModal('https://lh3.googleusercontent.com/d/1BSBMhzmqApwLz7X4QtYt7IxP5oXE9a3o', 'Bangunan Masjid Jami Al Khair')">
-        <div style="width: 100%; aspect-ratio: 9 / 16; overflow: hidden; border-radius: 8px; border: 1px solid var(--border); background: #f5f5f5; box-shadow: 0 2px 8px rgba(0,0,0,0.08); transition: transform 0.2s;" onmouseover="this.style.transform='scale(1.03)'" onmouseout="this.style.transform='scale(1)'">
-          <img src="https://lh3.googleusercontent.com/d/1BSBMhzmqApwLz7X4QtYt7IxP5oXE9a3o" 
-               alt="Bangunan Masjid Jami Al Khair" 
-               oncontextmenu="return false;"
-               style="width: 100%; height: 100%; object-fit: cover; pointer-events: none;">
+        <!-- FOTO & INFOGRAFIS -->
+        <div style="display: flex; gap: 1rem; justify-content: center; margin-bottom: 1.5rem; flex-wrap: wrap;">
+          <div style="width: 140px; text-align: center; cursor: pointer;" onclick="openImageModal('https://lh3.googleusercontent.com/d/1BSBMhzmqApwLz7X4QtYt7IxP5oXE9a3o', 'Bangunan Masjid Jami Al Khair')">
+            <div style="width: 100%; aspect-ratio: 9 / 16; overflow: hidden; border-radius: 8px; border: 1px solid var(--border); background: #f5f5f5; box-shadow: 0 2px 8px rgba(0,0,0,0.08);">
+              <img src="https://lh3.googleusercontent.com/d/1BSBMhzmqApwLz7X4QtYt7IxP5oXE9a3o" alt="Bangunan Masjid Jami Al Khair" style="width: 100%; height: 100%; object-fit: cover;">
+            </div>
+            <span style="font-size: 0.75rem; color: var(--primary); font-weight: 600; margin-top: 0.4rem; display: block;">
+              <i class="fa-solid fa-magnifying-glass-plus"></i> Bangunan Masjid
+            </span>
+          </div>
+
+          <div style="width: 140px; text-align: center; cursor: pointer;" onclick="openImageModal('https://lh3.googleusercontent.com/d/18OJwQ8aVMx7mXKWAkWdbcMvEWmIYDxyo', 'Infografis & Dokumentasi Sejarah')">
+            <div style="width: 100%; aspect-ratio: 9 / 16; overflow: hidden; border-radius: 8px; border: 1px solid var(--border); background: #f5f5f5; box-shadow: 0 2px 8px rgba(0,0,0,0.08);">
+              <img src="https://lh3.googleusercontent.com/d/18OJwQ8aVMx7mXKWAkWdbcMvEWmIYDxyo" alt="Infografis Sejarah & Kegiatan Masjid" style="width: 100%; height: 100%; object-fit: cover;">
+            </div>
+            <span style="font-size: 0.75rem; color: var(--primary); font-weight: 600; margin-top: 0.4rem; display: block;">
+              <i class="fa-solid fa-magnifying-glass-plus"></i> Infografis Sejarah
+            </span>
+          </div>
         </div>
-        <span style="font-size: 0.75rem; color: var(--primary); font-weight: 600; margin-top: 0.4rem; display: block;">
-          <i class="fa-solid fa-magnifying-glass-plus"></i> Bangunan Masjid
-        </span>
-      </div>
 
-      <!-- THUMBNAIL FOTO 2 -->
-      <div style="width: 140px; text-align: center; cursor: pointer;" onclick="openImageModal('https://lh3.googleusercontent.com/d/18OJwQ8aVMx7mXKWAkWdbcMvEWmIYDxyo', 'Infografis & Dokumentasi Sejarah')">
-        <div style="width: 100%; aspect-ratio: 9 / 16; overflow: hidden; border-radius: 8px; border: 1px solid var(--border); background: #f5f5f5; box-shadow: 0 2px 8px rgba(0,0,0,0.08); transition: transform 0.2s;" onmouseover="this.style.transform='scale(1.03)'" onmouseout="this.style.transform='scale(1)'">
-          <img src="https://lh3.googleusercontent.com/d/18OJwQ8aVMx7mXKWAkWdbcMvEWmIYDxyo" 
-               alt="Infografis Sejarah & Kegiatan Masjid" 
-               oncontextmenu="return false;"
-               style="width: 100%; height: 100%; object-fit: cover; pointer-events: none;">
+        <div style="background:rgba(198,139,89,0.1); border-left:4px solid var(--accent); padding:1rem; border-radius:8px; margin-top:1.2rem;">
+          <blockquote style="font-style:italic; font-size:0.92rem; color:var(--text-dark);">
+            "Menjadikan Masjid Jami Al Khair sebagai pusat kegiatan keagamaan, pendidikan Al-Qur'an, dan sosial yang memperkuat ukhuwah Islamiyah di lingkungan Parungseah."
+          </blockquote>
         </div>
-        <span style="font-size: 0.75rem; color: var(--primary); font-weight: 600; margin-top: 0.4rem; display: block;">
-          <i class="fa-solid fa-magnifying-glass-plus"></i> Infografis Sejarah
-        </span>
       </div>
-
-    </div>
-
-    <!-- BLOCKQUOTE -->
-    <div style="background:rgba(198,139,89,0.1); border-left:4px solid var(--accent); padding:1rem; border-radius:8px; margin-top:1.2rem;">
-      <blockquote style="font-style:italic; font-size:0.92rem; color:var(--text-dark);">
-        "Menjadikan Masjid Jami Al Khair sebagai pusat kegiatan keagamaan, pendidikan Al-Qur'an, dan sosial yang memperkuat ukhuwah Islamiyah di lingkungan Parungseah."
-      </blockquote>
-    </div>
-  </div>
-</section>
-
-<!-- MODAL POPUP UNTUK PRATINJAU FOTO -->
-<div id="imgModal" class="img-modal" onclick="closeImageModal()">
-  <span class="img-modal-close" onclick="closeImageModal()">&times;</span>
-  <img id="modalImg" class="img-modal-content" src="" alt="View Foto" oncontextmenu="return false;">
-  <p id="modalCaption" style="color: white; margin-top: 10px; font-size: 0.9rem; text-align: center;"></p>
-</div>
+    </section>
 
     <!-- ================= TAB 3: KEPENGURUSAN DKM ================= -->
     <section id="tab-dkm" class="tab-content">
       <div class="card">
         <h3 class="card-title"><i class="fa-solid fa-users-gear"></i> Dewan Kemakmuran Masjid (DKM) Al-Khaier</h3>
         <p style="font-size:0.9rem; text-align:justify; margin-bottom:1.2rem;">
-          Pembentukan Dewan Kemakmuran Masjid (DKM) merupakan langkah awal dalam mewujudkan tata kelola Masjid Jami Al-Khaier yang tertib, amanah, dan profesional. Pengurus DKM dipilih melalui musyawarah bersama jamaah serta tokoh masyarakat dengan semangat kebersamaan dan kekeluargaan.
+          Pembentukan Dewan Kemakmuran Masjid (DKM) merupakan langkah awal dalam mewujudkan tata kelola Masjid Jami Al-Khaier yang tertib, amanah, dan profesional.
         </p>
 
-        <!-- Slogan & Iklan Ayat -->
         <div class="grid-2" style="margin-bottom:1.5rem;">
           <div style="background:rgba(11,79,38,0.06); padding:1rem; border-radius:10px; border:1px solid var(--border);">
             <h4 style="color:var(--primary);"><i class="fa-solid fa-quote-left"></i> Slogan DKM</h4>
@@ -825,310 +793,139 @@
           <div style="background:rgba(212,175,55,0.1); padding:1rem; border-radius:10px; border:1px solid var(--accent-gold);">
             <h4 style="color:var(--primary);"><i class="fa-solid fa-book-quran"></i> Landasan (QS. At-Taubah: 18)</h4>
             <p style="font-size:0.82rem; font-style:italic; margin-top:0.3rem;">
-              "Sesungguhnya yang memakmurkan masjid-masjid Allah hanyalah orang-orang yang beriman kepada Allah dan hari kemudian, mendirikan shalat, menunaikan zakat, dan tidak takut selain kepada Allah."
+              "Sesungguhnya yang memakmurkan masjid-masjid Allah hanyalah orang-orang yang beriman kepada Allah dan hari kemudian..."
             </p>
           </div>
         </div>
 
-        <!-- VISI & MISI -->
-        <h3 class="card-title"><i class="fa-solid fa-bullseye"></i> Visi & Misi DKM</h3>
-        <div style="background:white; border:1px solid var(--border); padding:1rem; border-radius:10px; margin-bottom:1rem;">
-          <h4 style="color:var(--primary);">Visi</h4>
-          <p style="font-weight:600; font-size:0.9rem; color:var(--text-dark);">
-            "Menjadikan Masjid Jami Al-Khaier sebagai pusat ibadah, dakwah, pendidikan, dan pemberdayaan umat yang makmur, profesional, amanah, serta berlandaskan Al-Qur'an dan As-Sunnah."
-          </p>
-        </div>
+        <h3 class="card-title"><i class="fa-solid fa-sitemap"></i> Bagan Struktur Organisasi DKM</h3>
+        <p style="font-size: 0.85rem; color: #64748b; text-align: center; margin-top: -5px; margin-bottom: 15px;">
+          <i class="fa-solid fa-hand-pointer"></i> *Klik pada salah satu kotak untuk melihat Fungsi, Tugas & Tanggung Jawab
+        </p>
 
-        <div style="background:white; border:1px solid var(--border); padding:1rem; border-radius:10px; margin-bottom:1.8rem;">
-          <h4 style="color:var(--primary); margin-bottom:0.5rem;">Misi</h4>
-          <ol style="font-size:0.88rem; padding-left:1.2rem;">
-            <li>Meningkatkan kualitas ibadah dan pelayanan kepada jamaah.</li>
-            <li>Memakmurkan masjid melalui kegiatan keagamaan yang berkesinambungan.</li>
-            <li>Menyelenggarakan dakwah Islam yang santun, moderat, dan bermanfaat bagi masyarakat.</li>
-            <li>Mengembangkan pendidikan Al-Qur'an, pembinaan generasi muda, dan kegiatan keislaman.</li>
-            <li>Meningkatkan kepedulian sosial melalui program zakat, infak, sedekah, dan kegiatan kemanusiaan.</li>
-            <li>Mewujudkan tata kelola DKM yang profesional, transparan, akuntabel, dan amanah.</li>
-            <li>Membangun kemitraan dengan masyarakat, pemerintah, dan lembaga keagamaan.</li>
-          </ol>
-        </div>
+        <div class="tree-container">
+          <div class="tree">
+            <!-- LEVEL 1: PEMBINA -->
+            <div class="level">
+              <div class="node-box" onclick="showInfo('pembina')">
+                <div class="title">PEMBINA / PENASEHAT</div>
+                <div class="name">Ust. Oman Abdurohman</div>
+                <div class="name">Bp. H. Cecep Sunarya</div>
+              </div>
+            </div>
 
-       <!-- BAGAN STRUKTUR ORGANISASI TREE -->
-<!-- BAGAN STRUKTUR ORGANISASI TREE -->
-<!-- BAGAN STRUKTUR ORGANISASI TREE INTERAKTIF -->
-<h3 class="card-title"><i class="fa-solid fa-sitemap"></i> Bagan Struktur Organisasi DKM</h3>
-<p style="font-size: 0.85rem; color: #64748b; text-align: center; margin-top: -5px; margin-bottom: 15px;">
-  <i class="fa-solid fa-hand-pointer"></i> *Klik pada salah satu kotak untuk melihat Fungsi, Tugas & Tanggung Jawab
-</p>
+            <!-- LEVEL 2: KETUA -->
+            <div class="level">
+              <div class="node-box" onclick="showInfo('ketua')">
+                <div class="title">KETUA</div>
+                <div class="name">H. Sulaeman</div>
+              </div>
+            </div>
 
-<div class="tree-container">
-  <div class="tree">
-    
-    <!-- LEVEL 1: PEMBINA / PENASEHAT -->
-    <div class="level">
-      <div class="node-box node-pembina" onclick="showInfo('pembina')">
-        <div class="title">PEMBINA / PENASEHAT</div>
-        <div class="name">Ust. Oman Abdurohman</div>
-        <div class="name">Bp. H. Cecep Sunarya</div>
-      </div>
-    </div>
+            <!-- LEVEL 3: SEKRETARIS & BENDAHARA -->
+            <div class="level level-sekben">
+              <div class="line-connector-sekben"></div>
+              <div class="node-box" onclick="showInfo('sekretaris')">
+                <div class="title">SEKRETARIS</div>
+                <div class="name">Hariyono</div>
+              </div>
+              <div class="node-box" onclick="showInfo('bendahara')">
+                <div class="title">BENDAHARA</div>
+                <div class="name">Ujang Sopian</div>
+              </div>
+            </div>
 
-    <!-- LEVEL 2: KETUA -->
-    <div class="level">
-      <div class="node-box node-ketua" onclick="showInfo('ketua')">
-        <div class="title">KETUA</div>
-        <div class="name">H. Sulaeman</div>
-      </div>
-    </div>
+            <!-- LEVEL 4: BIDANG & SEKSI -->
+            <div class="level level-bidang">
+              <div class="line-connector-bidang"></div>
 
-    <!-- LEVEL 3: SEKRETARIS & BENDAHARA -->
-    <div class="level level-sekben">
-      <div class="line-connector-sekben"></div>
-      <div class="node-box node-sekben" onclick="showInfo('sekretaris')">
-        <div class="title">SEKRETARIS</div>
-        <div class="name">Hariyono</div>
-      </div>
-      <div class="node-box node-sekben" onclick="showInfo('bendahara')">
-        <div class="title">BENDAHARA</div>
-        <div class="name">Ujang Sopian</div>
-      </div>
-    </div>
+              <!-- IDAROH -->
+              <div class="sub-group">
+                <div class="node-box" onclick="showInfo('wakil1')">
+                  <div class="title">WAKIL KETUA I / BIDANG IDAROH</div>
+                  <div class="name">Rahman</div>
+                </div>
+                <div class="seksi-container">
+                  <div class="node-box node-seksi" onclick="showInfo('rencana')">
+                    <div class="title">SEKSI PERENCANAAN & USAHA</div>
+                    <div class="name">H. Andri</div>
+                  </div>
+                  <div class="node-box node-seksi" onclick="showInfo('itmedsos')">
+                    <div class="title">SEKSI TEKNIK INFORMASI & MEDSOS</div>
+                    <div class="name">Genta</div>
+                  </div>
+                  <div class="node-box node-seksi" onclick="showInfo('admin')">
+                    <div class="title">SEKSI ADMINISTRASI & DOKUMENTASI</div>
+                    <div class="name">Wawan</div>
+                  </div>
+                </div>
+              </div>
 
-    <!-- LEVEL 4: WAKIL KETUA & SEKSI-SEKSI -->
-    <div class="level level-bidang">
-      <div class="line-connector-bidang"></div>
+              <!-- IMAROH -->
+              <div class="sub-group">
+                <div class="node-box" onclick="showInfo('wakil2')">
+                  <div class="title">WAKIL KETUA II / BIDANG IMAROH</div>
+                  <div class="name">Hendra Gunawan</div>
+                </div>
+                <div class="seksi-container">
+                  <div class="node-box node-seksi" onclick="showInfo('ibadah')">
+                    <div class="title">SEKSI PERIBADATAN</div>
+                    <div class="name">Ust. Opik</div>
+                  </div>
+                  <div class="node-box node-seksi" onclick="showInfo('phbi')">
+                    <div class="title">SEKSI PHBI & DAKWAH</div>
+                    <div class="name">Mulyana</div>
+                  </div>
+                  <div class="node-box node-seksi" onclick="showInfo('remaja')">
+                    <div class="title">SEKSI REMAJA & PEMUDA MASJID</div>
+                    <div class="name">Dimas</div>
+                  </div>
+                </div>
+              </div>
 
-      <!-- BIDANG I: IDAROH -->
-      <div class="sub-group">
-        <div class="node-box node-bidang" onclick="showInfo('wakil1')">
-          <div class="title">WAKIL KETUA I / BIDANG IDAROH</div>
-          <div class="name">Rahman</div>
-        </div>
-        <div class="seksi-container">
-          <div class="node-box node-seksi" onclick="showInfo('rencana')">
-            <div class="title">SEKSI PERENCANAAN & USAHA</div>
-            <div class="name">H. Andri</div>
-          </div>
-          <div class="node-box node-seksi" onclick="showInfo('itmedsos')">
-            <div class="title">SEKSI TEKNIK INFORMASI & MEDSOS</div>
-            <div class="name">Genta</div>
-          </div>
-          <div class="node-box node-seksi" onclick="showInfo('admin')">
-            <div class="title">SEKSI ADMINISTRASI & DOKUMENTASI</div>
-            <div class="name">Wawan</div>
-          </div>
-        </div>
-      </div>
+              <!-- RI'AYAH -->
+              <div class="sub-group">
+                <div class="node-box" onclick="showInfo('wakil3')">
+                  <div class="title">WAKIL KETUA III / BIDANG RI'AYAH</div>
+                  <div class="name">Andi Suryandi</div>
+                </div>
+                <div class="seksi-container">
+                  <div class="node-box node-seksi" onclick="showInfo('bangunan')">
+                    <div class="title">SEKSI PEMELIHARAAN BANGUNAN</div>
+                    <div class="name">Nurul</div>
+                  </div>
+                  <div class="node-box node-seksi" onclick="showInfo('alat')">
+                    <div class="title">SEKSI PERALATAN & PERLENGKAPAN</div>
+                    <div class="name">Abifil Bait</div>
+                  </div>
+                  <div class="node-box node-seksi" onclick="showInfo('keamanan')">
+                    <div class="title">SEKSI KEAMANAN</div>
+                    <div class="name">-</div>
+                  </div>
+                </div>
+              </div>
 
-      <!-- BIDANG II: IMAROH -->
-      <div class="sub-group">
-        <div class="node-box node-bidang" onclick="showInfo('wakil2')">
-          <div class="title">WAKIL KETUA II / BIDANG IMAROH</div>
-          <div class="name">Hendra Gunawan</div>
-        </div>
-        <div class="seksi-container">
-          <div class="node-box node-seksi" onclick="showInfo('ibadah')">
-            <div class="title">SEKSI PERIBADATAN</div>
-            <div class="name">Ust. Opik</div>
-          </div>
-          <div class="node-box node-seksi" onclick="showInfo('phbi')">
-            <div class="title">SEKSI PHBI & DAKWAH</div>
-            <div class="name">Mulyana</div>
-          </div>
-          <div class="node-box node-seksi" onclick="showInfo('remaja')">
-            <div class="title">SEKSI REMAJA & PEMUDA MASJID</div>
-            <div class="name">Dimas</div>
-          </div>
-        </div>
-      </div>
-
-      <!-- BIDANG III: RI'AYAH -->
-      <div class="sub-group">
-        <div class="node-box node-bidang" onclick="showInfo('wakil3')">
-          <div class="title">WAKIL KETUA III / BIDANG RI'AYAH</div>
-          <div class="name">Andi Suryandi</div>
-        </div>
-        <div class="seksi-container">
-          <div class="node-box node-seksi" onclick="showInfo('bangunan')">
-            <div class="title">SEKSI PEMELIHARAAN BANGUNAN</div>
-            <div class="name">Nurul</div>
-          </div>
-          <div class="node-box node-seksi" onclick="showInfo('alat')">
-            <div class="title">SEKSI PERALATAN & PERLENGKAPAN</div>
-            <div class="name">Abifil Bait</div>
-          </div>
-          <div class="node-box node-seksi" onclick="showInfo('keamanan')">
-            <div class="title">SEKSI KEAMANAN</div>
-            <div class="name">&nbsp;</div>
+            </div>
           </div>
         </div>
       </div>
+    </section>
 
-    </div>
-  </div>
-</div>
-
-<!-- CONTAINER POPUP MODAL -->
-<div id="dkmModal" class="modal-overlay" onclick="closeModal(event)">
-  <div class="modal-content">
-    <span class="modal-close" onclick="closeModalDirect()">&times;</span>
-    <div class="modal-header">
-      <h4 id="modalTitle">Jabatan DKM</h4>
-    </div>
-    <div class="modal-body">
-      <div id="modalFungsi" class="fungsi-text">Fungsi...</div>
-      <strong>Tugas & Tanggung Jawab:</strong>
-      <ul id="modalTugas">
-        <li>Tugas...</li>
-      </ul>
-    </div>
-  </div>
-</div>
-
-<style>
-		  
-<!-- STYLE UNTUK DESKRIPSI TUGAS DKM -->
-
-  .tugas-dkm-container {
-    padding: 1.5rem 0;
-    font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
-  }
-
-  .tugas-title {
-    text-align: center;
-    color: #1e293b;
-    font-size: 1.4rem;
-    font-weight: 700;
-    margin-bottom: 1.5rem;
-  }
-
-  .tugas-grid {
-    display: grid;
-    grid-template-columns: repeat(auto-fit, minmax(280px, 1fr));
-    gap: 1.2rem;
-  }
-
-  .tugas-card {
-    background: #ffffff;
-    border-radius: 10px;
-    padding: 1.2rem;
-    border-left: 5px solid #64748b;
-    box-shadow: 0 4px 12px rgba(0, 0, 0, 0.05);
-    transition: transform 0.2s ease, box-shadow 0.2s ease;
-  }
-
-  .tugas-card:hover {
-    transform: translateY(-3px);
-    box-shadow: 0 6px 16px rgba(0, 0, 0, 0.1);
-  }
-
-  .tugas-card .jabatan {
-    font-size: 1rem;
-    font-weight: 700;
-    text-transform: uppercase;
-    margin-bottom: 0.5rem;
-    letter-spacing: 0.5px;
-  }
-
-  .tugas-card .fungsi {
-    font-size: 0.85rem;
-    color: #475569;
-    font-style: italic;
-    margin-bottom: 0.8rem;
-    padding-bottom: 0.6rem;
-    border-bottom: 1px dashed #e2e8f0;
-  }
-
-  .tugas-card ul {
-    margin: 0;
-    padding-left: 1.2rem;
-    font-size: 0.83rem;
-    color: #334155;
-    line-height: 1.5;
-  }
-
-  .tugas-card li {
-    margin-bottom: 0.4rem;
-  }
-
-  /* Kategori Warna Aksen per Jabatan */
-  .card-pembina { border-left-color: #8e44ad; }
-  .card-pembina .jabatan { color: #8e44ad; }
-
-  .card-ketua { border-left-color: #16a34a; }
-  .card-ketua .jabatan { color: #16a34a; }
-
-  .card-sekben { border-left-color: #2563eb; }
-  .card-sekben .jabatan { color: #2563eb; }
-
-  .card-idaroh { border-left-color: #d97706; }
-  .card-idaroh .jabatan { color: #d97706; }
-
-  .card-imaroh { border-left-color: #0284c7; }
-  .card-imaroh .jabatan { color: #0284c7; }
-
-  .card-riayah { border-left-color: #dc2626; }
-  .card-riayah .jabatan { color: #dc2626; }
-
-  .card-seksi { border-left-color: #475569; }
-  .card-seksi .jabatan { color: #334155; }
-</style>
-
-
-
-		  
     <!-- ================= TAB 4: KEGIATAN & PHBI ================= -->
     <section id="tab-kegiatan" class="tab-content">
       <div class="card">
         <h3 class="card-title"><i class="fa-solid fa-calendar-check"></i> Rangkaian Majelis Ilmu & Dzikir Rutin</h3>
-        
-        <div class="grid-2" style="margin-bottom:1.5rem;">
-          <!-- Pengajian Rutin -->
+        <div class="grid-2">
           <div style="background:white; border:1px solid var(--border); padding:1.2rem; border-radius:10px;">
             <span class="ticker-badge" style="background:var(--primary);">Pekanan</span>
             <h4 style="color:var(--primary); margin-top:0.4rem;">Pengajian Rutin (Thalabul 'Ilmi)</h4>
-            <p style="font-size:0.85rem; color:var(--text-muted); margin:0.5rem 0; text-align:justify;">
-              Majelis ilmu untuk memperdalam pemahaman Al-Qur'an, As-Sunnah, akidah, ibadah, akhlak, serta muamalah dalam kehidupan sehari-hari.
-            </p>
-            <p style="font-size:0.85rem; font-weight:600; color:var(--secondary);">
-              <i class="fa-solid fa-clock"></i> Setiap Hari Minggu Ba'da Maghrib<br>
-              <i class="fa-solid fa-location-dot"></i> Masjid Jami Al-Khaier
-            </p>
+            <p style="font-size:0.85rem; color:var(--text-muted); margin:0.5rem 0;">Setiap Hari Minggu Ba'da Maghrib</p>
           </div>
-
-          <!-- Pengajian Yasinan -->
           <div style="background:white; border:1px solid var(--border); padding:1.2rem; border-radius:10px;">
             <span class="ticker-badge" style="background:var(--accent);">Pekanan</span>
             <h4 style="color:var(--primary); margin-top:0.4rem;">Pengajian Yasinan & Doa Bersama</h4>
-            <p style="font-size:0.85rem; color:var(--text-muted); margin:0.5rem 0; text-align:justify;">
-              Pembacaan Surah Yasin, dzikir, serta doa bersama memohon ampunan, kesehatan, dan keberkahan untuk seluruh jamaah dan kaum muslimin.
-            </p>
-            <p style="font-size:0.85rem; font-weight:600; color:var(--secondary);">
-              <i class="fa-solid fa-clock"></i> Setiap Hari Kamis Ba'da Isya<br>
-              <i class="fa-solid fa-location-dot"></i> Masjid Jami Al-Khaier
-            </p>
+            <p style="font-size:0.85rem; color:var(--text-muted); margin:0.5rem 0;">Setiap Hari Kamis Ba'da Isya</p>
           </div>
-        </div>
-
-        <h3 class="card-title"><i class="fa-solid fa-star-and-crescent"></i> Peringatan Hari Besar Islam (PHBI)</h3>
-        <div class="grid-3" style="margin-bottom:1.5rem;">
-          <div style="background:white; padding:1rem; border-radius:8px; border:1px solid var(--border);">
-            <h4 style="color:var(--primary);">Sholat Idul Fitri</h4>
-            <p style="font-size:0.82rem; color:var(--text-muted);">Penerimaan & penyaluran Zakat Fitrah / Fidyah.</p>
-          </div>
-          <div style="background:white; padding:1rem; border-radius:8px; border:1px solid var(--border);">
-            <h4 style="color:var(--primary);">Sholat Idul Adha</h4>
-            <p style="font-size:0.82rem; color:var(--text-muted);">Penerimaan, penyembelihan & penyaluran hewan qurban.</p>
-          </div>
-          <div style="background:white; padding:1rem; border-radius:8px; border:1px solid var(--border);">
-            <h4 style="color:var(--primary);">Maulid Nabi & Isra Mi'raj</h4>
-            <p style="font-size:0.82rem; color:var(--text-muted);">Tabligh akbar, santunan, & lomba keagamaan.</p>
-          </div>
-        </div>
-
-        <div style="background:rgba(11,79,38,0.06); padding:1rem; border-radius:8px; text-align:center;">
-          <p style="font-size:0.88rem; font-weight:600;">
-            <i class="fa-solid fa-bullhorn"></i> Partisipasi Infaq / Shadaqah PHBI, Zakat & Hewan Qurban dapat menghubungi panitia PHBI atau Bidang Imaroh.
-          </p>
         </div>
       </div>
     </section>
@@ -1136,46 +933,9 @@
     <!-- ================= TAB 5: LAPORAN KAS & DONASI ================= -->
     <section id="tab-kas" class="tab-content">
       <div class="card">
-        <h3 class="card-title"><i class="fa-solid fa-wallet"></i> Transparansi Laporan Kas Masjid Jami Al-Khaier</h3>
-        <p style="font-size:0.88rem; margin-bottom:1rem; text-align:justify;">
-          Kas Masjid merupakan dana amanah dari infak, sedekah, wakaf, dan donasi jamaah. Dikelola secara transparan dan akuntabel untuk operasional, pemeliharaan sarana, serta program kemakmuran masjid.
-        </p>
-
-        
-        <!-- Google AppScript / Sheet Iframe EMBED (SEMPURNA) -->
-        <div style="border-radius:12px; overflow:hidden; border:1px solid var(--border); height:700px; margin-bottom:1.5rem; background:#f9f9f9; position:relative;">
-          <iframe 
-            src="https://script.google.com/macros/s/AKfycbyIpBZtiAANModw9dIwJY6b0mcd_LdsaPvG6riObi_qnI_tQqEKQdI1y4pD4QmBZX5g6A/exec" 
-            style="width:100%; height:100%; border:0;" 
-            allow="fullscreen"
-            loading="lazy"
-            title="Kas Masjid Online">
-          </iframe>
-        </div>
-
-        <!-- Ajakan Berdonasi -->
-        <h3 class="card-title"><i class="fa-solid fa-hand-holding-heart"></i> Ajakan Berdonasi & Sedekah</h3>
-        <p style="font-size:0.9rem; font-style:italic; margin-bottom:1rem; color:var(--primary);">
-          "Setiap Rupiah yang Anda Amanahkan Menjadi Amal Jariyah yang Terus Mengalir."
-        </p>
-
-        <div class="grid-2">
-          <div style="background:white; padding:1.2rem; border-radius:10px; border:1px solid var(--border);">
-            <h4 style="color:var(--primary);"><i class="fa-solid fa-money-bill-wave"></i> Infaq Tunai / Transfer</h4>
-            <p style="font-size:0.85rem; margin-top:0.4rem;">
-              Dapat diserahkan langsung ke Sekretariat DKM / Kotak Infaq Masjid atau melalui Rekening Bank Masjid (Dalam Proses).
-            </p>
-          </div>
-
-          <div style="background:white; padding:1.2rem; border-radius:10px; border:1px solid var(--border);">
-            <h4 style="color:var(--primary);"><i class="fa-brands fa-whatsapp"></i> Konfirmasi via Whatsapp</h4>
-            <p style="font-size:0.85rem; margin-top:0.4rem; margin-bottom:0.8rem;">
-              Hubungi Bendahara DKM (Bp. Ujang Sopian) untuk konfirmasi donasi & penjemputan infaq.
-            </p>
-            <a href="https://wa.me/6289614021972?text=Assalamu'alaikum%20Pengurus%20DKM%20Al-Khaier,%20saya%20ingin%20berdonasi/infaq." target="_blank" class="btn btn-accent" style="width: 100%;">
-              <i class="fa-brands fa-whatsapp"></i> Hubungi Bendahara DKM
-            </a>
-          </div>
+        <h3 class="card-title"><i class="fa-solid fa-wallet"></i> Transparansi Laporan Kas Masjid</h3>
+        <div style="border-radius:12px; overflow:hidden; border:1px solid var(--border); height:600px;">
+          <iframe src="https://script.google.com/macros/s/AKfycbyIpBZtiAANModw9dIwJY6b0mcd_LdsaPvG6riObi_qnI_tQqEKQdI1y4pD4QmBZX5g6A/exec" style="width:100%; height:100%; border:0;"></iframe>
         </div>
       </div>
     </section>
@@ -1183,418 +943,162 @@
     <!-- ================= TAB 6: GALERI ================= -->
     <section id="tab-galeri" class="tab-content">
       <div class="card">
-        <h3 class="card-title"><i class="fa-solid fa-images"></i> Galeri Dokumentasi Kegiatan</h3>
-        <p style="font-size:0.88rem; margin-bottom:1.2rem;">
-          Menyajikan dokumentasi foto dan video dari berbagai rangkaian kegiatan ibadah, pengajian, PHBI, kerja bakti, serta aktivitas di Masjid Jami Al-Khaier.
-        </p>
-
-        <div class="grid-3">
-          <div style="background:white; border-radius:10px; overflow:hidden; border:1px solid var(--border);">
-            <a href="https://drive.google.com/file/d/1BSBMhzmqApwLz7X4QtYt7IxP5oXE9a3o/view?usp=drive_link" target="_blank">
-              <img src="https://images.unsplash.com/photo-1542810634-71277d95dcbb?auto=format&fit=crop&w=600&q=80" style="width:100%; height:180px; object-fit:cover;" alt="Foto Masjid 1">
-            </a>
-            <div style="padding:0.8rem; font-size:0.82rem; font-weight:600;">Dokumentasi Bangunan Masjid Jami Al-Khaier</div>
-          </div>
-
-          <div style="background:white; border-radius:10px; overflow:hidden; border:1px solid var(--border);">
-            <a href="https://drive.google.com/file/d/18OJwQ8aVMx7mXKWAkWdbcMvEWmIYDxyo/view?usp=drive_link" target="_blank">
-              <img src="https://images.unsplash.com/photo-1564769625905-50e93615e769?auto=format&fit=crop&w=600&q=80" style="width:100%; height:180px; object-fit:cover;" alt="Foto Profil">
-            </a>
-            <div style="padding:0.8rem; font-size:0.82rem; font-weight:600;">Dokumentasi Kegiatan Pengajian & Jamaah</div>
-          </div>
-        </div>
+        <h3 class="card-title"><i class="fa-solid fa-images"></i> Galeri Dokumentasi</h3>
+        <p style="font-size:0.88rem;">Dokumentasi kegiatan ibadah, pengajian, dan pembangunan masjid.</p>
       </div>
     </section>
 
-    <!-- ================= TAB 7: ARSIP DOKUMEN ================= -->
+    <!-- ================= TAB 7: ARSIP ================= -->
     <section id="tab-arsip" class="tab-content">
       <div class="card">
-        <h3 class="card-title"><i class="fa-solid fa-box-archive"></i> Pusat Arsip Dokumen DKM</h3>
-        <p style="font-size:0.88rem; margin-bottom:1.2rem;">
-          Pusat penyimpanan dokumen resmi DKM Masjid Jami Al-Khaier seperti Akta Ikrar Wakaf, Surat Pengesahan Nadzir, Berita Acara DKM, dan Laporan Administrasi.
-        </p>
-
+        <h3 class="card-title"><i class="fa-solid fa-box-archive"></i> Pusat Arsip Dokumen</h3>
         <table class="table-custom">
           <thead>
-            <tr>
-              <th>Nama Dokumen</th>
-              <th>Nomor Surat / Keterangan</th>
-              <th>Tipe</th>
-              <th>Status</th>
-            </tr>
+            <tr><th>Nama Dokumen</th><th>Nomor Surat</th><th>Status</th></tr>
           </thead>
           <tbody>
-            <tr>
-              <td><strong>Akta Ikrar Wakaf PPAIW</strong></td>
-              <td>W.2/B-02/KUA.02.28/VIII/2021</td>
-              <td><span class="ticker-badge" style="background:#d90429;">PDF</span></td>
-              <td>Terarsip</td>
-            </tr>
-            <tr>
-              <td><strong>Surat Pengesahan Nazhir Wakaf</strong></td>
-              <td>WT.4/B-02/KUA.02.28/VII/2021</td>
-              <td><span class="ticker-badge" style="background:#d90429;">PDF</span></td>
-              <td>Terarsip</td>
-            </tr>
-            <tr>
-              <td><strong>Berita Acara Pemilihan DKM Periode II</strong></td>
-              <td>Ditetapkan 03 Maret 2024</td>
-              <td><span class="ticker-badge" style="background:#0d6efd;">DOCX</span></td>
-              <td>Terarsip</td>
-            </tr>
+            <tr><td>Akta Ikrar Wakaf PPAIW</td><td>W.2/B-02/KUA.02.28/VIII/2021</td><td><span class="ticker-badge" style="background:#d90429;">PDF</span></td></tr>
+            <tr><td>Surat Pengesahan Nazhir Wakaf</td><td>WT.4/B-02/KUA.02.28/VII/2021</td><td><span class="ticker-badge" style="background:#d90429;">PDF</span></td></tr>
           </tbody>
         </table>
       </div>
     </section>
 
-    <!-- ================= TAB 8: ARTIKEL & TAUSIYAH ================= -->
+    <!-- ================= TAB 8: ARTIKEL ================= -->
     <section id="tab-artikel" class="tab-content">
       <div class="card">
-        <h3 class="card-title"><i class="fa-solid fa-book-open-reader"></i> Artikel, Tausiyah & Sejarah Islam</h3>
-        
-        <div class="grid-2">
-          <div style="background:white; border:1px solid var(--border); border-radius:10px; padding:1.2rem;">
-            <span style="font-size:0.75rem; color:var(--accent); font-weight:700;">TAUSIYAH</span>
-            <h4 style="color:var(--primary); margin:0.3rem 0;">Keutamaan Memakmurkan Masjid Allah</h4>
-            <p style="font-size:0.85rem; color:var(--text-muted); margin-bottom:0.8rem;">
-              Memakmurkan masjid bukan hanya membangun fisiknya, melainkan meramaikannya dengan shalat berjamaah, zikir, dan majelis ilmu...
-            </p>
-            <button class="btn btn-outline" style="padding:0.3rem 0.7rem; font-size:0.78rem;">Baca Selengkapnya</button>
-          </div>
-
-          <div style="background:white; border:1px solid var(--border); border-radius:10px; padding:1.2rem;">
-            <span style="font-size:0.75rem; color:var(--accent); font-weight:700;">ADAB & AKHLAK</span>
-            <h4 style="color:var(--primary); margin:0.3rem 0;">Adab-Adab Berada di Dalam Masjid</h4>
-            <p style="font-size:0.85rem; color:var(--text-muted); margin-bottom:0.8rem;">
-              Panduan ringkas mengenai adab masuk masjid, shalat tahiyyatul masjid, serta menjaga ketenangan dan kebersihan bersama...
-            </p>
-            <button class="btn btn-outline" style="padding:0.3rem 0.7rem; font-size:0.78rem;">Baca Selengkapnya</button>
-          </div>
-        </div>
+        <h3 class="card-title"><i class="fa-solid fa-book-open-reader"></i> Artikel & Tausiyah</h3>
+        <p style="font-size:0.88rem;">Kumpulan tausiyah dan khutbah Jumat pilihan.</p>
       </div>
     </section>
 
-    <!-- ================= SECTION PENUTUP: KOMENTAR INTERAKTIF ================= -->
+    <!-- SECTION KOMENTAR -->
     <section class="card">
-      <h3 class="card-title"><i class="fa-solid fa-comments"></i> Kolom Komentar & Masukan Jamaah</h3>
-      <p style="font-size:0.85rem; margin-bottom:1rem;">
-        Sarana bagi jamaah untuk menyampaikan saran, masukan, maupun apresiasi demi meningkatkan kualitas pelayanan DKM Masjid Jami Al-Khaier.
-      </p>
-
+      <h3 class="card-title"><i class="fa-solid fa-comments"></i> Kolom Komentar Jamaah</h3>
       <form id="commentForm" onsubmit="submitComment(event)">
         <div class="grid-2">
-          <input type="text" id="commName" class="input-field" placeholder="Nama Lengkap..." required>
-          <input type="text" id="commContact" class="input-field" placeholder="No. WA / Alamat (Opsional)...">
+          <input type="text" id="commName" class="input-field" placeholder="Nama..." required>
+          <input type="text" id="commContact" class="input-field" placeholder="No. WA (Opsional)...">
         </div>
-        <textarea id="commMessage" class="textarea-field" rows="3" placeholder="Tuliskan masukan atau saran Anda..." required></textarea>
-        <button type="submit" class="btn btn-primary"><i class="fa-solid fa-paper-plane"></i> Kirim Komentar</button>
+        <textarea id="commMessage" class="textarea-field" rows="3" placeholder="Pesan / Masukan..." required></textarea>
+        <button type="submit" class="btn btn-primary"><i class="fa-solid fa-paper-plane"></i> Kirim</button>
       </form>
-
-      <hr style="margin:1.2rem 0; border:0; border-top:1px dashed var(--border);">
-
-      <h4 style="font-size:0.95rem; color:var(--primary); margin-bottom:0.8rem;">Komentar Terbaru</h4>
-      <div id="commentList">
-        <div class="comment-card">
-          <div style="display:flex; justify-content:space-between; font-size:0.82rem; font-weight:700; color:var(--primary);">
-            <span>H. Bambang</span>
-            <span style="color:var(--text-muted); font-weight:400;">Baru saja</span>
-          </div>
-          <p style="font-size:0.85rem; margin-top:0.3rem;">
-            Alhamdulillah, website DKM Masjid Jami Al-Khaier sangat bermanfaat, rinci, dan transparan.
-          </p>
-        </div>
-      </div>
+      <div id="commentList" style="margin-top: 1rem;"></div>
     </section>
 
   </main>
 
-  <!-- 5. FOOTER -->
+  <!-- POPUP MODAL DKM -->
+  <div id="dkmModal" class="modal-overlay" onclick="closeModal(event)">
+    <div class="modal-content">
+      <span class="modal-close" onclick="closeModalDirect()">&times;</span>
+      <div class="modal-header">
+        <h4 id="modalTitle">Jabatan DKM</h4>
+      </div>
+      <div class="modal-body">
+        <div id="modalFungsi" class="fungsi-text">Fungsi...</div>
+        <strong>Tugas & Tanggung Jawab:</strong>
+        <ul id="modalTugas"></ul>
+      </div>
+    </div>
+  </div>
+
+  <!-- POPUP MODAL FOTO -->
+  <div id="imgModal" class="img-modal" onclick="closeImageModal()">
+    <span class="img-modal-close" onclick="closeImageModal()">&times;</span>
+    <img id="modalImg" class="img-modal-content" src="" alt="View Foto">
+    <p id="modalCaption" style="color: white; margin-top: 10px; font-size: 0.9rem; text-align: center;"></p>
+  </div>
+
+  <!-- FOOTER -->
   <footer>
     <div class="footer-container">
       <div>
-        <h3 style="font-family:'Amiri', serif; font-size:1.4rem; color:var(--accent-gold); margin-bottom:0.6rem;">
-          Masjid Jami Al-Khaier
-        </h3>
-        <p style="font-size:0.82rem; opacity:0.9;">
-          Jl. Parungseah RT.04/RW.06 Kp. Parungseah Wetan, Desa Parungseah, Kec. Sukabumi, Kab. Sukabumi 43151.
-        </p>
-      </div>
-
-      <div>
-        <h4 style="color:var(--accent-gold); margin-bottom:0.6rem;">Navigasi Link</h4>
-        <p style="font-size:0.82rem; cursor:pointer;" onclick="switchTab('profil')">• Profil Wakaf</p>
-        <p style="font-size:0.82rem; cursor:pointer;" onclick="switchTab('dkm')">• Pengurus DKM</p>
-        <p style="font-size:0.82rem; cursor:pointer;" onclick="switchTab('kas')">• Kas Transparan</p>
-      </div>
-
-      <div>
-        <h4 style="color:var(--accent-gold); margin-bottom:0.6rem;">Kontak & Layanan</h4>
-        <p style="font-size:0.82rem; opacity:0.9;">
-          Email: dkm.alkhaier.parungseah@gmail.com<br>
-          Slogan: <em>"Melayani dengan Ikhlas, Mengabdi dengan Amanah"</em>
-        </p>
+        <h3 style="font-family:'Amiri', serif; color:var(--accent-gold);">Masjid Jami Al-Khaier</h3>
+        <p style="font-size:0.82rem;">Kp. Parungseah Wetan, Desa Parungseah, Sukabumi.</p>
       </div>
     </div>
-
     <div class="footer-bottom">
-      &copy; 2026 DKM Masjid Jami Al-Khaier Parungseah Wetan. All Rights Reserved.
+      &copy; 2026 DKM Masjid Jami Al-Khaier Parungseah Wetan.
     </div>
   </footer>
 
-  <!-- 6. JAVASCRIPT LOGIC -->
+  <!-- JAVASCRIPT -->
   <script>
-    // Tab Navigation Logic
-    // Tab Navigation Logic (Sudah Perbaiki)
-function switchTab(tabId) {
-  // 1. Hilangkan akhiran/awalan 'tab-' agar ID terstandarisasi
-  const cleanId = tabId.replace('tab-', '');
+    function switchTab(tabId) {
+      const cleanId = tabId.replace('tab-', '');
+      
+      document.querySelectorAll('.nav-item').forEach(item => item.classList.remove('active'));
+      document.querySelectorAll('.tab-content').forEach(content => content.classList.remove('active'));
 
-  // 2. Sembunyikan semua tab & lepas class active dari nav
-  const navItems = document.querySelectorAll('.nav-item');
-  navItems.forEach(item => item.classList.remove('active'));
+      const targetContent = document.getElementById(`tab-${cleanId}`);
+      if (targetContent) targetContent.classList.add('active');
 
-  const contents = document.querySelectorAll('.tab-content');
-  contents.forEach(content => content.classList.remove('active'));
+      document.querySelectorAll('.nav-item').forEach(item => {
+        const attr = item.getAttribute('onclick');
+        if (attr && attr.includes(cleanId)) item.classList.add('active');
+      });
 
-  // 3. Tampilkan section target
-  const targetContent = document.getElementById(`tab-${cleanId}`) || document.getElementById(cleanId);
-  if (targetContent) {
-    targetContent.classList.add('active');
-  }
-
-  // 4. Aktifkan tombol nav yang bersangkutan
-  navItems.forEach(item => {
-    const attr = item.getAttribute('onclick');
-    if (attr && attr.includes(cleanId)) {
-      item.classList.add('active');
+      window.scrollTo({ top: 100, behavior: 'smooth' });
     }
-  });
 
-  // 5. Scroll halus ke atas konten
-  window.scrollTo({ top: 100, behavior: 'smooth' });
-}
-
-    // Realtime Clock
     function updateClock() {
       const now = new Date();
-      const hours = String(now.getHours()).padStart(2, '0');
-      const minutes = String(now.getMinutes()).padStart(2, '0');
-      const seconds = String(now.getSeconds()).padStart(2, '0');
-      document.getElementById('clock').textContent = `${hours}:${minutes}:${seconds} WIB`;
-
-      const options = { weekday: 'long', year: 'numeric', month: 'long', day: 'numeric' };
-      document.getElementById('date').textContent = now.toLocaleDateString('id-ID', options);
+      document.getElementById('clock').textContent = now.toLocaleTimeString('id-ID') + ' WIB';
+      document.getElementById('date').textContent = now.toLocaleDateString('id-ID', { weekday: 'long', year: 'numeric', month: 'long', day: 'numeric' });
     }
     setInterval(updateClock, 1000);
     updateClock();
 
-    // Submit Comment Interaktif
+    function openImageModal(src, caption) {
+      const modal = document.getElementById('imgModal');
+      document.getElementById('modalImg').src = src;
+      document.getElementById('modalCaption').innerText = caption;
+      modal.classList.add('active');
+    }
+
+    function closeImageModal() {
+      document.getElementById('imgModal').classList.remove('active');
+    }
+
+    const dkmData = {
+      pembina: { title: "Pembina / Penasehat", fungsi: "Pengarah & Penasehat.", tugas: ["Memberikan nasihat", "Mengawasi jalannya DKM"] },
+      ketua: { title: "Ketua DKM", fungsi: "Pemimpin Utama.", tugas: ["Memimpin organisasi", "Mewakili DKM ke pihak luar"] },
+      sekretaris: { title: "Sekretaris", fungsi: "Pengelola Administrasi.", tugas: ["Surat-menyurat", "Notulensi rapat"] },
+      bendahara: { title: "Bendahara", fungsi: "Pengelola Keuangan.", tugas: ["Mencatat kas", "Membuat laporan keuangan"] }
+    };
+
+    function showInfo(key) {
+      const data = dkmData[key] || { title: "Detail Jabatan", fungsi: "Informasi kepengurusan.", tugas: ["Melaksanakan tugas sesuai bidangnya."] };
+      document.getElementById('modalTitle').innerText = data.title;
+      document.getElementById('modalFungsi').innerText = "Fungsi: " + data.fungsi;
+      
+      const list = document.getElementById('modalTugas');
+      list.innerHTML = '';
+      data.tugas.forEach(t => {
+        const li = document.createElement('li');
+        li.innerText = t;
+        list.appendChild(li);
+      });
+
+      document.getElementById('dkmModal').style.display = 'flex';
+    }
+
+    function closeModalDirect() { document.getElementById('dkmModal').style.display = 'none'; }
+    function closeModal(e) { if (e.target.classList.contains('modal-overlay')) closeModalDirect(); }
+
     function submitComment(e) {
       e.preventDefault();
       const name = document.getElementById('commName').value;
       const msg = document.getElementById('commMessage').value;
-
       const list = document.getElementById('commentList');
+      
       const item = document.createElement('div');
       item.className = 'comment-card';
-      item.innerHTML = `
-        <div style="display:flex; justify-content:space-between; font-size:0.82rem; font-weight:700; color:var(--primary);">
-          <span>${name}</span>
-          <span style="color:var(--text-muted); font-weight:400;">Baru saja</span>
-        </div>
-        <p style="font-size:0.85rem; margin-top:0.3rem;">${msg}</p>
-      `;
-
+      item.innerHTML = `<strong>${name}</strong><p>${msg}</p>`;
       list.prepend(item);
       document.getElementById('commentForm').reset();
     }
-	
-	function openImageModal(src, caption) {
-  const modal = document.getElementById('imgModal');
-  const modalImg = document.getElementById('modalImg');
-  const modalCaption = document.getElementById('modalCaption');
-  
-  modal.classList.add('active');
-  modalImg.src = src;
-  modalCaption.innerText = caption;
-}
-
-function closeImageModal() {
-  const modal = document.getElementById('imgModal');
-  modal.classList.remove('active');
-}
-	
   </script>
-<script>
-  // Data Fungsi & Tugas per Jabatan
-  const dkmData = {
-    pembina: {
-      title: "Pembina / Penasehat",
-      fungsi: "Pengarah, pengawas, dan penasihat tertinggi dalam organisasi DKM.",
-      tugas: [
-        "Memberikan nasihat, arahan, dan bimbingan moral maupun teknis kepada pengurus DKM.",
-        "Mengawasi jalannya kepengurusan agar tetap sesuai syariat Islam dan Visi-Misi masjid.",
-        "Menjadi penengah dan pembuat keputusan akhir apabila terjadi perselisihan atau masalah strategis."
-      ]
-    },
-    ketua: {
-      title: "Ketua DKM",
-      fungsi: "Pemimpin tertinggi eksekutif yang bertanggung jawab atas seluruh operasional dan perkembangan masjid.",
-      tugas: [
-        "Memimpin, mengkoordinasikan, dan mengendalikan seluruh kegiatan kepengurusan DKM.",
-        "Mewakili masjid dalam hubungan keluar (dengan warga, RT/RW, pemerintah, maupun pihak luar).",
-        "Menandatangani surat-surat resmi, dokumen, dan laporan keuangan DKM.",
-        "Mengadakan evaluasi berkala terhadap kinerja para wakil ketua dan seksi-seksi."
-      ]
-    },
-    sekretaris: {
-      title: "Sekretaris",
-      fungsi: "Penyelenggara administrasi, kesekretariatan, dan lalu lintas informasi organisasi.",
-      tugas: [
-        "Mengelola persuratan (surat masuk, surat keluar, dan surat keputusan).",
-        "Mencatat hasil rapat (notulensi) dan menyusun laporan berkala kegiatan DKM.",
-        "Mengarsipkan berkas-berkas penting masjid (dokumen legalitas, perizinan, dan daftar inventaris)."
-      ]
-    },
-    bendahara: {
-      title: "Bendahara",
-      fungsi: "Pengelola dan pengawas seluruh aliran keuangan masjid.",
-      tugas: [
-        "Memegang, menyimpan, dan mencatat seluruh uang kas, infak, sedekah, dan donasi masjid.",
-        "Membayar pengeluaran operasional dan kegiatan DKM atas persetujuan Ketua DKM.",
-        "Menyusun dan mempublikasikan Laporan Keuangan secara transparan kepada jamaah."
-      ]
-    },
-    wakil1: {
-      title: "Wakil Ketua I / Bidang Idaroh",
-      fungsi: "Mengoordinasikan pengelolaan administrasi, perencanaan, dan sistem informasi/komunikasi.",
-      tugas: [
-        "Mengawasi dan membawahi Seksi Perencanaan & Usaha, Seksi IT & Medsos, serta Seksi Administrasi.",
-        "Memastikan tata kelola keorganisasian berjalan modern, teratur, dan profesional."
-      ]
-    },
-    rencana: {
-      title: "Seksi Perencanaan & Usaha",
-      fungsi: "Pengembang program kerja dan penggalian dana mandiri organisasi.",
-      tugas: [
-        "Menyusun rencana program kerja jangka pendek & panjang.",
-        "Mencari sumber dana kreatif/keuangan mandiri untuk kas masjid (usaha syariah, kantin, dll.)."
-      ]
-    },
-    itmedsos: {
-      title: "Seksi Teknik Informasi & Medsos",
-      fungsi: "Pengelola media publikasi digital dan teknis audio visual masjid.",
-      tugas: [
-        "Mengelola media sosial, website, dan tayangan layar/TV informasi di dalam masjid.",
-        "Mengelola sistem pengeras suara (sound system) dasar serta publikasi digital kegiatan masjid."
-      ]
-    },
-    admin: {
-      title: "Seksi Administrasi & Dokumentasi",
-      fungsi: "Pendokumentasi kegiatan dan pendata inventaris/jamaah.",
-      tugas: [
-        "Membantu sekretaris mendokumentasikan (foto/video) setiap acara resmi masjid.",
-        "Mengatur pendataan jamaah dan pengelolaan arsip fisik/digital."
-      ]
-    },
-    wakil2: {
-      title: "Wakil Ketua II / Bidang Imaroh",
-      fungsi: "Mengoordinasikan kegiatan memakmurkan masjid (peribadatan, dakwah, dan pembinaan jamaah).",
-      tugas: [
-        "Mengawasi dan membawahi Seksi Peribadatan, Seksi PHBI & Dakwah, serta Seksi Remaja Masjid.",
-        "Memastikan masjid hidup dengan shalat berjamaah, kajian, dan pembinaan generasi muda."
-      ]
-    },
-    ibadah: {
-      title: "Seksi Peribadatan",
-      fungsi: "Penanggung jawab kelancaran ibadah harian dan mingguan.",
-      tugas: [
-        "Menyusun jadwal Imam, Khotib Jumat, dan Muadzin.",
-        "Memastikan pelaksanaan shalat fardhu dan shalat sunnah (Tarawih, Idain) berjalan tertib."
-      ]
-    },
-    phbi: {
-      title: "Seksi PHBI & Dakwah",
-      fungsi: "Pengelola kegiatan peringatan hari besar Islam dan pengajian rutin.",
-      tugas: [
-        "Menyusun jadwal pengajian rutin/kajian umum.",
-        "Mengorganisir Peringatan Hari Besar Islam (Isra Mi'raj, Maulid Nabi, Muharram, dll.)."
-      ]
-    },
-    remaja: {
-      title: "Seksi Remaja & Pemuda Masjid",
-      fungsi: "Pembina generasi muda dan aktivitas keilmuan Islam pemuda.",
-      tugas: [
-        "Membina RISMA (Remaja Islam Masjid) dan mengadakan kegiatan kepemudaan berbasis masjid.",
-        "Mengajak generasi muda untuk aktif dalam kegiatan keagamaan dan sosial."
-      ]
-    },
-    wakil3: {
-      title: "Wakil Ketua III / Bidang Ri'ayah",
-      fungsi: "Mengoordinasikan pemeliharaan fisik, kebersihan, perlengkapan, dan keamanan masjid.",
-      tugas: [
-        "Mengawasi dan membawahi Seksi Pemeliharaan Bangunan, Seksi Peralatan/Perlengkapan, dan Seksi Keamanan.",
-        "Memastikan bangunan masjid selalu aman, bersih, nyaman, dan layak untuk ibadah."
-      ]
-    },
-    bangunan: {
-      title: "Seksi Pemeliharaan Bangunan",
-      fungsi: "Penanggung jawab kelayakan fisik dan kebersihan bangunan masjid.",
-      tugas: [
-        "Merawat, memperbaiki, dan menjaga fisik bangunan masjid (atap, cat, tempat wudhu, toilet, AC/kipas).",
-        "Menjaga kebersihan dan kenyamanan karpet serta area dalam/luar masjid."
-      ]
-    },
-    alat: {
-      title: "Seksi Peralatan & Perlengkapan",
-      fungsi: "Pengelola dan perawat aset perlengkapan fisik/logistik.",
-      tugas: [
-        "Mencatat dan merawat inventaris sarana/prasarana (kursi, meja, tenda, keranda, perlengkapan jenazah).",
-        "Menyediakan peralatan yang dibutuhkan saat ada acara besar."
-      ]
-    },
-    keamanan: {
-      title: "Seksi Keamanan",
-      fungsi: "Penjaga ketertiban, keamanan kendaraan, dan lingkungan masjid.",
-      tugas: [
-        "Menjaga ketertiban dan keamanan area masjid (parkir kendaraan jamaah, barang inventaris).",
-        "Mengatur arus lalu lintas dan parkir saat Shalat Jumat atau Hari Besar Islam."
-      ]
-    }
-  };
-
-  // Fungsi untuk Menampilkan Pop-Up Modal
-  function showInfo(key) {
-    const data = dkmData[key];
-    if (!data) return;
-
-    document.getElementById('modalTitle').innerText = data.title;
-    document.getElementById('modalFungsi').innerText = "Fungsi: " + data.fungsi;
-
-    const listContainer = document.getElementById('modalTugas');
-    listContainer.innerHTML = ''; // bersihkan isi sebelumnya
-
-    data.tugas.forEach(item => {
-      const li = document.createElement('li');
-      li.innerText = item;
-      listContainer.appendChild(li);
-    });
-
-    document.getElementById('dkmModal').style.display = 'flex';
-  }
-
-  // Fungsi untuk Menutup Modal saat Klik Tombol X
-  function closeModalDirect() {
-    document.getElementById('dkmModal').style.display = 'none';
-  }
-
-  // Fungsi untuk Menutup Modal saat Klik di Luar Kotak Pop-up
-  function closeModal(event) {
-    if (event.target.classList.contains('modal-overlay')) {
-      document.getElementById('dkmModal').style.display = 'none';
-    }
-  }
-</script>
-	  
 </body>
 </html>
