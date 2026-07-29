@@ -814,7 +814,252 @@
     </div>
   </div>
 </div>
+<!-- STYLE UNTUK DESKRIPSI TUGAS DKM -->
+<style>
+  .tugas-dkm-container {
+    padding: 1.5rem 0;
+    font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+  }
 
+  .tugas-title {
+    text-align: center;
+    color: #1e293b;
+    font-size: 1.4rem;
+    font-weight: 700;
+    margin-bottom: 1.5rem;
+  }
+
+  .tugas-grid {
+    display: grid;
+    grid-template-columns: repeat(auto-fit, minmax(280px, 1fr));
+    gap: 1.2rem;
+  }
+
+  .tugas-card {
+    background: #ffffff;
+    border-radius: 10px;
+    padding: 1.2rem;
+    border-left: 5px solid #64748b;
+    box-shadow: 0 4px 12px rgba(0, 0, 0, 0.05);
+    transition: transform 0.2s ease, box-shadow 0.2s ease;
+  }
+
+  .tugas-card:hover {
+    transform: translateY(-3px);
+    box-shadow: 0 6px 16px rgba(0, 0, 0, 0.1);
+  }
+
+  .tugas-card .jabatan {
+    font-size: 1rem;
+    font-weight: 700;
+    text-transform: uppercase;
+    margin-bottom: 0.5rem;
+    letter-spacing: 0.5px;
+  }
+
+  .tugas-card .fungsi {
+    font-size: 0.85rem;
+    color: #475569;
+    font-style: italic;
+    margin-bottom: 0.8rem;
+    padding-bottom: 0.6rem;
+    border-bottom: 1px dashed #e2e8f0;
+  }
+
+  .tugas-card ul {
+    margin: 0;
+    padding-left: 1.2rem;
+    font-size: 0.83rem;
+    color: #334155;
+    line-height: 1.5;
+  }
+
+  .tugas-card li {
+    margin-bottom: 0.4rem;
+  }
+
+  /* Kategori Warna Aksen per Jabatan */
+  .card-pembina { border-left-color: #8e44ad; }
+  .card-pembina .jabatan { color: #8e44ad; }
+
+  .card-ketua { border-left-color: #16a34a; }
+  .card-ketua .jabatan { color: #16a34a; }
+
+  .card-sekben { border-left-color: #2563eb; }
+  .card-sekben .jabatan { color: #2563eb; }
+
+  .card-idaroh { border-left-color: #d97706; }
+  .card-idaroh .jabatan { color: #d97706; }
+
+  .card-imaroh { border-left-color: #0284c7; }
+  .card-imaroh .jabatan { color: #0284c7; }
+
+  .card-riayah { border-left-color: #dc2626; }
+  .card-riayah .jabatan { color: #dc2626; }
+
+  .card-seksi { border-left-color: #475569; }
+  .card-seksi .jabatan { color: #334155; }
+</style>
+
+<!-- TAMPILAN ELEMEN DESKRIPSI TUGAS DKM -->
+<div class="tugas-dkm-container">
+  <h3 class="tugas-title"><i class="fa-solid fa-list-check"></i> Fungsi, Tugas & Tanggung Jawab Pengurus</h3>
+
+  <div class="tugas-grid">
+
+    <!-- PEMBINA -->
+    <div class="tugas-card card-pembina">
+      <div class="jabatan">Pembina / Penasehat</div>
+      <div class="fungsi">Pengarah, pengawas, dan penasihat tertinggi dalam organisasi DKM.</div>
+      <ul>
+        <li>Memberikan nasihat, arahan, dan bimbingan moral maupun teknis keoada pengurus.</li>
+        <li>Mengawasi jalannya kepengurusan agar tetap sesuai syariat Islam dan Visi-Misi masjid.</li>
+        <li>Menjadi penengah dan pembuat keputusan akhir saat terjadi masalah strategis.</li>
+      </ul>
+    </div>
+
+    <!-- KETUA -->
+    <div class="tugas-card card-ketua">
+      <div class="jabatan">Ketua DKM</div>
+      <div class="fungsi">Pemimpin eksekutif tertinggi yang bertanggung jawab atas seluruh operasional masjid.</div>
+      <ul>
+        <li>Memimpin, mengkoordinasikan, dan mengendalikan seluruh kegiatan DKM.</li>
+        <li>Mewakili masjid dalam hubungan eksternal (masyarakat, RT/RW, dan pemerintah).</li>
+        <li>Menandatangani dokumen resmi dan mengevaluasi kinerja seluruh seksi.</li>
+      </ul>
+    </div>
+
+    <!-- SEKRETARIS -->
+    <div class="tugas-card card-sekben">
+      <div class="jabatan">Sekretaris</div>
+      <div class="fungsi">Penyelenggara administrasi, kesekretariatan, dan lalu lintas informasi organisasi.</div>
+      <ul>
+        <li>Mengelola persuratan (surat masuk, keluar, dan surat keputusan).</li>
+        <li>Mencatat hasil rapat (notulensi) dan menyusun laporan berkala.</li>
+        <li>Mengarsipkan dokumen penting, legalitas, dan inventaris masjid.</li>
+      </ul>
+    </div>
+
+    <!-- BENDAHARA -->
+    <div class="tugas-card card-sekben">
+      <div class="jabatan">Bendahara</div>
+      <div class="fungsi">Pengelola dan pengawas seluruh lalu lintas keuangan masjid.</div>
+      <ul>
+        <li>Menyimpan dan mencatat seluruh kas, infak, sedekah, serta donasi.</li>
+        <li>Membayar pengeluaran operasional atas persetujuan Ketua DKM.</li>
+        <li>Menyusun dan mempublikasikan laporan keuangan secara transparan.</li>
+      </ul>
+    </div>
+
+    <!-- BIDANG IDAROH -->
+    <div class="tugas-card card-idaroh">
+      <div class="jabatan">Wakil Ketua I / Bidang Idaroh</div>
+      <div class="fungsi">Mengoordinasikan pengelolaan administrasi, perencanaan, dan komunikasi.</div>
+      <ul>
+        <li>Mengawasi Seksi Perencanaan, IT & Medsos, serta Administrasi.</li>
+        <li>Memastikan tata kelola organisasi berjalan teratur dan modern.</li>
+      </ul>
+    </div>
+
+    <!-- SEKSI DALAM IDAROH -->
+    <div class="tugas-card card-seksi">
+      <div class="jabatan">Seksi Perencanaan & Usaha</div>
+      <ul>
+        <li>Menyusun rencana program kerja jangka pendek dan panjang.</li>
+        <li>Mencari sumber dana kreatif/mandiri untuk kas masjid (usaha syariah/kantin).</li>
+      </ul>
+    </div>
+
+    <div class="tugas-card card-seksi">
+      <div class="jabatan">Seksi Teknik Informasi & Medsos</div>
+      <ul>
+        <li>Mengelola media sosial, website, dan layar tayang informasi masjid.</li>
+        <li>Mengatur sistem publikasi digital serta peralatan sound system dasar.</li>
+      </ul>
+    </div>
+
+    <div class="tugas-card card-seksi">
+      <div class="jabatan">Seksi Administrasi & Dokumentasi</div>
+      <ul>
+        <li>Mendokumentasikan (foto/video) setiap kegiatan resmi DKM.</li>
+        <li>Membantu pendataan jamaah serta pengelolaan arsip fisik/digital.</li>
+      </ul>
+    </div>
+
+    <!-- BIDANG IMAROH -->
+    <div class="tugas-card card-imaroh">
+      <div class="jabatan">Wakil Ketua II / Bidang Imaroh</div>
+      <div class="fungsi">Mengoordinasikan kegiatan memakmurkan masjid (peribadatan & dakwah).</div>
+      <ul>
+        <li>Mengawasi Seksi Peribadatan, PHBI & Dakwah, serta Remaja Masjid.</li>
+        <li>Memastikan kegiatan ibadah dan kajian peribadatan berjalan aktif.</li>
+      </ul>
+    </div>
+
+    <!-- SEKSI DALAM IMAROH -->
+    <div class="tugas-card card-seksi">
+      <div class="jabatan">Seksi Peribadatan</div>
+      <ul>
+        <li>Menyusun jadwal Imam, Khotib Jumat, dan Muadzin.</li>
+        <li>Memastikan ketertiban shalat fardhu dan shalat sunnah (Tarawih/Idain).</li>
+      </ul>
+    </div>
+
+    <div class="tugas-card card-seksi">
+      <div class="jabatan">Seksi PHBI & Dakwah</div>
+      <ul>
+        <li>Menyusun jadwal pengajian rutin dan kajian umum.</li>
+        <li>Mengorganisir Peringatan Hari Besar Islam (PHBI).</li>
+      </ul>
+    </div>
+
+    <div class="tugas-card card-seksi">
+      <div class="jabatan">Seksi Remaja & Pemuda Masjid</div>
+      <ul>
+        <li>Membina organisasi Remaja Islam Masjid (RISMA).</li>
+        <li>Mengadakan kegiatan kepemudaan berbasis memakmurkan masjid.</li>
+      </ul>
+    </div>
+
+    <!-- BIDANG RI'AYAH -->
+    <div class="tugas-card card-riayah">
+      <div class="jabatan">Wakil Ketua III / Bidang Ri'ayah</div>
+      <div class="fungsi">Mengoordinasikan pemeliharaan fisik, perlengkapan, dan keamanan masjid.</div>
+      <ul>
+        <li>Mengawasi Seksi Pemeliharaan, Perlengkapan, dan Keamanan.</li>
+        <li>Memastikan sarana & prasarana masjid bersih, aman, dan layak pakai.</li>
+      </ul>
+    </div>
+
+    <!-- SEKSI DALAM RI'AYAH -->
+    <div class="tugas-card card-seksi">
+      <div class="jabatan">Seksi Pemeliharaan Bangunan</div>
+      <ul>
+        <li>Merawat/memperbaiki fisik bangunan, tempat wudhu, toilet, dan AC/kipas.</li>
+        <li>Menjaga kebersihan dan kenyamanan area dalam serta luar masjid.</li>
+      </ul>
+    </div>
+
+    <div class="tugas-card card-seksi">
+      <div class="jabatan">Seksi Peralatan & Perlengkapan</div>
+      <ul>
+        <li>Mencatat dan memelihara seluruh inventaris barang milik DKM.</li>
+        <li>Menyiapkan sarana dan perlengkapan untuk acara-acara masjid.</li>
+      </ul>
+    </div>
+
+    <div class="tugas-card card-seksi">
+      <div class="jabatan">Seksi Keamanan</div>
+      <ul>
+        <li>Menjaga ketertiban, keamanan kendaraan, dan aset inventaris masjid.</li>
+        <li>Mengatur lalu lintas dan area parkir jamaah saat Shalat Jumat/PHBI.</li>
+      </ul>
+    </div>
+
+  </div>
+</div>
+
+		  
     <!-- ================= TAB 4: KEGIATAN & PHBI ================= -->
     <section id="tab-kegiatan" class="tab-content">
       <div class="card">
