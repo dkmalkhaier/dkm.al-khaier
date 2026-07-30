@@ -8,7 +8,7 @@
   <!-- Font Google: Amiri & Poppins -->
   <link rel="preconnect" href="https://fonts.googleapis.com">
   <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
-  <link href="https://maps.app.goo.gl/1vwvwUbSPdrD4Jwt7" rel="stylesheet">
+  <link href="https://fonts.googleapis.com/css2?family=Amiri:ital,wght@0,400;0,700;1,400&family=Poppins:wght@300;400;500;600;700&display=swap" rel="stylesheet">
   
   <!-- FontAwesome Icon -->
   <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
@@ -467,6 +467,10 @@
       padding: 15px;
     }
 
+    .modal-overlay.active {
+      display: flex;
+    }
+
     .modal-content {
       background-color: #ffffff;
       border-radius: 12px;
@@ -695,74 +699,34 @@
       </div>
 
       <!-- Grid: Jadwal Sholat & Maps Lokasi -->
-   <!-- Grid: Jadwal Sholat & Maps Lokasi -->
-<div class="grid-2">
-  <div class="card">
-    <h3 class="card-title"><i class="fa-solid fa-clock"></i> Jadwal Sholat Hari Ini</h3>
-    <!-- Tambahkan ID 'prayer-list' untuk JavaScript -->
-    <div id="prayer-list">
-      <div class="prayer-row" data-time="04:38"><span>Subuh</span><span>04:38 WIB</span></div>
-      <div class="prayer-row" data-time="05:52"><span>Terbit (Syuruq)</span><span>05:52 WIB</span></div>
-      <div class="prayer-row" data-time="11:58"><span>Dzuhur</span><span>11:58 WIB</span></div>
-      <div class="prayer-row" data-time="15:19"><span>Ashar</span><span>15:19 WIB</span></div>
-      <div class="prayer-row" data-time="17:56"><span>Maghrib</span><span>17:56 WIB</span></div>
-      <div class="prayer-row" data-time="19:08"><span>Isya</span><span>19:08 WIB</span></div>
-    </div>
-    <p style="font-size:0.78rem; color:var(--text-muted); margin-top:1rem; text-align:center;">
-      <i class="fa-solid fa-location-dot"></i> Wilayah Kabupaten Sukabumi & Sekitarnya
-    </p>
-  </div>
+      <div class="grid-2">
+        <div class="card">
+          <h3 class="card-title"><i class="fa-solid fa-clock"></i> Jadwal Sholat Hari Ini</h3>
+          <div id="prayer-list">
+            <div class="prayer-row" data-time="04:38"><span>Subuh</span><span>04:38 WIB</span></div>
+            <div class="prayer-row" data-time="05:52"><span>Terbit (Syuruq)</span><span>05:52 WIB</span></div>
+            <div class="prayer-row" data-time="11:58"><span>Dzuhur</span><span>11:58 WIB</span></div>
+            <div class="prayer-row" data-time="15:19"><span>Ashar</span><span>15:19 WIB</span></div>
+            <div class="prayer-row" data-time="17:56"><span>Maghrib</span><span>17:56 WIB</span></div>
+            <div class="prayer-row" data-time="19:08"><span>Isya</span><span>19:08 WIB</span></div>
+          </div>
+          <p style="font-size:0.78rem; color:var(--text-muted); margin-top:1rem; text-align:center;">
+            <i class="fa-solid fa-location-dot"></i> Wilayah Kabupaten Sukabumi & Sekitarnya
+          </p>
+        </div>
 
-  <div class="card">
-    <h3 class="card-title"><i class="fa-solid fa-map-location-dot"></i> Lokasi & Alamat</h3>
-    <p style="font-size:0.85rem; margin-bottom:0.8rem;">
-      <strong>Alamat Lengkap:</strong><br>
-      Jl. Parungseah RT.04/RW.06 Kp. Parungseah Wetan, Desa Parungseah, Kecamatan Sukabumi, Kabupaten Sukabumi, Jawa Barat 43151.
-    </p>
-    <a href="https://www.google.com/maps/place/Masjid+Jami+Al-Khair/@-6.9002055,106.9273058,18.23z" target="_blank" class="btn btn-outline" style="width: 100%; margin-bottom:0.8rem;">
-      <i class="fa-solid fa-arrow-up-right-from-square"></i> Buka Petunjuk Arah di Google Maps
-    </a>
-  </div>
-</div>
-
-<!-- Tambahkan JavaScript ini di bawah (sebelum tag </body>) -->
-<script>
-  function updateActivePrayer() {
-    const rows = document.querySelectorAll('#prayer-list .prayer-row');
-    const now = new Date();
-    const currentMinutes = now.getHours() * 60 + now.getMinutes();
-
-    let activeIndex = -1;
-
-    // Loop untuk mengecek waktu sholat mana yang sedang berlangsung
-    rows.forEach((row, index) => {
-      const timeStr = row.getAttribute('data-time');
-      const [hours, minutes] = timeStr.split(':').map(Number);
-      const prayerMinutes = hours * 60 + minutes;
-
-      if (currentMinutes >= prayerMinutes) {
-        activeIndex = index;
-      }
-    });
-
-    // Lepas kelas 'active' dari semua baris
-    rows.forEach(row => row.classList.remove('active'));
-
-    // Jika waktu saat ini sudah masuk jadwal sholat tertentu, beri kelas 'active'
-    if (activeIndex !== -1) {
-      rows[activeIndex].classList.add('active');
-    } else {
-      // Jika sebelum Subuh (misal jam 02:00), aktifkan Isya sebagai waktu terakhir yang lewat
-      rows[rows.length - 1].classList.add('active');
-    }
-  }
-
-  // Jalankan saat halaman pertama kali di-load
-  updateActivePrayer();
-
-  // Cek/perbarui otomatis setiap 30 detik
-  setInterval(updateActivePrayer, 30000);
-</script>
+        <div class="card">
+          <h3 class="card-title"><i class="fa-solid fa-map-location-dot"></i> Lokasi & Alamat</h3>
+          <p style="font-size:0.85rem; margin-bottom:0.8rem;">
+            <strong>Alamat Lengkap:</strong><br>
+            Jl. Parungseah RT.04/RW.06 Kp. Parungseah Wetan, Desa Parungseah, Kecamatan Sukabumi, Kabupaten Sukabumi, Jawa Barat 43151.
+          </p>
+          <a href="https://www.google.com/maps/place/Masjid+Jami+Al-Khair/@-6.9002055,106.9273058,18.23z" target="_blank" class="btn btn-outline" style="width: 100%; margin-bottom:0.8rem;">
+            <i class="fa-solid fa-arrow-up-right-from-square"></i> Buka Petunjuk Arah di Google Maps
+          </a>
+        </div>
+      </div>
+    </section>
 
     <!-- ================= TAB 2: PROFIL & SEJARAH ================= -->
     <section id="tab-profil" class="tab-content">
@@ -1244,7 +1208,7 @@
             </div>
           </div>
           
- <!-- Card Foto 3a -->
+          <!-- Card Foto 3a -->
           <div style="background: white; border: 1px solid var(--border); border-radius: 10px; overflow: hidden; box-shadow: 0 4px 10px rgba(0,0,0,0.03);">
             <div style="width: 100%; height: 180px; background: #e2e8f0; position: relative; overflow: hidden;">
               <img src="https://drive.google.com/file/d/1bj_36JrH0d2BIVf3GRVSFpSwHFbZKD2E/view?usp=drive_link" alt="Khotbah Idul Adha" style="width: 100%; height: 100%; object-fit: cover;">
@@ -1256,7 +1220,6 @@
             </div>
           </div>
 
-          
           <!-- Card Foto 4 -->
           <div style="background: white; border: 1px solid var(--border); border-radius: 10px; overflow: hidden; box-shadow: 0 4px 10px rgba(0,0,0,0.03);">
             <div style="width: 100%; height: 180px; background: #e2e8f0; position: relative; overflow: hidden;">
@@ -1328,7 +1291,7 @@
 
       <div class="card">
         
-        <!-- DOKUMEN FILE PDF: PERINTAH DOWNLOAD DIHILANGKAN, KLIK SUBJEK UNTUK BACA -->
+        <!-- DOKUMEN FILE PDF -->
         <div style="display: flex; justify-content: space-between; align-items: center; flex-wrap: wrap; gap: 1rem; margin-bottom: 1.2rem; border-bottom: 2px solid var(--border); padding-bottom: 0.8rem;">
           <h4 style="color: var(--primary); font-size: 1.1rem; margin: 0;">
             <i class="fa-solid fa-file-pdf" style="color: #e53e3e;"></i> Dokumen Administrasi & SK
@@ -1355,7 +1318,7 @@
               </p>
             </div>
 
-            <!-- Frame PDF Pratinjau Read Only (Toolbar Download Disembunyikan) -->
+            <!-- Frame PDF Pratinjau Read Only -->
             <div style="width: 100%; height: 400px; border-radius: 8px; overflow: hidden; border: 1px solid var(--border); background: #f8fafc;">
               <iframe 
                 src="https://drive.google.com/file/d/1yCcvyJxxVR0ShucXUKHjURR4i98NlQ13/view?usp=drive_link/dummy.pdf&embedded=true#toolbar=0&navpanes=0" 
@@ -1558,7 +1521,7 @@
             <img src="https://images.unsplash.com/photo-1585036156171-384164a8c675?auto=format&fit=crop&w=500&q=80" alt="Adab Sholat" style="width: 100%; height: 160px; object-fit: cover;">
             <div style="padding: 0.8rem;">
               <h6 style="font-size: 0.85rem; color: var(--primary); margin-bottom: 0.2rem;">Panduan & Adab Sholat Berjamaah</h6>
-              <a href="#" onclick="openImageModal('https://images.unsplash.com/photo-1585036156171-384164a8c675?auto=format&fit=crop&w=1200&q=80', 'Panduan & Adab Sholat Berjamaah')" style="font-size: 0.75rem; color: var(--accent); font-weight: 600;">Lihat Poster Lengkap</a>
+              <a href="#" onclick="openImageModal('https://images.unsplash.com/photo-1585036156171-384164a8c675?auto=format&fit=crop&w=1200&q=80', 'Panduan & Adab Sholat Berjamaah'); return false;" style="font-size: 0.75rem; color: var(--accent); font-weight: 600;">Lihat Poster Lengkap</a>
             </div>
           </div>
 
@@ -1566,7 +1529,7 @@
             <img src="https://images.unsplash.com/photo-1609599006353-e629aaabfeae?auto=format&fit=crop&w=500&q=80" alt="Dzikir Pagi Petang" style="width: 100%; height: 160px; object-fit: cover;">
             <div style="padding: 0.8rem;">
               <h6 style="font-size: 0.85rem; color: var(--primary); margin-bottom: 0.2rem;">Panduan Dzikir Pagi & Petang</h6>
-              <a href="#" onclick="openImageModal('https://images.unsplash.com/photo-1609599006353-e629aaabfeae?auto=format&fit=crop&w=1200&q=80', 'Panduan Dzikir Pagi & Petang')" style="font-size: 0.75rem; color: var(--accent); font-weight: 600;">Lihat Poster Lengkap</a>
+              <a href="#" onclick="openImageModal('https://images.unsplash.com/photo-1609599006353-e629aaabfeae?auto=format&fit=crop&w=1200&q=80', 'Panduan Dzikir Pagi & Petang'); return false;" style="font-size: 0.75rem; color: var(--accent); font-weight: 600;">Lihat Poster Lengkap</a>
             </div>
           </div>
 
@@ -1653,6 +1616,35 @@
     setInterval(updateClock, 1000);
     updateClock();
 
+    function updateActivePrayer() {
+      const rows = document.querySelectorAll('#prayer-list .prayer-row');
+      if (!rows.length) return;
+      const now = new Date();
+      const currentMinutes = now.getHours() * 60 + now.getMinutes();
+
+      let activeIndex = -1;
+
+      rows.forEach((row, index) => {
+        const timeStr = row.getAttribute('data-time');
+        const [hours, minutes] = timeStr.split(':').map(Number);
+        const prayerMinutes = hours * 60 + minutes;
+
+        if (currentMinutes >= prayerMinutes) {
+          activeIndex = index;
+        }
+      });
+
+      rows.forEach(row => row.classList.remove('active'));
+
+      if (activeIndex !== -1) {
+        rows[activeIndex].classList.add('active');
+      } else {
+        rows[rows.length - 1].classList.add('active');
+      }
+    }
+    updateActivePrayer();
+    setInterval(updateActivePrayer, 30000);
+
     function openImageModal(src, caption) {
       const modal = document.getElementById('imgModal');
       document.getElementById('modalImg').src = src;
@@ -1665,41 +1657,65 @@
     }
 
     const dkmData = {
-      pembina: { title: "Pembina / Penasehat", fungsi: "Pengarah & Penasehat.", tugas: ["Memberikan nasihat", "Mengawasi jalannya DKM"] },
-      ketua: { title: "Ketua DKM", fungsi: "Pemimpin Utama.", tugas: ["Memimpin organisasi", "Mewakili DKM ke pihak luar"] },
-      sekretaris: { title: "Sekretaris", fungsi: "Pengelola Administrasi.", tugas: ["Surat-menyurat", "Notulensi rapat"] },
-      bendahara: { title: "Bendahara", fungsi: "Pengelola Keuangan.", tugas: ["Mencatat kas", "Membuat laporan keuangan"] }
+      pembina: { title: "Pembina / Penasehat", fungsi: "Pengarah & Penasehat Kebijakan Masjid.", tugas: ["Memberikan nasihat dan arahan strategis", "Mengawasi tata kelola kepengurusan DKM"] },
+      ketua: { title: "Ketua DKM", fungsi: "Pemimpin Utama & Penanggung Jawab Organisasi.", tugas: ["Memimpin pelaksanaan seluruh program DKM", "Mewakili DKM dalam urusan eksternal dan jamaah"] },
+      sekretaris: { title: "Sekretaris", fungsi: "Pengelola Administrasi & Persuratan.", tugas: ["Mengelola surat masuk & keluar", "Menyusun notulensi serta arsip rapat DKM"] },
+      bendahara: { title: "Bendahara", fungsi: "Pengelola Keuangan & Kas Masjid.", tugas: ["Pencatatan kas masukan dan pengeluaran", "Menyusun laporan keuangan transparan secara berkala"] },
+      wakil1: { title: "Wakil Ketua I / Bidang Idaroh", fungsi: "Koordinator Perencanaan, Usaha, dan Administrasi.", tugas: ["Mengoordinasikan seksi perencanaan, IT, & admin", "Memastikan tertib pengelolaan manajemen DKM"] },
+      rencana: { title: "Seksi Perencanaan & Usaha", fungsi: "Penyusun Program & Sumber Dana Organisasi.", tugas: ["Merencanakan program jangka pendek & panjang", "Mengembangkan sumber pendanaan/usaha kreatif masjid"] },
+      itmedsos: { title: "Seksi teknik Informasi & Medsos", fungsi: "Pengelola Media Publikasi & Teknologi Informasi.", tugas: ["Mengelola website dan media sosial DKM", "Mempublikasikan dokumentasi kegiatan masjid"] },
+      admin: { title: "Seksi Administrasi & Dokumentasi", fungsi: "Pengarsip Data & Dokumen Fisik/Digital.", tugas: ["Mendokumentasikan seluruh berkas & LPJ", "Membantu kerapian sistem kearsipan DKM"] },
+      wakil2: { title: "Wakil Ketua II / Bidang Imaroh", fungsi: "Koordinator Peribadatan, Dakwah, & Kepemudaan.", tugas: ["Mengoordinasikan seksi ibadah, PHBI, & remaja", "Memakmurkan masjid lewat kegiatan syiar Islam"] },
+      ibadah: { title: "Seksi Peribadatan", fungsi: "Penanggung Jawab Kelancaran Sholat & Kajian.", tugas: ["Mengatur jadwal imam, khatib, & muadzin", "Memastikan sarana peribadatan siap digunakan"] },
+      phbi: { title: "Seksi PHBI & Dakwah", fungsi: "Pelaksana Peringatan Hari Besar Islam & Pengajian.", tugas: ["Menyelenggarakan peringatan hari besar Islam", "Mengorganisir majelis ta'lim dan tabligh akbar"] },
+      remaja: { title: "Seksi Remaja & Pemuda Masjid", fungsi: "Penggerak Potensi Generasi Muda Masjid.", tugas: ["Merangkul pemuda dalam kegiatan kemasjidan", "Menyelenggarakan pembinaan karakter islami remaja"] },
+      wakil3: { title: "Wakil Ketua III / Bidang Ri'ayah", fungsi: "Koordinator Pemeliharaan Bangunan & Fasilitas.", tugas: ["Mengoordinasikan pemeliharaan aset & keamanan", "Memastikan kebersihan dan kenyamanan lingkungan masjid"] },
+      bangunan: { title: "Seksi Pemeliharaan Bangunan", fungsi: "Penanggung Jawab Fisik & Infrastruktur Masjid.", tugas: ["Merawat dan memperbaiki fisik sarana masjid", "Mengawasi renovasi serta pemeliharaan berkala"] },
+      alat: { title: "Seksi Peralatan & Perlengkapan", fungsi: "Pengelola Inventaris Peralatan Masjid.", tugas: ["Mendata dan merawat perlengkapan sound system/karpet/alat masjid", "Menyiapkan peralatan saat acara masjid"] },
+      keamanan: { title: "Seksi Keamanan", fungsi: "Penjaga Ketertiban & Keamanan Masjid.", tugas: ["Menjaga keamanan area masjid saat ibadah", "Mengatur ketertiban parkir dan lingkungan masjid"] }
     };
 
     function showInfo(key) {
-      const data = dkmData[key] || { title: "Detail Jabatan", fungsi: "Informasi kepengurusan.", tugas: ["Melaksanakan tugas sesuai bidangnya."] };
-      document.getElementById('modalTitle').innerText = data.title;
-      document.getElementById('modalFungsi').innerText = "Fungsi: " + data.fungsi;
+      const data = dkmData[key];
+      if (!data) return;
+      document.getElementById('modalTitle').textContent = data.title;
+      document.getElementById('modalFungsi').textContent = data.fungsi;
       
-      const list = document.getElementById('modalTugas');
-      list.innerHTML = '';
+      const ul = document.getElementById('modalTugas');
+      ul.innerHTML = '';
       data.tugas.forEach(t => {
         const li = document.createElement('li');
-        li.innerText = t;
-        list.appendChild(li);
+        li.textContent = t;
+        ul.appendChild(li);
       });
-
-      document.getElementById('dkmModal').style.display = 'flex';
+      
+      document.getElementById('dkmModal').classList.add('active');
     }
 
-    function closeModalDirect() { document.getElementById('dkmModal').style.display = 'none'; }
-    function closeModal(e) { if (e.target.classList.contains('modal-overlay')) closeModalDirect(); }
+    function closeModal(e) {
+      if (e.target.classList.contains('modal-overlay')) {
+        document.getElementById('dkmModal').classList.remove('active');
+      }
+    }
+
+    function closeModalDirect() {
+      document.getElementById('dkmModal').classList.remove('active');
+    }
 
     function submitComment(e) {
       e.preventDefault();
       const name = document.getElementById('commName').value;
+      const contact = document.getElementById('commContact').value;
       const msg = document.getElementById('commMessage').value;
-      const list = document.getElementById('commentList');
-      
-      const item = document.createElement('div');
-      item.className = 'comment-card';
-      item.innerHTML = `<strong>${name}</strong><p>${msg}</p>`;
-      list.prepend(item);
+
+      const card = document.createElement('div');
+      card.className = 'comment-card';
+      card.innerHTML = `
+        <div style="font-weight:700; color:var(--primary); font-size:0.9rem;">${name} <span style="font-weight:400; font-size:0.75rem; color:var(--text-muted);">${contact ? '(' + contact + ')' : ''}</span></div>
+        <p style="font-size:0.85rem; color:var(--text-dark); margin-top:0.2rem;">${msg}</p>
+      `;
+
+      document.getElementById('commentList').prepend(card);
       document.getElementById('commentForm').reset();
     }
   </script>
