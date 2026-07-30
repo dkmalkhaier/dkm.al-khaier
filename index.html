@@ -695,34 +695,74 @@
       </div>
 
       <!-- Grid: Jadwal Sholat & Maps Lokasi -->
-      <div class="grid-2">
-        <div class="card">
-          <h3 class="card-title"><i class="fa-solid fa-clock"></i> Jadwal Sholat Hari Ini</h3>
-          <div>
-            <div class="prayer-row"><span>Subuh</span><span>04:38 WIB</span></div>
-            <div class="prayer-row"><span>Terbit (Syuruq)</span><span>05:52 WIB</span></div>
-            <div class="prayer-row"><span>Dzuhur</span><span>11:58 WIB</span></div>
-            <div class="prayer-row active"><span>Ashar</span><span>15:19 WIB</span></div>
-            <div class="prayer-row"><span>Maghrib</span><span>17:56 WIB</span></div>
-            <div class="prayer-row"><span>Isya</span><span>19:08 WIB</span></div>
-          </div>
-          <p style="font-size:0.78rem; color:var(--text-muted); margin-top:1rem; text-align:center;">
-            <i class="fa-solid fa-location-dot"></i> Wilayah Kabupaten Sukabumi & Sekitarnya
-          </p>
-        </div>
+   <!-- Grid: Jadwal Sholat & Maps Lokasi -->
+<div class="grid-2">
+  <div class="card">
+    <h3 class="card-title"><i class="fa-solid fa-clock"></i> Jadwal Sholat Hari Ini</h3>
+    <!-- Tambahkan ID 'prayer-list' untuk JavaScript -->
+    <div id="prayer-list">
+      <div class="prayer-row" data-time="04:38"><span>Subuh</span><span>04:38 WIB</span></div>
+      <div class="prayer-row" data-time="05:52"><span>Terbit (Syuruq)</span><span>05:52 WIB</span></div>
+      <div class="prayer-row" data-time="11:58"><span>Dzuhur</span><span>11:58 WIB</span></div>
+      <div class="prayer-row" data-time="15:19"><span>Ashar</span><span>15:19 WIB</span></div>
+      <div class="prayer-row" data-time="17:56"><span>Maghrib</span><span>17:56 WIB</span></div>
+      <div class="prayer-row" data-time="19:08"><span>Isya</span><span>19:08 WIB</span></div>
+    </div>
+    <p style="font-size:0.78rem; color:var(--text-muted); margin-top:1rem; text-align:center;">
+      <i class="fa-solid fa-location-dot"></i> Wilayah Kabupaten Sukabumi & Sekitarnya
+    </p>
+  </div>
 
-        <div class="card">
-          <h3 class="card-title"><i class="fa-solid fa-map-location-dot"></i> Lokasi & Alamat</h3>
-          <p style="font-size:0.85rem; margin-bottom:0.8rem;">
-            <strong>Alamat Lengkap:</strong><br>
-            Jl. Parungseah RT.04/RW.06 Kp. Parungseah Wetan, Desa Parungseah, Kecamatan Sukabumi, Kabupaten Sukabumi, Jawa Barat 43151.
-          </p>
-          <a href="https://www.google.com/maps/place/Masjid+Jami+Al-Khair/@-6.9002055,106.9273058,18.23z" target="_blank" class="btn btn-outline" style="width: 100%; margin-bottom:0.8rem;">
-            <i class="fa-solid fa-arrow-up-right-from-square"></i> Buka Petunjuk Arah di Google Maps
-          </a>
-        </div>
-      </div>
-    </section>
+  <div class="card">
+    <h3 class="card-title"><i class="fa-solid fa-map-location-dot"></i> Lokasi & Alamat</h3>
+    <p style="font-size:0.85rem; margin-bottom:0.8rem;">
+      <strong>Alamat Lengkap:</strong><br>
+      Jl. Parungseah RT.04/RW.06 Kp. Parungseah Wetan, Desa Parungseah, Kecamatan Sukabumi, Kabupaten Sukabumi, Jawa Barat 43151.
+    </p>
+    <a href="https://www.google.com/maps/place/Masjid+Jami+Al-Khair/@-6.9002055,106.9273058,18.23z" target="_blank" class="btn btn-outline" style="width: 100%; margin-bottom:0.8rem;">
+      <i class="fa-solid fa-arrow-up-right-from-square"></i> Buka Petunjuk Arah di Google Maps
+    </a>
+  </div>
+</div>
+
+<!-- Tambahkan JavaScript ini di bawah (sebelum tag </body>) -->
+<script>
+  function updateActivePrayer() {
+    const rows = document.querySelectorAll('#prayer-list .prayer-row');
+    const now = new Date();
+    const currentMinutes = now.getHours() * 60 + now.getMinutes();
+
+    let activeIndex = -1;
+
+    // Loop untuk mengecek waktu sholat mana yang sedang berlangsung
+    rows.forEach((row, index) => {
+      const timeStr = row.getAttribute('data-time');
+      const [hours, minutes] = timeStr.split(':').map(Number);
+      const prayerMinutes = hours * 60 + minutes;
+
+      if (currentMinutes >= prayerMinutes) {
+        activeIndex = index;
+      }
+    });
+
+    // Lepas kelas 'active' dari semua baris
+    rows.forEach(row => row.classList.remove('active'));
+
+    // Jika waktu saat ini sudah masuk jadwal sholat tertentu, beri kelas 'active'
+    if (activeIndex !== -1) {
+      rows[activeIndex].classList.add('active');
+    } else {
+      // Jika sebelum Subuh (misal jam 02:00), aktifkan Isya sebagai waktu terakhir yang lewat
+      rows[rows.length - 1].classList.add('active');
+    }
+  }
+
+  // Jalankan saat halaman pertama kali di-load
+  updateActivePrayer();
+
+  // Cek/perbarui otomatis setiap 30 detik
+  setInterval(updateActivePrayer, 30000);
+</script>
 
     <!-- ================= TAB 2: PROFIL & SEJARAH ================= -->
     <section id="tab-profil" class="tab-content">
