@@ -276,19 +276,6 @@
     }
     .prayer-row.active { background: var(--primary); color: white; border-radius: 6px; font-weight: 700; }
 
-    /* Form Inputs & Comments */
-    .input-field, .textarea-field {
-      width: 100%; padding: 0.7rem 0.9rem; border-radius: 8px;
-      border: 1px solid var(--border); background: white;
-      outline: none; font-size: 0.88rem; margin-bottom: 0.8rem;
-    }
-    .input-field:focus, .textarea-field:focus { border-color: var(--primary); }
-
-    .comment-card {
-      background: white; padding: 0.9rem 1.1rem; border-radius: 8px;
-      border-left: 4px solid var(--secondary); margin-bottom: 0.8rem;
-    }
-
     /* ==========================================
        CSS STRUKTUR ORGANISASI
        ========================================== */
@@ -1550,15 +1537,21 @@
         </p>
       </div>
 
-      <form id="commentForm" onsubmit="submitComment(event)">
-        <div class="grid-2">
-          <input type="text" id="commName" class="input-field" placeholder="Nama..." required>
-          <input type="text" id="commContact" class="input-field" placeholder="No. WA (Opsional)...">
-        </div>
-        <textarea id="commMessage" class="textarea-field" rows="3" placeholder="Pesan / Masukan..." required></textarea>
-        <button type="submit" class="btn btn-primary"><i class="fa-solid fa-paper-plane"></i> Kirim</button>
-      </form>
-      <div id="commentList" style="margin-top: 1rem;"></div>
+      <!-- FORM KOMENTAR VIA GOOGLE APPS SCRIPT EMBED -->
+      <div style="position: relative; width: 100%; min-height: 600px; border-radius: 12px; overflow: hidden; border: 1px solid var(--border); background: #ffffff;">
+        <iframe 
+          src="https://script.google.com/macros/s/AKfycbwBF_D1mJ_JdjFMv7Frf0sOJh2dFF9PKKXxR9G4g7X0kMJTucTj3RMc1SzdXUbvtJF9dg/exec" 
+          style="position: absolute; top: 0; left: 0; width: 100%; height: 100%; border: 0;"
+          allowfullscreen
+          loading="lazy">
+        </iframe>
+      </div>
+
+      <div style="margin-top: 0.8rem; text-align: right;">
+        <a href="https://script.google.com/macros/s/AKfycbwBF_D1mJ_JdjFMv7Frf0sOJh2dFF9PKKXxR9G4g7X0kMJTucTj3RMc1SzdXUbvtJF9dg/exec" target="_blank" style="font-size: 0.8rem; color: var(--primary); text-decoration: underline;">
+          <i class="fa-solid fa-arrow-up-right-from-square"></i> Buka Form Komentar di Jendela Baru jika tidak muncul
+        </a>
+      </div>
     </section>
 
   </main>
@@ -1709,23 +1702,6 @@
 
     function closeModalDirect() {
       document.getElementById('dkmModal').classList.remove('active');
-    }
-
-    function submitComment(e) {
-      e.preventDefault();
-      const name = document.getElementById('commName').value;
-      const contact = document.getElementById('commContact').value;
-      const msg = document.getElementById('commMessage').value;
-
-      const card = document.createElement('div');
-      card.className = 'comment-card';
-      card.innerHTML = `
-        <div style="font-weight:700; color:var(--primary); font-size:0.9rem;">${name} <span style="font-weight:400; font-size:0.75rem; color:var(--text-muted);">${contact ? '(' + contact + ')' : ''}</span></div>
-        <p style="font-size:0.85rem; color:var(--text-dark); margin-top:0.2rem;">${msg}</p>
-      `;
-
-      document.getElementById('commentList').prepend(card);
-      document.getElementById('commentForm').reset();
     }
   </script>
 </body>
