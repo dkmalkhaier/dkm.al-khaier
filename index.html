@@ -793,12 +793,12 @@
         <div class="card">
           <h3 class="card-title"><i class="fa-solid fa-clock"></i> Jadwal Sholat Hari Ini</h3>
           <div id="prayer-list">
-            <div class="prayer-row" data-name="Subuh" data-time="04:38"><span>Subuh</span><span>04:38 WIB</span></div>
-            <div class="prayer-row" data-name="Terbit (Syuruq)" data-time="05:52"><span>Terbit (Syuruq)</span><span>05:52 WIB</span></div>
-            <div class="prayer-row" data-name="Dzuhur" data-time="11:58"><span>Dzuhur</span><span>11:58 WIB</span></div>
-            <div class="prayer-row" data-name="Ashar" data-time="15:19"><span>Ashar</span><span>15:19 WIB</span></div>
-            <div class="prayer-row" data-name="Maghrib" data-time="17:56"><span>Maghrib</span><span>17:56 WIB</span></div>
-            <div class="prayer-row" data-name="Isya" data-time="19:08"><span>Isya</span><span>19:08 WIB</span></div>
+            <div class="prayer-row" data-name="Subuh" data-time="04:43"><span>Subuh</span><span>04:43 WIB</span></div>
+            <div class="prayer-row" data-name="Terbit (Syuruq)" data-time="06:04"><span>Terbit (Syuruq)</span><span>06:04 WIB</span></div>
+            <div class="prayer-row" data-name="Dzuhur" data-time="11:59"><span>Dzuhur</span><span>11:59 WIB</span></div>
+            <div class="prayer-row" data-name="Ashar" data-time="15:21"><span>Ashar</span><span>15:21 WIB</span></div>
+            <div class="prayer-row" data-name="Maghrib" data-time="17:53"><span>Maghrib</span><span>17:53 WIB</span></div>
+            <div class="prayer-row" data-name="Isya" data-time="19:06"><span>Isya</span><span>19:06 WIB</span></div>
           </div>
           <p style="font-size:0.78rem; color:var(--text-muted); margin-top:1rem; text-align:center;">
             <i class="fa-solid fa-location-dot"></i> Wilayah Kabupaten Sukabumi & Sekitarnya
@@ -1787,16 +1787,16 @@
         for (let p of fardhuPrayers) {
           const diff = p.prayerMinutes - currentMinutes;
 
-          // 15 menit sebelum sholat
-          if (diff > 0 && diff <= 15) {
-            statusText = `<i class="fa-solid fa-bell"></i> Menuju Waktu ${p.name}`;
-            break;
-          } 
-          // Waktu sholat s/d 30 menit setelahnya
-          else if (currentMinutes >= p.prayerMinutes && currentMinutes <= (p.prayerMinutes + 30)) {
-            statusText = `<i class="fa-solid fa-volume-high"></i> Memasuki Waktu ${p.name}`;
-            break;
-          }
+          // Aturan: 30 menit sebelum s/d saat sholat tiba
+if (diff > 0 && diff <= 30) {
+  statusText = `<i class="fa-solid fa-bell"></i> Menuju Waktu ${p.name} (${p.time})`;
+  break;
+} 
+// Aturan: Tepat waktu sholat s/d 30 menit setelahnya
+else if (currentMinutes >= p.prayerMinutes && currentMinutes <= (p.prayerMinutes + 30)) {
+  statusText = `<i class="fa-solid fa-volume-high"></i> Memasuki Waktu ${p.name} (${p.time})`;
+  break;
+}
         }
 
         if (statusText !== "") {
