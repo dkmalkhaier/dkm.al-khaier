@@ -1809,7 +1809,8 @@
       }
     }
     updateActivePrayer();
-    setInterval(updateActivePrayer, 10000);
+    setInterval(updateActivePrayer, 60000);
+    
 
     function openImageModal(src, caption) {
       const modal = document.getElementById('imgModal');
@@ -1844,6 +1845,7 @@
     function showInfo(key) {
       const data = dkmData[key];
       if (!data) return;
+
       document.getElementById('modalTitle').textContent = data.title;
       document.getElementById('modalFungsi').textContent = data.fungsi;
       
@@ -1858,14 +1860,29 @@
       document.getElementById('dkmModal').classList.add('active');
     }
 
-    function closeModal(event) {
-      if (event.target.id === 'dkmModal') {
+    function closeModal(e) {
+      if (e.target.id === 'dkmModal') {
         document.getElementById('dkmModal').classList.remove('active');
       }
     }
 
     function closeModalDirect() {
       document.getElementById('dkmModal').classList.remove('active');
+    }
+
+    /* Modal Gambar */
+    function openImageModal(src, caption) {
+      const modal = document.getElementById('imgModal');
+      const img = document.getElementById('modalImg');
+      const cap = document.getElementById('modalCaption');
+      
+      img.src = src;
+      cap.textContent = caption || '';
+      modal.classList.add('active');
+    }
+
+    function closeImageModal() {
+      document.getElementById('imgModal').classList.remove('active');
     }
   </script>
 </body>
