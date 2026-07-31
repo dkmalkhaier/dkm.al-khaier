@@ -1796,15 +1796,33 @@ const formatTime = (minutes) => {
 
 const jamSholat = formatTime(p.prayerMinutes);
 
-// 30 menit sebelum sholat
-if (diff > 0 && diff <= 30) {
-  statusText = `<i class="fa-solid fa-bell"></i> Menuju Waktu ${p.name} (${jamSholat})`;
-  break;
-} 
-// Pas jam sholat s/d 30 menit setelahnya
-else if (currentMinutes >= p.prayerMinutes && currentMinutes <= (p.prayerMinutes + 30)) {
-  statusText = `<i class="fa-solid fa-volume-high"></i> Memasuki Waktu ${p.name} (${jamSholat})`;
-  break;
+// Menggunakan perulangan index (i) agar bisa mengakses sholat berikutnya
+for (let i = 0; i < prayers.length; i++) {
+  const p = prayers[i];
+  const jamSholat = formatTime(p.prayerMinutes);
+
+  // Ambil sholat berikutnya (jika Isya, berikutnya kembali ke Subuh)
+  const nextPrayer = prayers[(i + 1) % prayers.length];
+  
+  // Hitung batas akhir "Memasuki Waktu" (30 menit sebelum sholat berikutnya)
+  let nextPrayerMinutes = nextPrayer.prayerMinutes;
+  if (i === prayers.length - 1) {
+    nextPrayerMinutes += 1440; // Tambah 24 jam untuk Isya -> Subuh
+  }
+  const endLimitMinutes = nextPrayerMinutes - 30;
+
+  // --- INI BAGIAN KODE YANG MENGGANTIKAN IF-ELSE LAMA KAMU ---
+  
+  // 1. Menuju waktu sholat (30 menit sebelum sholat p)
+  if (diff > 0 && diff <= 30) {
+    statusText = `<i class="fa-solid fa-bell"></i> Menuju Waktu ${p.name} (${jamSholat})`;
+    break;
+  } 
+  // 2. Memasuki waktu sholat (dari jam sholat s/d 30 menit sebelum sholat berikutnya)
+  else if (currentMinutes >= p.prayerMinutes && currentMinutes < endLimitMinutes) {
+    statusText = `<i class="fa-solid fa-volume-high"></i> Memasuki Waktu ${p.name} (${jamSholat})`;
+    break;
+  }
 }
         }
 
