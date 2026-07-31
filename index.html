@@ -1787,14 +1787,23 @@
         for (let p of fardhuPrayers) {
           const diff = p.prayerMinutes - currentMinutes;
 
-          // Aturan: 30 menit sebelum s/d saat sholat tiba
+          // Fungsi bantuan untuk format 2 digit (misal: 4 -> "04")
+const formatTime = (minutes) => {
+  const h = String(Math.floor(minutes / 60)).padStart(2, '0');
+  const m = String(minutes % 60).padStart(2, '0');
+  return `${h}:${m}`;
+};
+
+const jamSholat = formatTime(p.prayerMinutes);
+
+// 30 menit sebelum sholat
 if (diff > 0 && diff <= 30) {
-  statusText = `<i class="fa-solid fa-bell"></i> Menuju Waktu ${p.name} (${p.time})`;
+  statusText = `<i class="fa-solid fa-bell"></i> Menuju Waktu ${p.name} (${jamSholat})`;
   break;
 } 
-// Aturan: Tepat waktu sholat s/d 30 menit setelahnya
+// Pas jam sholat s/d 30 menit setelahnya
 else if (currentMinutes >= p.prayerMinutes && currentMinutes <= (p.prayerMinutes + 30)) {
-  statusText = `<i class="fa-solid fa-volume-high"></i> Memasuki Waktu ${p.name} (${p.time})`;
+  statusText = `<i class="fa-solid fa-volume-high"></i> Memasuki Waktu ${p.name} (${jamSholat})`;
   break;
 }
         }
