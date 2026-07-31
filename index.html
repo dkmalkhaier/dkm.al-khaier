@@ -1854,12 +1854,12 @@
         li.textContent = t;
         ul.appendChild(li);
       });
-      
+
       document.getElementById('dkmModal').classList.add('active');
     }
 
-    function closeModal(e) {
-      if (e.target.classList.contains('modal-overlay')) {
+    function closeModal(event) {
+      if (event.target.id === 'dkmModal') {
         document.getElementById('dkmModal').classList.remove('active');
       }
     }
