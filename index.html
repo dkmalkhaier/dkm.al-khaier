@@ -45,6 +45,7 @@
       background-size: cover;
       color: var(--text-dark);
       line-height: 1.6;
+      padding-bottom: 70px; /* Space for mobile bottom nav */
     }
 
     /* Running Announcement Ticker */
@@ -198,6 +199,19 @@
       gap: 0.6rem;
       border-bottom: 2px solid rgba(198, 139, 89, 0.2);
       padding-bottom: 0.5rem;
+    }
+
+    /* Media Badge Date Tag */
+    .date-badge {
+      font-size: 0.72rem;
+      background: rgba(11, 79, 38, 0.1);
+      color: var(--primary);
+      padding: 0.2rem 0.5rem;
+      border-radius: 4px;
+      font-weight: 600;
+      display: inline-flex;
+      align-items: center;
+      gap: 0.3rem;
     }
 
     /* Grid Helpers */
@@ -454,9 +468,7 @@
       padding: 15px;
     }
 
-    .modal-overlay.active {
-      display: flex;
-    }
+    .modal-overlay.active { display: flex; }
 
     .modal-content {
       background-color: #ffffff;
@@ -561,21 +573,6 @@
 
     .img-modal-close:hover { color: var(--accent-gold); }
 
-    /* Interactive PDF Subject link style */
-    .pdf-subject-link {
-      cursor: pointer;
-      color: var(--primary);
-      text-decoration: none;
-      transition: var(--transition);
-      display: inline-flex;
-      align-items: center;
-      gap: 0.4rem;
-    }
-    .pdf-subject-link:hover {
-      color: var(--secondary);
-      text-decoration: underline;
-    }
-
     /* Footer & Bottom Navigation */
     .footer-nav {
       background: rgba(11, 79, 38, 0.08);
@@ -620,6 +617,36 @@
       color: white;
       border-color: var(--primary);
     }
+
+    /* Floating Bottom Navigation Bar khusus Mobile HP */
+    .mobile-bottom-nav {
+      position: fixed;
+      bottom: 0;
+      left: 0;
+      right: 0;
+      background: rgba(255, 255, 255, 0.98);
+      backdrop-filter: blur(10px);
+      border-top: 2px solid var(--accent-gold);
+      display: flex;
+      justify-content: space-around;
+      padding: 0.4rem 0.2rem;
+      z-index: 999;
+      box-shadow: 0 -4px 15px rgba(0,0,0,0.1);
+    }
+    .mobile-nav-btn {
+      display: flex;
+      flex-direction: column;
+      align-items: center;
+      font-size: 0.68rem;
+      color: var(--text-muted);
+      border: none;
+      background: none;
+      cursor: pointer;
+      font-weight: 500;
+      width: 100%;
+    }
+    .mobile-nav-btn i { font-size: 1.1rem; margin-bottom: 2px; }
+    .mobile-nav-btn.active, .mobile-nav-btn:hover { color: var(--primary); font-weight: 700; }
 
     footer {
       background: #062b15;
@@ -672,7 +699,7 @@
     </div>
   </header>
 
-  <!-- 3. TAB NAVIGATION MENU -->
+  <!-- 3. TAB NAVIGATION MENU (Posisi Dakwah dipindah setelah Beranda) -->
   <nav class="nav-tabs-wrapper">
     <ul class="nav-tabs">
       <li class="nav-item active" onclick="switchTab('beranda')"><i class="fa-solid fa-house"></i> Beranda</li>
@@ -706,6 +733,11 @@
       <!-- Quick Access Cards -->
       <h3 class="card-title"><i class="fa-solid fa-compass"></i> Akses Cepat Halaman</h3>
       <div class="grid-4" style="margin-bottom: 1.8rem;">
+        <div class="quick-link-card" onclick="switchTab('artikel')">
+          <div class="quick-link-icon"><i class="fa-solid fa-book-open-reader"></i></div>
+          <h4 style="color:var(--primary);">Dakwah & Artikel</h4>
+          <p style="font-size:0.78rem; color:var(--text-muted); margin-top:0.3rem;">Kajian, tulisan & video tausiyah.</p>
+        </div>
         <div class="quick-link-card" onclick="switchTab('profil')">
           <div class="quick-link-icon"><i class="fa-solid fa-book-bookmark"></i></div>
           <h4 style="color:var(--primary);">Profil & Sejarah</h4>
@@ -715,11 +747,6 @@
           <div class="quick-link-icon"><i class="fa-solid fa-sitemap"></i></div>
           <h4 style="color:var(--primary);">Struktur DKM</h4>
           <p style="font-size:0.78rem; color:var(--text-muted); margin-top:0.3rem;">Bagan kepengurusan & Visi Misi.</p>
-        </div>
-        <div class="quick-link-card" onclick="switchTab('kegiatan')">
-          <div class="quick-link-icon"><i class="fa-solid fa-kaaba"></i></div>
-          <h4 style="color:var(--primary);">Kegiatan & PHBI</h4>
-          <p style="font-size:0.78rem; color:var(--text-muted); margin-top:0.3rem;">Yasinan, Thalabul 'Ilmi & PHBI.</p>
         </div>
         <div class="quick-link-card" onclick="switchTab('kas')">
           <div class="quick-link-icon"><i class="fa-solid fa-file-invoice-dollar"></i></div>
@@ -758,10 +785,8 @@
       </div>
     </section>
 
-    <!-- ================= TAB 2: DAKWAH (ARTIKEL) ================= -->
+    <!-- ================= TAB 2: DAKWAH (Diurutkan Otomatis per Tanggal Terbaru) ================= -->
     <section id="tab-artikel" class="tab-content">
-      
-      <!-- DESKRIPSI UTAMA HALAMAN DAKWAH -->
       <div class="card" style="background: linear-gradient(135deg, rgba(11,79,38,0.04), rgba(212,175,55,0.1)); border: 1px solid var(--border);">
         <h3 class="card-title"><i class="fa-solid fa-newspaper"></i> Dakwah & Wawasan Keislaman</h3>
         <p style="font-size: 0.93rem; color: var(--text-dark); line-height: 1.7; text-align: justify; margin: 0;">
@@ -771,102 +796,73 @@
 
       <div class="card">
         
-        <!-- ================= 1. KUMPULAN TULISAN & LINK ARTIKEL ISLAMI ================= -->
+        <!-- Artikel / Tulisan -->
         <div style="display: flex; justify-content: space-between; align-items: center; flex-wrap: wrap; gap: 1rem; margin-bottom: 1.2rem; border-bottom: 2px solid var(--border); padding-bottom: 0.8rem;">
           <h4 style="color: var(--primary); font-size: 1.1rem; margin: 0;">
             <i class="fa-solid fa-book-open-reader" style="color: var(--accent);"></i> Artikel & Tulisan Edukatif
           </h4>
-          <span style="font-size: 0.8rem; color: var(--text-muted); background: #f0f4f1; padding: 0.3rem 0.8rem; border-radius: 20px;">
-            <i class="fa-solid fa-feather-pointed"></i> Artikel Dakwah
-          </span>
         </div>
 
-        <div style="display: flex; flex-direction: column; gap: 1rem; margin-bottom: 2.5rem;">
-          
-          <div style="background: white; border: 1px solid var(--border); border-radius: 10px; padding: 1.2rem; box-shadow: 0 2px 8px rgba(0,0,0,0.02); display: flex; justify-content: space-between; align-items: center; flex-wrap: wrap; gap: 1rem;">
+        <div class="sortable-container" style="display: flex; flex-direction: column; gap: 1rem; margin-bottom: 2.5rem;">
+          <div data-date="2026-07-20" style="background: white; border: 1px solid var(--border); border-radius: 10px; padding: 1.2rem; box-shadow: 0 2px 8px rgba(0,0,0,0.02); display: flex; justify-content: space-between; align-items: center; flex-wrap: wrap; gap: 1rem;">
             <div style="flex: 1; min-width: 250px;">
-              <span style="font-size: 0.75rem; background: rgba(11,79,38,0.1); color: var(--primary); padding: 0.2rem 0.5rem; border-radius: 4px; font-weight: 600;">Artikel-DKM</span>
+              <span class="date-badge"><i class="fa-regular fa-calendar"></i> 20 Juli 2026</span>
               <h5 style="color: var(--primary); font-size: 1rem; margin: 0.4rem 0 0.3rem;">KEISTIMEWAAN SHOLAT BERJAMAAH</h5>
               <p style="font-size: 0.83rem; color: var(--text-muted); margin: 0; line-height: 1.5;">
                 Sholat berjamaah bukan sekadar mengerjakan sholat secara bersama-sama, tetapi merupakan ibadah yang memiliki keutamaan sangat besar di sisi Allah SWT. Di dalamnya terdapat pahala berlipat hingga 27 derajat, persatuan umat, serta pendidikan tentang kedisiplinan dan ukhuwah Islamiyah.
               </p>
             </div>
-            
             <a href="https://artikeldkmalkhaier.blogspot.com/2026/07/artikel-1-keistimewaan-sholat-berjamaah.html" rel="noopener noreferrer" class="btn btn-primary" style="font-size: 0.8rem; padding: 0.5rem 1rem; white-space: nowrap; text-decoration: none;">
               <i class="fa-solid fa-arrow-right-long"></i> Baca Selengkapnya
             </a>
           </div>
-
         </div>
 
-        <!-- ================= 2. KUMPULAN LINK VIDEO DAKWAH & CERAMAH ================= -->
+        <!-- Video Dakwah -->
         <div style="display: flex; justify-content: space-between; align-items: center; flex-wrap: wrap; gap: 1rem; margin-bottom: 1.2rem; border-bottom: 2px solid var(--border); padding-bottom: 0.8rem;">
           <h4 style="color: var(--primary); font-size: 1.1rem; margin: 0;">
             <i class="fa-solid fa-circle-play" style="color: #e53e3e;"></i> Video Tausiyah, Kajian & Sejarah
           </h4>
-          <span style="font-size: 0.8rem; color: var(--text-muted); background: #f0f4f1; padding: 0.3rem 0.8rem; border-radius: 20px;">
-            <i class="fa-brands fa-youtube"></i> Video
-          </span>
         </div>
 
-        <div style="display: grid; grid-template-columns: repeat(auto-fit, minmax(280px, 1fr)); gap: 1.2rem; margin-bottom: 2.5rem;">
-          
-          <div style="background: white; border: 1px solid var(--border); border-radius: 10px; padding: 1rem; box-shadow: 0 2px 8px rgba(0,0,0,0.02);">
+        <div class="sortable-container grid-2" style="margin-bottom: 2.5rem;">
+          <div data-date="2026-07-25" style="background: white; border: 1px solid var(--border); border-radius: 10px; padding: 1rem; box-shadow: 0 2px 8px rgba(0,0,0,0.02);">
             <div style="position: relative; padding-bottom: 56.25%; height: 0; overflow: hidden; border-radius: 6px; margin-bottom: 0.8rem;">
-              <iframe 
-                style="position: absolute; top: 0; left: 0; width: 100%; height: 100%; border: 0;"
-                src="https://www.youtube.com/embed/K7b_cELfcF0" 
-                title="Meneladani Akhlak Mulia Sahabat Rasulullah SAW" 
-                allowfullscreen>
-              </iframe>
+              <iframe style="position: absolute; top: 0; left: 0; width: 100%; height: 100%; border: 0;" src="https://www.youtube.com/embed/sX-kePnlgy4" title="Perbaiki Shalatmu Maka Allah Akan Permudah Urusanmu" allowfullscreen></iframe>
             </div>
-            <h5 style="font-size: 0.93rem; color: var(--primary); margin-bottom: 0.3rem;">Meneladani Akhlak Mulia Sahabat Rasulullah SAW</h5>
-            <p style="font-size: 0.8rem; color: var(--text-muted); margin-bottom: 0.8rem;">Tayangan tausiyah ceramah mengenai akhlak dan pembentukan karakter islami dalam kehidupan sehari-hari.</p>
-            
-            <a href="https://" style="font-size: 0.8rem; color: #cc181e; font-weight: 600; text-decoration: none; display: inline-flex; align-items: center; gap: 0.4rem;">
-              <i class="fa-brands fa-youtube"></i> Tonton Selengkapnya <i class="fa-solid fa-arrow-up-right-from-square" style="font-size: 0.75rem;"></i>
-            </a>
-          </div>
-
-          <div style="background: white; border: 1px solid var(--border); border-radius: 10px; padding: 1rem; box-shadow: 0 2px 8px rgba(0,0,0,0.02);">
-            <div style="position: relative; padding-bottom: 56.25%; height: 0; overflow: hidden; border-radius: 6px; margin-bottom: 0.8rem;">
-              <iframe 
-                style="position: absolute; top: 0; left: 0; width: 100%; height: 100%; border: 0;"
-                src="https://www.youtube.com/embed/sX-kePnlgy4" 
-                title="Perbaiki Shalatmu Maka Allah Akan Permudah Urusanmu" 
-                allowfullscreen>
-              </iframe>
-            </div>
-            <h5 style="font-size: 0.93rem; color: var(--primary); margin-bottom: 0.3rem;">Perbaiki Shalatmu Maka Allah Akan Permudah Urusanmu</h5>
+            <span class="date-badge"><i class="fa-regular fa-calendar"></i> 25 Juli 2026</span>
+            <h5 style="font-size: 0.93rem; color: var(--primary); margin: 0.3rem 0;">Perbaiki Shalatmu Maka Allah Akan Permudah Urusanmu</h5>
             <p style="font-size: 0.8rem; color: var(--text-muted); margin-bottom: 0.8rem;">Ustadz Adi Hidayat-temukan amalan yang dapat membawa Anda lebih dekat kepada Allah SWT.</p>
-            
-            <a href="https://" style="font-size: 0.8rem; color: #cc181e; font-weight: 600; text-decoration: none; display: inline-flex; align-items: center; gap: 0.4rem;">
-              <i class="fa-brands fa-youtube"></i> Tonton Selengkapnya <i class="fa-solid fa-arrow-up-right-from-square" style="font-size: 0.75rem;"></i>
-            </a>
           </div>
 
+          <div data-date="2026-06-15" style="background: white; border: 1px solid var(--border); border-radius: 10px; padding: 1rem; box-shadow: 0 2px 8px rgba(0,0,0,0.02);">
+            <div style="position: relative; padding-bottom: 56.25%; height: 0; overflow: hidden; border-radius: 6px; margin-bottom: 0.8rem;">
+              <iframe style="position: absolute; top: 0; left: 0; width: 100%; height: 100%; border: 0;" src="https://www.youtube.com/embed/K7b_cELfcF0" title="Meneladani Akhlak Mulia Sahabat Rasulullah SAW" allowfullscreen></iframe>
+            </div>
+            <span class="date-badge"><i class="fa-regular fa-calendar"></i> 15 Juni 2026</span>
+            <h5 style="font-size: 0.93rem; color: var(--primary); margin: 0.3rem 0;">Meneladani Akhlak Mulia Sahabat Rasulullah SAW</h5>
+            <p style="font-size: 0.8rem; color: var(--text-muted); margin-bottom: 0.8rem;">Tayangan tausiyah ceramah mengenai akhlak dan pembentukan karakter islami dalam kehidupan sehari-hari.</p>
+          </div>
         </div>
 
-        <!-- ================= 3. FOTO INFOGRAFIK & POSTER DAKWAH ================= -->
+        <!-- Poster Dakwah -->
         <div style="display: flex; justify-content: space-between; align-items: center; flex-wrap: wrap; gap: 1rem; margin-bottom: 1.2rem; border-bottom: 2px solid var(--border); padding-bottom: 0.8rem;">
           <h4 style="color: var(--primary); font-size: 1.1rem; margin: 0;">
             <i class="fa-solid fa-images" style="color: var(--primary);"></i> Poster & Infografis Edukasi Islam
           </h4>
         </div>
 
-        <div style="display: grid; grid-template-columns: repeat(auto-fit, minmax(200px, 1fr)); gap: 1rem;">
-          
-          <div style="background: white; border: 1px solid var(--border); border-radius: 8px; overflow: hidden; text-align: center; box-shadow: 0 2px 6px rgba(0,0,0,0.02);">
+        <div class="sortable-container grid-4">
+          <div data-date="2026-07-28" style="background: white; border: 1px solid var(--border); border-radius: 8px; overflow: hidden; text-align: center; box-shadow: 0 2px 6px rgba(0,0,0,0.02);">
             <img src="https://images.unsplash.com/photo-1585036156171-384164a8c675?auto=format&fit=crop&w=500&q=80" alt="Panduan & Adab Sholat Berjamaah" style="width: 100%; height: 160px; object-fit: cover;">
             <div style="padding: 0.8rem;">
+              <span class="date-badge" style="margin-bottom:0.3rem;"><i class="fa-regular fa-calendar"></i> 28 Juli 2026</span>
               <h6 style="font-size: 0.85rem; color: var(--primary); margin-bottom: 0.3rem;">Panduan & Adab Sholat Berjamaah</h6>
-              
               <a href="#" onclick="openImageModal('https://images.unsplash.com/photo-1585036156171-384164a8c675?auto=format&fit=crop&w=1200&q=80', 'Panduan & Adab Sholat Berjamaah'); return false;" style="font-size: 0.75rem; color: var(--accent); font-weight: 600; text-decoration: none;">
-                <i class="fa-solid fa-expand"></i> Lihat Poster Lengkap
+                <i class="fa-solid fa-expand"></i> Lihat Poster
               </a>
             </div>
           </div>
-
         </div>
 
       </div>
@@ -904,32 +900,32 @@
           Pembangunan masjid dimulai pada Januari 2018, dengan dukungan dari Asosiasi Internasional untuk Pendidikan dan Dakwah (الرابطة العالمية للتعليم والدعوة) serta donatur dari luar negeri, Turki Yahya Asyqan, yang turut berkontribusi dalam pendanaan pembangunan. Masjid ini diberi nama “Al Khair”, yang berarti kebaikan, sebagai simbol harapan agar tempat ini menjadi sumber keberkahan dan kebaikan bagi umat.
         </p>
 
-        <!-- FOTO & INFOGRAFIS -->
-        <div style="display: flex; gap: 1rem; justify-content: center; margin-bottom: 1.5rem; flex-wrap: wrap;">
-          <div style="width: 140px; text-align: center; cursor: pointer;" onclick="openImageModal('https://lh3.googleusercontent.com/d/1Ruly_sDrIM-KG3PJZSDnRtXSMOhG5fMF', 'Infografis & Dokumentasi Sejarah')">
+        <!-- FOTO & INFOGRAFIS (Diurutkan per tanggal terbaru) -->
+        <div class="sortable-container" style="display: flex; gap: 1rem; justify-content: center; margin-bottom: 1.5rem; flex-wrap: wrap;">
+          <div data-date="2021-07-30" style="width: 140px; text-align: center; cursor: pointer;" onclick="openImageModal('https://lh3.googleusercontent.com/d/1Ruly_sDrIM-KG3PJZSDnRtXSMOhG5fMF', 'Infografis & Dokumentasi Sejarah')">
             <div style="width: 100%; aspect-ratio: 9 / 16; overflow: hidden; border-radius: 8px; border: 1px solid var(--border); background: #f5f5f5; box-shadow: 0 2px 8px rgba(0,0,0,0.08);">
               <img src="https://lh3.googleusercontent.com/d/1Ruly_sDrIM-KG3PJZSDnRtXSMOhG5fMF" alt="Infografis Sejarah & Kegiatan Masjid" style="width: 100%; height: 100%; object-fit: cover;">
             </div>
-            <span style="font-size: 0.75rem; color: var(--primary); font-weight: 600; margin-top: 0.4rem; display: block;">
+            <span style="font-size: 0.72rem; color: var(--primary); font-weight: 600; margin-top: 0.4rem; display: block;">
               <i class="fa-solid fa-magnifying-glass-plus"></i> Infografis Sejarah
             </span>
           </div>
 
-          <div style="width: 140px; text-align: center; cursor: pointer;" onclick="openImageModal('https://lh3.googleusercontent.com/d/1BSBMhzmqApwLz7X4QtYt7IxP5oXE9a3o', 'Bangunan Masjid Jami Al Khair')">
+          <div data-date="2021-08-01" style="width: 140px; text-align: center; cursor: pointer;" onclick="openImageModal('https://lh3.googleusercontent.com/d/1BSBMhzmqApwLz7X4QtYt7IxP5oXE9a3o', 'Bangunan Masjid Jami Al Khair')">
             <div style="width: 100%; aspect-ratio: 9 / 16; overflow: hidden; border-radius: 8px; border: 1px solid var(--border); background: #f5f5f5; box-shadow: 0 2px 8px rgba(0,0,0,0.08);">
               <img src="https://lh3.googleusercontent.com/d/1BSBMhzmqApwLz7X4QtYt7IxP5oXE9a3o" alt="Bangunan Masjid Jami Al Khair" style="width: 100%; height: 100%; object-fit: cover;">
             </div>
-            <span style="font-size: 0.75rem; color: var(--primary); font-weight: 600; margin-top: 0.4rem; display: block;">
+            <span style="font-size: 0.72rem; color: var(--primary); font-weight: 600; margin-top: 0.4rem; display: block;">
               <i class="fa-solid fa-magnifying-glass-plus"></i> Bangunan Masjid
             </span>
           </div>
           
-          <div style="width: 140px; text-align: center; cursor: pointer;" onclick="openImageModal('https://lh3.googleusercontent.com/d/18OJwQ8aVMx7mXKWAkWdbcMvEWmIYDxyo', 'Infografis & Dokumentasi Sejarah')">
+          <div data-date="2021-08-10" style="width: 140px; text-align: center; cursor: pointer;" onclick="openImageModal('https://lh3.googleusercontent.com/d/18OJwQ8aVMx7mXKWAkWdbcMvEWmIYDxyo', 'Infografis & Dokumentasi Sejarah')">
             <div style="width: 100%; aspect-ratio: 9 / 16; overflow: hidden; border-radius: 8px; border: 1px solid var(--border); background: #f5f5f5; box-shadow: 0 2px 8px rgba(0,0,0,0.08);">
               <img src="https://lh3.googleusercontent.com/d/18OJwQ8aVMx7mXKWAkWdbcMvEWmIYDxyo" alt="Infografis Sejarah & Kegiatan Masjid" style="width: 100%; height: 100%; object-fit: cover;">
             </div>
-            <span style="font-size: 0.75rem; color: var(--primary); font-weight: 600; margin-top: 0.4rem; display: block;">
-              <i class="fa-solid fa-magnifying-glass-plus"></i> Infografis Sejarah
+            <span style="font-size: 0.72rem; color: var(--primary); font-weight: 600; margin-top: 0.4rem; display: block;">
+              <i class="fa-solid fa-magnifying-glass-plus"></i> Dokumentasi Sejarah
             </span>
           </div>
         </div>
@@ -1097,7 +1093,7 @@
                 <span class="ticker-badge" style="background: var(--primary);">Rutin Pekanan</span>
               </div>
               <p style="font-size: 0.88rem; text-align: justify; color: var(--text-dark); line-height: 1.6; margin-bottom: 1rem;">
-                Pengajian rutin merupakan majelis ilmu yang diselenggarakan secara berkala sebagai sarana memperdalam pemahaman Al-Qur'an, As-Sunnah, akidah, ibadah, akhlak, serta muamalah. Melalui kegiatan Thalabul 'Ilmi, jamaah diharapkan dapat meningkatkan keimanan, memperluas wawasan keislaman, dan mengamalkan ilmu dalam kehidupan sehari-hari demi meraih ridha Allah SWT.
+                Pengajian rutin merupakan majelis ilmu yang diselenggarakan secara berkala sebagai sarana memperdalam pemahaman Al-Qur'an, As-Sunnah, akidah, ibadah, akhlak, serta muamalah.
               </p>
             </div>
             <div style="background: rgba(198, 139, 89, 0.1); padding: 0.8rem 1rem; border-radius: 8px; font-size: 0.85rem; border: 1px solid var(--border);">
@@ -1113,7 +1109,7 @@
                 <span class="ticker-badge" style="background: var(--accent);">Rutin Pekanan</span>
               </div>
               <p style="font-size: 0.88rem; text-align: justify; color: var(--text-dark); line-height: 1.6; margin-bottom: 1rem;">
-                Pengajian Yasinan dan Doa Bersama merupakan kegiatan rutin yang diisi dengan pembacaan Surah Yasin, doa-doa, serta dzikir untuk memohon rahmat, ampunan, kesehatan, dan keberkahan dari Allah SWT. Kegiatan ini juga menjadi sarana mendoakan saudara-saudara yang sedang sakit agar diberikan kesembuhan, serta mengirimkan doa kepada kaum muslimin dan muslimat yang telah wafat agar mendapat ampunan, rahmat, dan tempat terbaik di sisi Allah SWT. Melalui kegiatan ini diharapkan terjalin ukhuwah, kepedulian, dan kebersamaan di antara jamaah.
+                Pengajian Yasinan dan Doa Bersama merupakan kegiatan rutin yang diisi dengan pembacaan Surah Yasin, doa-doa, serta dzikir untuk memohon rahmat dan ampunan dari Allah SWT.
               </p>
             </div>
             <div style="background: rgba(198, 139, 89, 0.1); padding: 0.8rem 1rem; border-radius: 8px; font-size: 0.85rem; border: 1px solid var(--border);">
@@ -1128,64 +1124,28 @@
         <h3 class="card-title"><i class="fa-solid fa-star-and-crescent"></i> Kegiatan Peringatan Hari Besar Islam (PHBI)</h3>
         
         <div style="display: grid; grid-template-columns: repeat(auto-fit, minmax(280px, 1fr)); gap: 1rem; margin-bottom: 2rem;">
-          
           <div style="background: white; border: 1px solid var(--border); padding: 1rem; border-radius: 10px; border-left: 4px solid var(--secondary);">
-            <h4 style="color: var(--primary); font-size: 0.95rem; margin-bottom: 0.4rem;">
-              <i class="fa-solid fa-kaaba"></i> Sholat Idul Fitri
-            </h4>
-            <p style="font-size: 0.85rem; color: var(--text-muted);">
-              Pelaksanaan Sholat Idul Fitri berjamaah, penerimaan & penyaluran zakat fitrah, zakat maal, infaq, serta sedekah fitri.
-            </p>
+            <h4 style="color: var(--primary); font-size: 0.95rem; margin-bottom: 0.4rem;"><i class="fa-solid fa-kaaba"></i> Sholat Idul Fitri</h4>
+            <p style="font-size: 0.85rem; color: var(--text-muted);">Pelaksanaan Sholat Idul Fitri berjamaah, penerimaan & penyaluran zakat fitrah, zakat maal, infaq, serta sedekah fitri.</p>
           </div>
-
           <div style="background: white; border: 1px solid var(--border); padding: 1rem; border-radius: 10px; border-left: 4px solid var(--secondary);">
-            <h4 style="color: var(--primary); font-size: 0.95rem; margin-bottom: 0.4rem;">
-              <i class="fa-solid fa-cow"></i> Sholat Idul Adha & Qurban
-            </h4>
-            <p style="font-size: 0.85rem; color: var(--text-muted);">
-              Pelaksanaan Sholat Idul Adha, penerimaan/penitipan hewan qurban, proses penyembelihan, dan penyaluran daging qurban kepada yang berhak.
-            </p>
+            <h4 style="color: var(--primary); font-size: 0.95rem; margin-bottom: 0.4rem;"><i class="fa-solid fa-cow"></i> Sholat Idul Adha & Qurban</h4>
+            <p style="font-size: 0.85rem; color: var(--text-muted);">Pelaksanaan Sholat Idul Adha, penerimaan/penitipan hewan qurban, dan penyaluran daging qurban.</p>
           </div>
-
           <div style="background: white; border: 1px solid var(--border); padding: 1rem; border-radius: 10px; border-left: 4px solid var(--secondary);">
-            <h4 style="color: var(--primary); font-size: 0.95rem; margin-bottom: 0.4rem;">
-              <i class="fa-solid fa-mosque"></i> Maulid Nabi Muhammad SAW
-            </h4>
-            <p style="font-size: 0.85rem; color: var(--text-muted);">
-              Peringatan hari kelahiran Nabi Muhammad SAW yang diisi dengan pembacaan sirah nabawiyah, shalawat, tausiyah, dan silaturahmi jamaah.
-            </p>
+            <h4 style="color: var(--primary); font-size: 0.95rem; margin-bottom: 0.4rem;"><i class="fa-solid fa-mosque"></i> Maulid Nabi Muhammad SAW</h4>
+            <p style="font-size: 0.85rem; color: var(--text-muted);">Peringatan hari kelahiran Nabi Muhammad SAW dengan pembacaan sirah nabawiyah, shalawat, dan tausiyah.</p>
           </div>
-
-          <div style="background: white; border: 1px solid var(--border); padding: 1rem; border-radius: 10px; border-left: 4px solid var(--secondary);">
-            <h4 style="color: var(--primary); font-size: 0.95rem; margin-bottom: 0.4rem;">
-              <i class="fa-solid fa-cloud-moon"></i> Isra & Mi'raj
-            </h4>
-            <p style="font-size: 0.85rem; color: var(--text-muted);">
-              Peringatan perjalanan agung Nabi Muhammad SAW sebagai pengingat akan kewajiban dan keutamaan ibadah sholat lima waktu.
-            </p>
-          </div>
-
-          <div style="background: white; border: 1px solid var(--border); padding: 1rem; border-radius: 10px; border-left: 4px solid var(--secondary);">
-            <h4 style="color: var(--primary); font-size: 0.95rem; margin-bottom: 0.4rem;">
-              <i class="fa-solid fa-calendar-day"></i> Gema Muharram
-            </h4>
-            <p style="font-size: 0.85rem; color: var(--text-muted);">
-              Penyambutan Tahun Baru Islam 1 Hijriah melalui pawai obor, santunan anak yatim/dhuafa, serta tabligh akbar.
-            </p>
-          </div>
-
         </div>
 
         <!-- PENGUMUMAN & PARTISIPASI -->
         <div style="background: linear-gradient(135deg, rgba(11,79,38,0.08), rgba(212,175,55,0.15)); border: 1px dashed var(--primary); padding: 1.2rem 1.5rem; border-radius: 12px; text-align: center;">
-          <h4 style="color: var(--primary); font-size: 1.05rem; margin-bottom: 0.5rem;">
-            <i class="fa-solid fa-bullhorn"></i> Pengumuman Partisipasi Jamaah
-          </h4>
+          <h4 style="color: var(--primary); font-size: 1.05rem; margin-bottom: 0.5rem;"><i class="fa-solid fa-bullhorn"></i> Pengumuman Partisipasi Jamaah</h4>
           <p style="font-size: 0.9rem; color: var(--text-dark); max-width: 850px; margin: 0 auto 1rem; line-height: 1.5;">
-            Bagi Jamaah yang ingin berpartisipasi (infaq/shadaqah) dalam kegiatan-kegiatan PHBI, atau menitipkan pembayaran zakat & hewan qurban, dapat menghubungi kontak panitia PHBI atau pengurus Bidang Imaroh DKM Masjid Jami Al-Khaier.
+            Bagi Jamaah yang ingin berpartisipasi (infaq/shadaqah) dalam kegiatan PHBI, Zakat, atau Qurban dapat menghubungi panitia DKM.
           </p>
-          <a href="https://wa.me/6283170009435?text=Assalamu'alaikum%20Pengurus%20DKM,%20saya%20ingin%20bertanya%20mengenai%20partisipasi%20kegiatan%20PHBI/Zakat/Qurban" target="_blank" class="btn btn-primary">
-            <i class="fa-brands fa-whatsapp"></i> Hubungi Panitia PHBI / Bidang Imaroh
+          <a href="https://wa.me/6283170009435?text=Assalamu'alaikum%20Pengurus%20DKM" target="_blank" class="btn btn-primary">
+            <i class="fa-brands fa-whatsapp"></i> Hubungi Panitia PHBI
           </a>
         </div>
 
@@ -1194,12 +1154,10 @@
 
     <!-- ================= TAB 6: LAPORAN KAS & DONASI ================= -->
     <section id="tab-kas" class="tab-content">
-      
-      <!-- 1. AJAKAN DONASI & DALIL -->
       <div class="card" style="background: linear-gradient(135deg, rgba(11,79,38,0.05), rgba(212,175,55,0.12)); border: 1px solid var(--accent-gold);">
         <h3 class="card-title"><i class="fa-solid fa-hand-holding-dollar"></i> Mari Raih Keberkahan dengan Infaq & Sedekah</h3>
         <p style="font-size: 0.95rem; text-align: justify; margin-bottom: 1.2rem;">
-          Mari bersama-sama mengambil bagian dalam memakmurkan <strong>Masjid Jami Al-Khaier</strong>. Setiap harta yang kita infaqkan di jalan Allah SWT tidak akan berkurang, melainkan menjadi tabungan pahala yang berlipat ganda dan penolong kita di akhirat kelak.
+          Mari bersama-sama mengambil bagian dalam memakmurkan <strong>Masjid Jami Al-Khaier</strong>.
         </p>
 
         <div style="background: white; border-left: 4px solid var(--primary); padding: 1.2rem; border-radius: 8px; box-shadow: 0 2px 8px rgba(0,0,0,0.04); margin-bottom: 1rem;">
@@ -1207,202 +1165,107 @@
             مَّثَلُ الَّذِينَ يُنفِقُونَ أَمْوَالَهُمْ فِي سَبِيلِ اللَّهِ كَمَثَلِ حَبَّةٍ أَنبَتَتْ سَبْعَ سَنَابِلَ فِي كُلِّ سُنْبُلَةٍ مِّائَةُ حَبَّةٍ ۗ وَاللَّهُ يُضَاعِفُ لِمَن يَشَاءُ ۗ وَاللَّهُ وَاسِعٌ عَلِيمٌ
           </div>
           <p style="font-size: 0.88rem; font-style: italic; color: var(--text-dark); margin-bottom: 0.4rem;">
-            "Perumpamaan orang-orang yang menginfakkan hartanya di jalan Allah adalah serupa dengan sebutir benih yang menumbuhkan tujuh bulir, pada tiap-tiap bulir seratus biji. Allah melipatgandakan (ganjaran) bagi siapa yang Dia kehendaki. Dan Allah Maha Luas (karunia-Nya) lagi Maha Mengetahui."
+            "Perumpamaan orang-orang yang menginfakkan hartanya di jalan Allah adalah serupa dengan sebutir benih yang menumbuhkan tujuh bulir..."
           </p>
           <span style="font-size: 0.8rem; font-weight: 700; color: var(--primary);">(QS. Al-Baqarah: 261)</span>
         </div>
-
-        <div style="text-align: center; margin-top: 1.2rem; padding: 0.8rem; background: var(--primary); color: white; border-radius: 8px; font-weight: 600; font-size: 0.95rem;">
-          <i class="fa-solid fa-quote-left" style="color: var(--accent-gold);"></i> 
-          "Setiap Rupiah yang Anda Amanahkan Menjadi Amal Jariyah yang Terus Mengalir."
-          <i class="fa-solid fa-quote-right" style="color: var(--accent-gold);"></i>
-        </div>
       </div>
 
-      <!-- 2. CARA & SISTEM BERDONASI / ZAKAT / INFAQ / DONATUR TETAP -->
-      <div class="card">
-        <h3 class="card-title"><i class="fa-solid fa-circle-nodes"></i> Panduan & Metode Berdonasi / Donatur Tetap</h3>
-        <p style="font-size: 0.88rem; margin-bottom: 1.2rem; color: var(--text-muted);">
-          Anda dapat menyalurkan Infaq, Sedekah, Zakat, maupun mendaftar sebagai **Donatur Tetap** Masjid Jami Al-Khaier melalui beberapa jalur berikut:
-        </p>
-
-        <div class="grid-3" style="margin-bottom: 1.5rem;">
-          
-          <div style="background: white; border: 1px solid var(--border); padding: 1.2rem; border-radius: 10px; border-top: 4px solid var(--primary);">
-            <div style="font-size: 1.5rem; color: var(--primary); margin-bottom: 0.5rem;"><i class="fa-solid fa-money-bill-wave"></i></div>
-            <h4 style="color: var(--primary); font-size: 1rem; margin-bottom: 0.4rem;">1. Penyerahan Tunai</h4>
-            <p style="font-size: 0.83rem; color: var(--text-dark); line-height: 1.5;">
-              Dapat diserahkan langsung melalui Kotak Infaq di area masjid atau diserahkan secara langsung kepada <strong>Bendahara DKM / Pengurus Masjid</strong> pada saat jam kegiatan/pengajian.
-            </p>
-          </div>
-
-          <div style="background: white; border: 1px solid var(--border); padding: 1.2rem; border-radius: 10px; border-top: 4px solid var(--accent);">
-            <div style="font-size: 1.5rem; color: var(--accent); margin-bottom: 0.5rem;"><i class="fa-solid fa-building-columns"></i></div>
-            <h4 style="color: var(--primary); font-size: 1rem; margin-bottom: 0.4rem;">2. Transfer Bank</h4>
-            <p style="font-size: 0.83rem; color: var(--text-dark); line-height: 1.5; margin-bottom: 0.5rem;">
-              Transfer melalui rekening resmi DKM.
-            </p>
-            <div style="background: #fff8f0; border: 1px dashed var(--accent); padding: 0.6rem; border-radius: 6px; font-size: 0.8rem; color: #b27847; font-weight: 600;">
-              <i class="fa-solid fa-triangle-exclamation"></i> No. Rekening Masjid sedang dalam proses administrasi bank.
-            </div>
-          </div>
-
-          <div style="background: white; border: 1px solid var(--border); padding: 1.2rem; border-radius: 10px; border-top: 4px solid #25d366;">
-            <div style="font-size: 1.5rem; color: #25d366; margin-bottom: 0.5rem;"><i class="fa-brands fa-whatsapp"></i></div>
-            <h4 style="color: var(--primary); font-size: 1rem; margin-bottom: 0.4rem;">3. Konfirmasi & Donatur Tetap</h4>
-            <p style="font-size: 0.83rem; color: var(--text-dark); line-height: 1.5; margin-bottom: 0.8rem;">
-              Untuk konfirmasi donasi, penjemputan donasi tunai, zakat, atau mendaftar menjadi <strong>Donatur Tetap</strong> bulanan, silakan hubungi Bendahara DKM.
-            </p>
-            <a href="https://wa.me/6281563725081?text=Assalamu'alaikum%20Bendahara%20DKM,%20saya%20ingin%20berdonasi%20/%20mendaftar%20Donatur%20Tetap%20Masjid%20Jami%20Al-Khaier" target="_blank" class="btn" style="background: #25d366; color: white; width: 100%; font-size: 0.8rem;">
-              <i class="fa-brands fa-whatsapp"></i> Hubungi Bendahara DKM
-            </a>
-          </div>
-
-        </div>
-      </div>
-
-      <!-- 3. TRANSPARANSI KAS MASJID -->
       <div class="card">
         <h3 class="card-title"><i class="fa-solid fa-file-invoice-dollar"></i> Transparansi Laporan Kas Masjid Realtime</h3>
-        <p style="font-size: 0.85rem; color: var(--text-muted); margin-bottom: 1rem;">
-          Berikut adalah laporan pemasukan dan pengeluaran kas Masjid Jami Al-Khaier yang diperbarui secara berkala oleh Bendahara DKM:
-        </p>
-
-        <div style="position: relative; width: 100%; min-height: 650px; border-radius: 12px; overflow: hidden; border: 1px solid var(--border); background: #f8fafc; box-shadow: inset 0 2px 6px rgba(0,0,0,0.05);">
-          <iframe 
-            src="https://script.google.com/macros/s/AKfycbyIpBZtiAANModw9dIwJY6b0mcd_LdsaPvG6riObi_qnI_tQqEKQdI1y4pD4QmBZX5g6A/exec" 
-            style="position: absolute; top: 0; left: 0; width: 100%; height: 100%; border: 0;"
-            allowfullscreen
-            loading="lazy">
-          </iframe>
-        </div>
-
-        <div style="margin-top: 0.8rem; text-align: right;">
-          <a href="https://script.google.com/macros/s/AKfycbyIpBZtiAANModw9dIwJY6b0mcd_LdsaPvG6riObi_qnI_tQqEKQdI1y4pD4QmBZX5g6A/exec" target="_blank" style="font-size: 0.8rem; color: var(--primary); text-decoration: underline;">
-            <i class="fa-solid fa-arrow-up-right-from-square"></i> Buka Laporan di Jendela Baru jika tidak muncul
-          </a>
+        <div style="position: relative; width: 100%; min-height: 650px; border-radius: 12px; overflow: hidden; border: 1px solid var(--border); background: #f8fafc;">
+          <iframe src="https://script.google.com/macros/s/AKfycbyIpBZtiAANModw9dIwJY6b0mcd_LdsaPvG6riObi_qnI_tQqEKQdI1y4pD4QmBZX5g6A/exec" style="position: absolute; top: 0; left: 0; width: 100%; height: 100%; border: 0;" allowfullscreen loading="lazy"></iframe>
         </div>
       </div>
-
     </section>
 
-    <!-- ================= TAB 7: GALERI DOKUMENTASI ================= -->
+    <!-- ================= TAB 7: GALERI DOKUMENTASI (Diurutkan Otomatis per Tanggal Terbaru) ================= -->
     <section id="tab-galeri" class="tab-content">
-      
       <div class="card" style="background: linear-gradient(135deg, rgba(11,79,38,0.04), rgba(212,175,55,0.1)); border: 1px solid var(--border);">
         <h3 class="card-title"><i class="fa-solid fa-images"></i> Galeri Dokumentasi Masjid Jami Al-Khaier</h3>
         <p style="font-size: 0.93rem; color: var(--text-dark); line-height: 1.7; text-align: justify; margin-bottom: 0;">
-          Halaman ini menyajikan dokumentasi berbagai kegiatan Masjid Jami Al-Khaier, mulai dari ibadah, pengajian, kajian Islam, PHBI, kegiatan sosial, kerja bakti, hingga aktivitas remaja masjid. Setiap foto dan video menjadi rekam jejak kebersamaan jamaah dalam memakmurkan masjid serta menjadi inspirasi untuk terus meningkatkan ukhuwah, kepedulian, dan semangat beribadah.
+          Halaman ini menyajikan dokumentasi foto dan video kegiatan Masjid Jami Al-Khaier yang secara otomatis diurutkan berdasarkan tanggal terbaru.
         </p>
       </div>
 
       <div class="card">
-        
-        <div style="display: flex; justify-content: space-between; align-items: center; flex-wrap: wrap; gap: 1rem; margin-bottom: 1.5rem; border-bottom: 2px solid var(--border); padding-bottom: 1rem;">
-          <h4 style="color: var(--primary); font-size: 1.1rem; margin: 0;">
-            <i class="fa-solid fa-photo-film"></i> Dokumentasi Foto & Video
-          </h4>
-          <span style="font-size: 0.85rem; color: var(--text-muted); background: #f0f4f1; padding: 0.4rem 0.8rem; border-radius: 20px;">
-            <i class="fa-solid fa-camera"></i> Dokumentasi Terkini
-          </span>
-        </div>
-
         <h5 style="color: var(--primary); font-size: 1rem; margin-bottom: 1rem; display: flex; align-items: center; gap: 0.5rem;">
-          <i class="fa-regular fa-image" style="color: var(--accent);"></i> Dokumentasi Foto
+          <i class="fa-regular fa-image" style="color: var(--accent);"></i> Dokumentasi Foto (Terbaru di Atas)
         </h5>
 
-        <div style="display: grid; grid-template-columns: repeat(auto-fit, minmax(250px, 1fr)); gap: 1.2rem; margin-bottom: 2.5rem;">
+        <div class="sortable-container grid-3" style="margin-bottom: 2.5rem;">
           
-          <div style="background: white; border: 1px solid var(--border); border-radius: 10px; overflow: hidden; box-shadow: 0 4px 10px rgba(0,0,0,0.03);">
-            <div style="width: 100%; height: 180px; background: #e2e8f0; position: relative; overflow: hidden;">
+          <div data-date="2026-07-15" style="background: white; border: 1px solid var(--border); border-radius: 10px; overflow: hidden; box-shadow: 0 4px 10px rgba(0,0,0,0.03);">
+            <div style="width: 100%; height: 180px; position: relative;">
               <img src="https://lh3.googleusercontent.com/d/11tjo1y35AZIovSoHRfoJQibkJVRfo9tS" alt="Pengajian Rutin" style="width: 100%; height: 100%; object-fit: cover;">
-              <span style="position: absolute; top: 10px; right: 10px; background: rgba(11,79,38,0.85); color: white; font-size: 0.75rem; padding: 0.2rem 0.6rem; border-radius: 4px;">Kajian</span>
             </div>
             <div style="padding: 1rem;">
+              <span class="date-badge" style="margin-bottom:0.4rem;"><i class="fa-regular fa-calendar"></i> 15 Juli 2026</span>
               <h5 style="font-size: 0.95rem; color: var(--primary); margin-bottom: 0.3rem;">Pengajian Rutin (Thalabul 'Ilmi)</h5>
-              <p style="font-size: 0.8rem; color: var(--text-muted); margin: 0;"><i class="fa-regular fa-calendar"></i> Setiap Hari Minggu Ba'da Maghrib</p>
+              <p style="font-size: 0.8rem; color: var(--text-muted); margin: 0;">Kajian Ba'da Maghrib Jamaah.</p>
             </div>
           </div>
 
-          <div style="background: white; border: 1px solid var(--border); border-radius: 10px; overflow: hidden; box-shadow: 0 4px 10px rgba(0,0,0,0.03);">
-            <div style="width: 100%; height: 180px; background: #e2e8f0; position: relative; overflow: hidden;">
-              <img src="https://drive.google.com/file/d/1xEHoTuf6hRQVhv6cM-2jv2InsM0ScB6H/view?usp=drive_link" alt="Pengajian Yasinan" style="width: 100%; height: 100%; object-fit: cover;">
-              <span style="position: absolute; top: 10px; right: 10px; background: rgba(198,139,89,0.9); color: white; font-size: 0.75rem; padding: 0.2rem 0.6rem; border-radius: 4px;">Dzikir & Doa</span>
-            </div>
-            <div style="padding: 1rem;">
-              <h5 style="font-size: 0.95rem; color: var(--primary); margin-bottom: 0.3rem;">Pengajian Yasinan & Doa Bersama</h5>
-              <p style="font-size: 0.8rem; color: var(--text-muted); margin: 0;"><i class="fa-regular fa-calendar"></i> Setiap Hari Kamis Ba'da Isya</p>
-            </div>
-          </div>
-
-          <div style="background: white; border: 1px solid var(--border); border-radius: 10px; overflow: hidden; box-shadow: 0 4px 10px rgba(0,0,0,0.03);">
-            <div style="width: 100%; height: 180px; background: #e2e8f0; position: relative; overflow: hidden;">
+          <div data-date="2026-06-20" style="background: white; border: 1px solid var(--border); border-radius: 10px; overflow: hidden; box-shadow: 0 4px 10px rgba(0,0,0,0.03);">
+            <div style="width: 100%; height: 180px; position: relative;">
               <img src="https://lh3.googleusercontent.com/d/1yc9QRGwTSafvrA1x2hTrWN568QwA3pXI" alt="Penyembelihan Hewan Qurban" style="width: 100%; height: 100%; object-fit: cover;">
-              <span style="position: absolute; top: 10px; right: 10px; background: rgba(11,79,38,0.85); color: white; font-size: 0.75rem; padding: 0.2rem 0.6rem; border-radius: 4px;">PHBI</span>
             </div>
             <div style="padding: 1rem;">
-              <h5 style="font-size: 0.95rem; color: var(--primary); margin-bottom: 0.3rem;">Peringatan Hari Besar Islam</h5>
-              <p style="font-size: 0.8rem; color: var(--text-muted); margin: 0;"><i class="fa-regular fa-calendar"></i> Kegiatan PHBI Jamaah</p>
-            </div>
-          </div>
-          
-          <div style="background: white; border: 1px solid var(--border); border-radius: 10px; overflow: hidden; box-shadow: 0 4px 10px rgba(0,0,0,0.03);">
-            <div style="width: 100%; height: 180px; background: #e2e8f0; position: relative; overflow: hidden;">
-              <img src="https://lh3.googleusercontent.com/d/1bj_36JrH0d2BIVf3GRVSFpSwHFbZKD2E" alt="Khotbah Idul Adha" style="width: 100%; height: 100%; object-fit: cover;">
-              <span style="position: absolute; top: 10px; right: 10px; background: rgba(11,79,38,0.85); color: white; font-size: 0.75rem; padding: 0.2rem 0.6rem; border-radius: 4px;">PHBI</span>
-            </div>
-            <div style="padding: 1rem;">
-              <h5 style="font-size: 0.95rem; color: var(--primary); margin-bottom: 0.3rem;">Peringatan Hari Besar Islam</h5>
-              <p style="font-size: 0.8rem; color: var(--text-muted); margin: 0;"><i class="fa-regular fa-calendar"></i> Kegiatan PHBI Jamaah</p>
+              <span class="date-badge" style="margin-bottom:0.4rem;"><i class="fa-regular fa-calendar"></i> 20 Juni 2026</span>
+              <h5 style="font-size: 0.95rem; color: var(--primary); margin-bottom: 0.3rem;">Pelaksanaan Qurban Idul Adha</h5>
+              <p style="font-size: 0.8rem; color: var(--text-muted); margin: 0;">Dokumentasi Penyembelihan Hewan Qurban.</p>
             </div>
           </div>
 
-          <div style="background: white; border: 1px solid var(--border); border-radius: 10px; overflow: hidden; box-shadow: 0 4px 10px rgba(0,0,0,0.03);">
-            <div style="width: 100%; height: 180px; background: #e2e8f0; position: relative; overflow: hidden;">
-              <img src="https://lh3.googleusercontent.com/d/1ISCG5-Zk_lQXiCaa_1pPBigGPiZJo03H" alt="Kegiatan 1 Muharam" style="width: 100%; height: 100%; object-fit: cover;">
-              <span style="position: absolute; top: 10px; right: 10px; background: #2b6cb0; color: white; font-size: 0.75rem; padding: 0.2rem 0.6rem; border-radius: 4px;">Sosial & Kebersihan</span>
+          <div data-date="2026-06-19" style="background: white; border: 1px solid var(--border); border-radius: 10px; overflow: hidden; box-shadow: 0 4px 10px rgba(0,0,0,0.03);">
+            <div style="width: 100%; height: 180px; position: relative;">
+              <img src="https://lh3.googleusercontent.com/d/1bj_36JrH0d2BIVf3GRVSFpSwHFbZKD2E" alt="Khotbah Idul Adha" style="width: 100%; height: 100%; object-fit: cover;">
             </div>
             <div style="padding: 1rem;">
-              <h5 style="font-size: 0.95rem; color: var(--primary); margin-bottom: 0.3rem;">Kegiatan 1 Muharam</h5>
-              <p style="font-size: 0.8rem; color: var(--text-muted); margin: 0;"><i class="fa-regular fa-calendar"></i> Kegiatan PHBI Jamaah</p>
+              <span class="date-badge" style="margin-bottom:0.4rem;"><i class="fa-regular fa-calendar"></i> 19 Juni 2026</span>
+              <h5 style="font-size: 0.95rem; color: var(--primary); margin-bottom: 0.3rem;">Sholat Idul Adha Berjamaah</h5>
+              <p style="font-size: 0.8rem; color: var(--text-muted); margin: 0;">Khotbah & Pelaksanaan Sholat Id.</p>
+            </div>
+          </div>
+
+          <div data-date="2026-05-10" style="background: white; border: 1px solid var(--border); border-radius: 10px; overflow: hidden; box-shadow: 0 4px 10px rgba(0,0,0,0.03);">
+            <div style="width: 100%; height: 180px; position: relative;">
+              <img src="https://lh3.googleusercontent.com/d/1ISCG5-Zk_lQXiCaa_1pPBigGPiZJo03H" alt="Kegiatan 1 Muharam" style="width: 100%; height: 100%; object-fit: cover;">
+            </div>
+            <div style="padding: 1rem;">
+              <span class="date-badge" style="margin-bottom:0.4rem;"><i class="fa-regular fa-calendar"></i> 10 Mei 2026</span>
+              <h5 style="font-size: 0.95rem; color: var(--primary); margin-bottom: 0.3rem;">Kegiatan Sosial & Kebersihan</h5>
+              <p style="font-size: 0.8rem; color: var(--text-muted); margin: 0;">Kerja Bakti Kebersihan Lingkungan Masjid.</p>
             </div>
           </div>
 
         </div>
 
         <h5 style="color: var(--primary); font-size: 1rem; margin-bottom: 1rem; display: flex; align-items: center; gap: 0.5rem;">
-          <i class="fa-solid fa-video" style="color: var(--accent);"></i> Dokumentasi Video
+          <i class="fa-solid fa-video" style="color: var(--accent);"></i> Dokumentasi Video (Terbaru di Atas)
         </h5>
 
-        <div style="display: grid; grid-template-columns: repeat(auto-fit, minmax(300px, 1fr)); gap: 1.2rem;">
+        <div class="sortable-container grid-2">
           
-          <div style="background: white; border: 1px solid var(--border); border-radius: 10px; overflow: hidden; box-shadow: 0 4px 10px rgba(0,0,0,0.03);">
+          <div data-date="2026-07-01" style="background: white; border: 1px solid var(--border); border-radius: 10px; overflow: hidden;">
             <div style="position: relative; padding-bottom: 56.25%; height: 0; overflow: hidden;">
-              <iframe 
-                style="position: absolute; top: 0; left: 0; width: 100%; height: 100%; border: 0;"
-                src="https://www.youtube.com/embed/tmRmsp6xf_0" 
-                title="Video Kegiatan Masjid Jami Al-Khaier" 
-                allowfullscreen>
-              </iframe>
+              <iframe style="position: absolute; top: 0; left: 0; width: 100%; height: 100%; border: 0;" src="https://www.youtube.com/embed/tmRmsp6xf_0" title="Video Kegiatan DKM" allowfullscreen></iframe>
             </div>
             <div style="padding: 1rem;">
-              <h5 style="font-size: 0.95rem; color: var(--primary); margin-bottom: 0.3rem;">Dokumentasi Kerja Bakti Pembuatan Jalan Menuju Masjid</h5>
-              <p style="font-size: 0.8rem; color: var(--text-muted); margin: 0;">Tonton kembali rekaman kebersamaan suasana kajian & doa bersama.</p>
+              <span class="date-badge" style="margin-bottom:0.4rem;"><i class="fa-regular fa-calendar"></i> 01 Juli 2026</span>
+              <h5 style="font-size: 0.95rem; color: var(--primary); margin-bottom: 0.3rem;">Kerja Bakti Akses Menuju Masjid</h5>
+              <p style="font-size: 0.8rem; color: var(--text-muted); margin: 0;">Dokumentasi pembuatan jalan & fasos masjid.</p>
             </div>
           </div>
 
-          <div style="background: white; border: 1px solid var(--border); border-radius: 10px; overflow: hidden; box-shadow: 0 4px 10px rgba(0,0,0,0.03);">
+          <div data-date="2026-04-12" style="background: white; border: 1px solid var(--border); border-radius: 10px; overflow: hidden;">
             <div style="position: relative; padding-bottom: 56.25%; height: 0; overflow: hidden; background: #000;">
-              <iframe 
-                style="position: absolute; top: 0; left: 0; width: 100%; height: 100%; border: 0;"
-                src="https://www.youtube.com/embed/IdUvnB3FIF0" 
-                title="Video PHBI Masjid Jami Al-Khaier" 
-                allowfullscreen>
-              </iframe>
+              <iframe style="position: absolute; top: 0; left: 0; width: 100%; height: 100%; border: 0;" src="https://www.youtube.com/embed/IdUvnB3FIF0" title="Video PHBI DKM" allowfullscreen></iframe>
             </div>
             <div style="padding: 1rem;">
-              <h5 style="font-size: 0.95rem; color: var(--primary); margin-bottom: 0.3rem;">Kerja Bakti Kebersihan Masjid</h5>
-              <p style="font-size: 0.8rem; color: var(--text-muted); margin: 0;">Dokumentasi Kegiatan Bersama dalam bersih masjid.</p>
+              <span class="date-badge" style="margin-bottom:0.4rem;"><i class="fa-regular fa-calendar"></i> 12 April 2026</span>
+              <h5 style="font-size: 0.95rem; color: var(--primary); margin-bottom: 0.3rem;">Kebersihan & Pemeliharaan Masjid</h5>
+              <p style="font-size: 0.8rem; color: var(--text-muted); margin: 0;">Kegiatan bersama menjaga kesucian tempat ibadah.</p>
             </div>
           </div>
 
@@ -1411,125 +1274,82 @@
       </div>
     </section>
 
-    <!-- ================= TAB 8: ARSIP & DOKUMEN ================= -->
+    <!-- ================= TAB 8: ARSIP & DOKUMEN (Diurutkan Otomatis per Tanggal Terbaru) ================= -->
     <section id="tab-arsip" class="tab-content">
-      
       <div class="card" style="background: linear-gradient(135deg, rgba(11,79,38,0.04), rgba(212,175,55,0.1)); border: 1px solid var(--border);">
         <h3 class="card-title"><i class="fa-solid fa-folder-closed"></i> Arsip & Dokumen DKM Masjid Jami Al-Khaier</h3>
         <p style="font-size: 0.93rem; color: var(--text-dark); line-height: 1.7; text-align: justify; margin: 0;">
-          Pusat penyimpanan dokumen dan rekaman kegiatan DKM Masjid Jami Al-Khaier. Berisi berbagai dokumen penting seperti surat keputusan, berita acara, laporan, notulen rapat, program kerja, serta dokumentasi lainnya yang disusun secara tertib sebagai bentuk administrasi, transparansi, dan pertanggungjawaban organisasi kepada jamaah.
+          Pusat penyimpanan dokumen, legalitas, dan SK DKM yang diurutkan rapi berdasarkan pembaruan terbaru.
         </p>
       </div>
 
       <div class="card">
-        
-        <div style="display: flex; justify-content: space-between; align-items: center; flex-wrap: wrap; gap: 1rem; margin-bottom: 1.2rem; border-bottom: 2px solid var(--border); padding-bottom: 0.8rem;">
-          <h4 style="color: var(--primary); font-size: 1.1rem; margin: 0;">
-            <i class="fa-solid fa-images" style="color: var(--accent);"></i> Arsip Foto & Dokumen (Format 9:16)
-          </h4>
-          <span style="font-size: 0.8rem; color: var(--primary); background: rgba(11,79,38,0.08); border: 1px solid var(--border); padding: 0.3rem 0.8rem; border-radius: 20px; font-weight: 600;">
-            <i class="fa-solid fa-expand"></i> Klik gambar untuk ukuran penuh (100%)
-          </span>
-        </div>
+        <h4 style="color: var(--primary); font-size: 1.1rem; margin-bottom: 1rem; border-bottom: 2px solid var(--border); padding-bottom: 0.5rem;">
+          <i class="fa-solid fa-images" style="color: var(--accent);"></i> Arsip Foto & Dokumen (Format Vertikal)
+        </h4>
 
-        <div style="display: grid; grid-template-columns: repeat(auto-fill, minmax(160px, 1fr)); gap: 1.2rem; margin-bottom: 2.5rem;">
+        <div class="sortable-container grid-4">
           
-          <div style="background: white; border: 1px solid var(--border); border-radius: 10px; overflow: hidden; box-shadow: 0 2px 8px rgba(0,0,0,0.04);">
-            <a href="https://lh3.googleusercontent.com/d/193pYBoTy1ObVYsS00UW06EBtEQ-3yfT-" target="_blank" style="text-decoration: none; color: inherit; display: block;">
-              <div style="width: 100%; aspect-ratio: 9 / 16; overflow: hidden; background: #000; position: relative;">
-                <img src="https://lh3.googleusercontent.com/d/193pYBoTy1ObVYsS00UW06EBtEQ-3yfT-" alt="SK & Dokumen Legalitas1" style="width: 100%; height: 100%; object-fit: cover; transition: transform 0.3s ease;">
+          <div data-date="2026-01-10" style="background: white; border: 1px solid var(--border); border-radius: 10px; overflow: hidden; text-align:center; padding-bottom:0.5rem;">
+            <a href="https://lh3.googleusercontent.com/d/193pYBoTy1ObVYsS00UW06EBtEQ-3yfT-" target="_blank" style="text-decoration: none; color: inherit;">
+              <div style="width: 100%; aspect-ratio: 9 / 16; overflow: hidden; background: #000;">
+                <img src="https://lh3.googleusercontent.com/d/193pYBoTy1ObVYsS00UW06EBtEQ-3yfT-" alt="SK DKM 1" style="width: 100%; height: 100%; object-fit: cover;">
               </div>
-              <div style="padding: 0.8rem;">
-                <h6 style="font-size: 0.85rem; color: var(--primary); margin-bottom: 0.2rem; font-weight: 600;">Surat Keputusan (SK) DKM</h6>
-                <p style="font-size: 0.72rem; color: var(--text-muted); margin: 0;">Dokumen Legalitas Kepengurusan</p>
-              </div>
-            </a>
-          </div>
-
-          <div style="background: white; border: 1px solid var(--border); border-radius: 10px; overflow: hidden; box-shadow: 0 2px 8px rgba(0,0,0,0.04);">
-            <a href="https://lh3.googleusercontent.com/d/1VsJ662zhBCufrbUgsH9kk2HAOSCS6MLr" target="_blank" style="text-decoration: none; color: inherit; display: block;">
-              <div style="width: 100%; aspect-ratio: 9 / 16; overflow: hidden; background: #000; position: relative;">
-                <img src="https://lh3.googleusercontent.com/d/1VsJ662zhBCufrbUgsH9kk2HAOSCS6MLr" alt="SK & Dokumen Legalitas1" style="width: 100%; height: 100%; object-fit: cover; transition: transform 0.3s ease;">
-              </div>
-              <div style="padding: 0.8rem;">
-                <h6 style="font-size: 0.85rem; color: var(--primary); margin-bottom: 0.2rem; font-weight: 600;">Surat Keputusan (SK) DKM</h6>
-                <p style="font-size: 0.72rem; color: var(--text-muted); margin: 0;">Dokumen Legalitas Kepengurusan</p>
+              <div style="padding: 0.8rem 0.5rem 0.3rem;">
+                <span class="date-badge" style="margin-bottom:0.3rem;"><i class="fa-regular fa-calendar"></i> 10 Jan 2026</span>
+                <h6 style="font-size: 0.85rem; color: var(--primary); font-weight: 600;">SK Pengurus DKM Lembar 1</h6>
               </div>
             </a>
           </div>
 
-          <div style="background: white; border: 1px solid var(--border); border-radius: 10px; overflow: hidden; box-shadow: 0 2px 8px rgba(0,0,0,0.04);">
-            <a href="https://lh3.googleusercontent.com/d/1SIC8fem6g0THzuN4waNiPlyE6qUrz2mD" target="_blank" style="text-decoration: none; color: inherit; display: block;">
-              <div style="width: 100%; aspect-ratio: 9 / 16; overflow: hidden; background: #000; position: relative;">
-                <img src="https://lh3.googleusercontent.com/d/1SIC8fem6g0THzuN4waNiPlyE6qUrz2mD" alt="SK & Dokumen Legalitas1" style="width: 100%; height: 100%; object-fit: cover; transition: transform 0.3s ease;">
+          <div data-date="2026-01-10" style="background: white; border: 1px solid var(--border); border-radius: 10px; overflow: hidden; text-align:center; padding-bottom:0.5rem;">
+            <a href="https://lh3.googleusercontent.com/d/1VsJ662zhBCufrbUgsH9kk2HAOSCS6MLr" target="_blank" style="text-decoration: none; color: inherit;">
+              <div style="width: 100%; aspect-ratio: 9 / 16; overflow: hidden; background: #000;">
+                <img src="https://lh3.googleusercontent.com/d/1VsJ662zhBCufrbUgsH9kk2HAOSCS6MLr" alt="SK DKM 2" style="width: 100%; height: 100%; object-fit: cover;">
               </div>
-              <div style="padding: 0.8rem;">
-                <h6 style="font-size: 0.85rem; color: var(--primary); margin-bottom: 0.2rem; font-weight: 600;">Surat Keputusan (SK) DKM</h6>
-                <p style="font-size: 0.72rem; color: var(--text-muted); margin: 0;">Dokumen Legalitas Kepengurusan</p>
+              <div style="padding: 0.8rem 0.5rem 0.3rem;">
+                <span class="date-badge" style="margin-bottom:0.3rem;"><i class="fa-regular fa-calendar"></i> 10 Jan 2026</span>
+                <h6 style="font-size: 0.85rem; color: var(--primary); font-weight: 600;">SK Pengurus DKM Lembar 2</h6>
               </div>
             </a>
           </div>
 
-          <div style="background: white; border: 1px solid var(--border); border-radius: 10px; overflow: hidden; box-shadow: 0 2px 8px rgba(0,0,0,0.04);">
-            <a href="https://lh3.googleusercontent.com/d/1kMPTORYPQZVKR6pDCY3F5lcriSUEGdAJ" target="_blank" style="text-decoration: none; color: inherit; display: block;">
-              <div style="width: 100%; aspect-ratio: 9 / 16; overflow: hidden; background: #000; position: relative;">
-                <img src="https://lh3.googleusercontent.com/d/1kMPTORYPQZVKR6pDCY3F5lcriSUEGdAJ" alt="Sertifikat Qiblat" style="width: 100%; height: 100%; object-fit: cover; transition: transform 0.3s ease;">
+          <div data-date="2026-01-10" style="background: white; border: 1px solid var(--border); border-radius: 10px; overflow: hidden; text-align:center; padding-bottom:0.5rem;">
+            <a href="https://lh3.googleusercontent.com/d/1SIC8fem6g0THzuN4waNiPlyE6qUrz2mD" target="_blank" style="text-decoration: none; color: inherit;">
+              <div style="width: 100%; aspect-ratio: 9 / 16; overflow: hidden; background: #000;">
+                <img src="https://lh3.googleusercontent.com/d/1SIC8fem6g0THzuN4waNiPlyE6qUrz2mD" alt="SK DKM 3" style="width: 100%; height: 100%; object-fit: cover;">
               </div>
-              <div style="padding: 0.8rem;">
-                <h6 style="font-size: 0.85rem; color: var(--primary); margin-bottom: 0.2rem; font-weight: 600;">Sertifikat Qiblat</h6>
-                <p style="font-size: 0.72rem; color: var(--text-muted); margin: 0;">Dokumen Legalitas Sertifikat Qiblat</p>
+              <div style="padding: 0.8rem 0.5rem 0.3rem;">
+                <span class="date-badge" style="margin-bottom:0.3rem;"><i class="fa-regular fa-calendar"></i> 10 Jan 2026</span>
+                <h6 style="font-size: 0.85rem; color: var(--primary); font-weight: 600;">SK Pengurus DKM Lembar 3</h6>
+              </div>
+            </a>
+          </div>
+
+          <div data-date="2021-07-30" style="background: white; border: 1px solid var(--border); border-radius: 10px; overflow: hidden; text-align:center; padding-bottom:0.5rem;">
+            <a href="https://lh3.googleusercontent.com/d/1kMPTORYPQZVKR6pDCY3F5lcriSUEGdAJ" target="_blank" style="text-decoration: none; color: inherit;">
+              <div style="width: 100%; aspect-ratio: 9 / 16; overflow: hidden; background: #000;">
+                <img src="https://lh3.googleusercontent.com/d/1kMPTORYPQZVKR6pDCY3F5lcriSUEGdAJ" alt="Sertifikat Qiblat" style="width: 100%; height: 100%; object-fit: cover;">
+              </div>
+              <div style="padding: 0.8rem 0.5rem 0.3rem;">
+                <span class="date-badge" style="margin-bottom:0.3rem;"><i class="fa-regular fa-calendar"></i> 30 Juli 2021</span>
+                <h6 style="font-size: 0.85rem; color: var(--primary); font-weight: 600;">Sertifikat Arah Kiblat</h6>
               </div>
             </a>
           </div>
 
         </div>
-
-        <div style="display: flex; justify-content: space-between; align-items: center; flex-wrap: wrap; gap: 1rem; margin-bottom: 1.2rem; border-bottom: 2px solid var(--border); padding-bottom: 0.8rem;">
-          <h4 style="color: var(--primary); font-size: 1.1rem; margin: 0;">
-            <i class="fa-solid fa-video" style="color: var(--primary);"></i> Arsip Video Rekaman (Format Vertikal / Shorts)
-          </h4>
-        </div>
-
-        <div style="display: grid; grid-template-columns: repeat(auto-fill, minmax(200px, 1fr)); gap: 1.2rem;">
-          
-          <div style="background: white; border: 1px solid var(--border); border-radius: 10px; overflow: hidden; box-shadow: 0 2px 8px rgba(0,0,0,0.04);">
-            <div style="position: relative; width: 100%; aspect-ratio: 9 / 16; background: #000; overflow: hidden;">
-              <iframe 
-                style="position: absolute; top: 0; left: 0; width: 100%; height: 100%; border: 0;"
-                src="https://www.youtube.com/embed/" 
-                title="Video Laporan DKM" 
-                allowfullscreen>
-              </iframe>
-            </div>
-            <div style="padding: 0.8rem 1rem;">
-              <h6 style="font-size: 0.88rem; color: var(--primary); margin-bottom: 0.2rem; font-weight: 600;">Video LPJ Akhir Tahun</h6>
-              <p style="font-size: 0.75rem; color: var(--text-muted); margin: 0;">Dokumentasi video n.</p>
-            </div>
-          </div>
-
-        </div>
-
       </div>
     </section>
 
     <!-- SECTION KOMENTAR -->
     <section class="card">
-      <iframe src="https://script.google.com/macros/s/AKfycbz2CnaToSeP4YoHojCGSJynZZxQuUUD638AabYdK6KYIIis-2HwbeUTEVRJJbSiWYejYA/exec" 
-        width="100%" 
-        height="500px" 
-        style="border:none;">
-      </iframe>
-
-      <div style="margin-top: 0.8rem; text-align: right;">
-        <a href="https://script.google.com/macros/s/AKfycbz2CnaToSeP4YoHojCGSJynZZxQuUUD638AabYdK6KYIIis-2HwbeUTEVRJJbSiWYejYA/exec" target="_blank" style="font-size: 0.8rem; color: var(--primary); text-decoration: underline;">
-          <i class="fa-solid fa-arrow-up-right-from-square"></i> Buka Form Komentar di Jendela Baru jika tidak muncul
-        </a>
-      </div>
+      <iframe src="https://script.google.com/macros/s/AKfycbz2CnaToSeP4YoHojCGSJynZZxQuUUD638AabYdK6KYIIis-2HwbeUTEVRJJbSiWYejYA/exec" width="100%" height="500px" style="border:none;"></iframe>
     </section>
 
   </main>
 
-  <!-- DAFTAR ISI HALAMAN / FOOTER NAVIGATION (OPTIMAL UNTUK HP) -->
+  <!-- DAFTAR ISI HALAMAN / FOOTER NAVIGATION -->
   <section class="footer-nav">
     <div class="footer-nav-container">
       <div class="footer-nav-title">
@@ -1547,6 +1367,16 @@
       </div>
     </div>
   </section>
+
+  <!-- STICKY BOTTOM NAVIGATION UNTUK HP -->
+  <div class="mobile-bottom-nav">
+    <button class="mobile-nav-btn active" onclick="switchTab('beranda')"><i class="fa-solid fa-house"></i>Beranda</button>
+    <button class="mobile-nav-btn" onclick="switchTab('artikel')"><i class="fa-solid fa-book-open-reader"></i>Dakwah</button>
+    <button class="mobile-nav-btn" onclick="switchTab('profil')"><i class="fa-solid fa-landmark"></i>Profil</button>
+    <button class="mobile-nav-btn" onclick="switchTab('kegiatan')"><i class="fa-solid fa-calendar-check"></i>Kegiatan</button>
+    <button class="mobile-nav-btn" onclick="switchTab('kas')"><i class="fa-solid fa-wallet"></i>Kas</button>
+    <button class="mobile-nav-btn" onclick="switchTab('galeri')"><i class="fa-solid fa-images"></i>Galeri</button>
+  </div>
 
   <!-- POPUP MODAL DKM -->
   <div id="dkmModal" class="modal-overlay" onclick="closeModal(event)">
@@ -1583,25 +1413,44 @@
     </div>
   </footer>
 
-  <!-- JAVASCRIPT -->
+  <!-- JAVASCRIPT & AUTOMATIC MEDIA SORTING BY DATE -->
   <script>
+    // Tab Switcher
     function switchTab(tabId) {
       const cleanId = tabId.replace('tab-', '');
       
       document.querySelectorAll('.nav-item').forEach(item => item.classList.remove('active'));
+      document.querySelectorAll('.mobile-nav-btn').forEach(item => item.classList.remove('active'));
       document.querySelectorAll('.tab-content').forEach(content => content.classList.remove('active'));
 
       const targetContent = document.getElementById(`tab-${cleanId}`);
       if (targetContent) targetContent.classList.add('active');
 
-      document.querySelectorAll('.nav-item').forEach(item => {
+      document.querySelectorAll('.nav-item, .mobile-nav-btn').forEach(item => {
         const attr = item.getAttribute('onclick');
         if (attr && attr.includes(cleanId)) item.classList.add('active');
       });
 
-      window.scrollTo({ top: 100, behavior: 'smooth' });
+      window.scrollTo({ top: 0, behavior: 'smooth' });
     }
 
+    // Auto Sorting Media berdasarkan atribut data-date (Terbaru di paling atas)
+    function autoSortMediaByDate() {
+      const containers = document.querySelectorAll('.sortable-container');
+      containers.forEach(container => {
+        const items = Array.from(container.children);
+        items.sort((a, b) => {
+          const dateA = new Date(a.getAttribute('data-date') || '1970-01-01');
+          const dateB = new Date(b.getAttribute('data-date') || '1970-01-01');
+          return dateB - dateA; // Descending: Terbaru ke Terlama
+        });
+        items.forEach(item => container.appendChild(item));
+      });
+    }
+
+    document.addEventListener('DOMContentLoaded', autoSortMediaByDate);
+
+    // Clock
     function updateClock() {
       const now = new Date();
       document.getElementById('clock').textContent = now.toLocaleTimeString('id-ID') + ' WIB';
@@ -1610,6 +1459,7 @@
     setInterval(updateClock, 1000);
     updateClock();
 
+    // Prayer Schedule Auto Active
     function updateActivePrayer() {
       const rows = document.querySelectorAll('#prayer-list .prayer-row');
       if (!rows.length) return;
@@ -1617,19 +1467,15 @@
       const currentMinutes = now.getHours() * 60 + now.getMinutes();
 
       let activeIndex = -1;
-
       rows.forEach((row, index) => {
         const timeStr = row.getAttribute('data-time');
         const [hours, minutes] = timeStr.split(':').map(Number);
         const prayerMinutes = hours * 60 + minutes;
 
-        if (currentMinutes >= prayerMinutes) {
-          activeIndex = index;
-        }
+        if (currentMinutes >= prayerMinutes) activeIndex = index;
       });
 
       rows.forEach(row => row.classList.remove('active'));
-
       if (activeIndex !== -1) {
         rows[activeIndex].classList.add('active');
       } else {
@@ -1639,6 +1485,7 @@
     updateActivePrayer();
     setInterval(updateActivePrayer, 30000);
 
+    // Image Modal
     function openImageModal(src, caption) {
       const modal = document.getElementById('imgModal');
       document.getElementById('modalImg').src = src;
@@ -1650,6 +1497,7 @@
       document.getElementById('imgModal').classList.remove('active');
     }
 
+    // DKM Modal Data
     const dkmData = {
       pembina: { title: "Pembina / Penasehat", fungsi: "Pengarah & Penasehat Kebijakan Masjid.", tugas: ["Memberikan nasihat dan arahan strategis", "Mengawasi tata kelola kepengurusan DKM"] },
       ketua: { title: "Ketua DKM", fungsi: "Pemimpin Utama & Penanggung Jawab Organisasi.", tugas: ["Memimpin pelaksanaan seluruh program DKM", "Mewakili DKM dalam urusan eksternal dan jamaah"] },
