@@ -1711,6 +1711,7 @@
   </footer>
 
   <!-- JAVASCRIPT -->
+ <!-- JAVASCRIPT PERBAIKAN -->
   <script>
     function switchTab(tabId) {
       const cleanId = tabId.replace('tab-', '');
@@ -1781,49 +1782,36 @@
       let statusText = "";
 
       if (mobileInfo) {
-        // Cek Sholat Fardhu (Subuh, Dzuhur, Ashar, Maghrib, Isya)
         const fardhuPrayers = prayerData.filter(p => p.name !== "Terbit (Syuruq)");
 
-        for (let p of fardhuPrayers) {
+        const formatTime = (minutes) => {
+          const h = String(Math.floor(minutes / 60)).padStart(2, '0');
+          const m = String(minutes % 60).padStart(2, '0');
+          return `${h}:${m}`;
+        };
+
+        for (let i = 0; i < fardhuPrayers.length; i++) {
+          const p = fardhuPrayers[i];
+          const jamSholat = formatTime(p.prayerMinutes);
           const diff = p.prayerMinutes - currentMinutes;
 
-          // Fungsi bantuan untuk format 2 digit (misal: 4 -> "04")
-const formatTime = (minutes) => {
-  const h = String(Math.floor(minutes / 60)).padStart(2, '0');
-  const m = String(minutes % 60).padStart(2, '0');
-  return `${h}:${m}`;
-};
+          const nextPrayer = fardhuPrayers[(i + 1) % fardhuPrayers.length];
+          let nextPrayerMinutes = nextPrayer.prayerMinutes;
+          if (i === fardhuPrayers.length - 1) {
+            nextPrayerMinutes += 1440; // Tambah 24 jam untuk Isya -> Subuh
+          }
+          const endLimitMinutes = nextPrayerMinutes - 30;
 
-const jamSholat = formatTime(p.prayerMinutes);
-
-// Menggunakan perulangan index (i) agar bisa mengakses sholat berikutnya
-for (let i = 0; i < prayers.length; i++) {
-  const p = prayers[i];
-  const jamSholat = formatTime(p.prayerMinutes);
-
-  // Ambil sholat berikutnya (jika Isya, berikutnya kembali ke Subuh)
-  const nextPrayer = prayers[(i + 1) % prayers.length];
-  
-  // Hitung batas akhir "Memasuki Waktu" (30 menit sebelum sholat berikutnya)
-  let nextPrayerMinutes = nextPrayer.prayerMinutes;
-  if (i === prayers.length - 1) {
-    nextPrayerMinutes += 1440; // Tambah 24 jam untuk Isya -> Subuh
-  }
-  const endLimitMinutes = nextPrayerMinutes - 30;
-
-  // --- INI BAGIAN KODE YANG MENGGANTIKAN IF-ELSE LAMA KAMU ---
-  
-  // 1. Menuju waktu sholat (30 menit sebelum sholat p)
-  if (diff > 0 && diff <= 30) {
-    statusText = `<i class="fa-solid fa-bell"></i> Menuju Waktu ${p.name} (${jamSholat})`;
-    break;
-  } 
-  // 2. Memasuki waktu sholat (dari jam sholat s/d 30 menit sebelum sholat berikutnya)
-  else if (currentMinutes >= p.prayerMinutes && currentMinutes < endLimitMinutes) {
-    statusText = `<i class="fa-solid fa-volume-high"></i> Memasuki Waktu ${p.name} (${jamSholat})`;
-    break;
-  }
-}
+          // 1. Menuju waktu sholat (30 menit sebelum sholat p)
+          if (diff > 0 && diff <= 30) {
+            statusText = `<i class="fa-solid fa-bell"></i> Menuju Waktu ${p.name} (${jamSholat})`;
+            break;
+          } 
+          // 2. Memasuki waktu sholat
+          else if (currentMinutes >= p.prayerMinutes && currentMinutes < endLimitMinutes) {
+            statusText = `<i class="fa-solid fa-volume-high"></i> Memasuki Waktu ${p.name} (${jamSholat})`;
+            break;
+          }
         }
 
         if (statusText !== "") {
@@ -1835,10 +1823,8 @@ for (let i = 0; i < prayers.length; i++) {
         }
       }
     }
-      updateActivePrayer();
+    updateActivePrayer();
     setInterval(updateActivePrayer, 10000);
-  
-    
 
     function openImageModal(src, caption) {
       const modal = document.getElementById('imgModal');
@@ -1851,6 +1837,7 @@ for (let i = 0; i < prayers.length; i++) {
       document.getElementById('imgModal').classList.remove('active');
     }
 
+    // DATA MODAL STRUKTUR ORGANISASI DKM
     const dkmData = {
       pembina: { title: "Pembina / Penasehat", fungsi: "Pengarah & Penasehat Kebijakan Masjid.", tugas: ["Memberikan nasihat dan arahan strategis", "Mengawasi tata kelola kepengurusan DKM"] },
       ketua: { title: "Ketua DKM", fungsi: "Pemimpin Utama & Penanggung Jawab Organisasi.", tugas: ["Memimpin pelaksanaan seluruh program DKM", "Mewakili DKM dalam urusan eksternal dan jamaah"] },
@@ -1858,30 +1845,29 @@ for (let i = 0; i < prayers.length; i++) {
       bendahara: { title: "Bendahara", fungsi: "Pengelola Keuangan & Kas Masjid.", tugas: ["Pencatatan kas masukan dan pengeluaran", "Menyusun laporan keuangan transparan secara berkala"] },
       wakil1: { title: "Wakil Ketua I / Bidang Idaroh", fungsi: "Koordinator Perencanaan, Usaha, dan Administrasi.", tugas: ["Mengoordinasikan seksi perencanaan, IT, & admin", "Memastikan tertib pengelolaan manajemen DKM"] },
       rencana: { title: "Seksi Perencanaan & Usaha", fungsi: "Penyusun Program & Sumber Dana Organisasi.", tugas: ["Merencanakan program jangka pendek & panjang", "Mengembangkan sumber pendanaan/usaha kreatif masjid"] },
-      itmedsos: { title: "Seksi teknik Informasi & Medsos", fungsi: "Pengelola Media Publikasi & Teknologi Informasi.", tugas: ["Mengelola website dan media sosial DKM", "Mempublikasikan dokumentasi kegiatan masjid"] },
+      itmedsos: { title: "Seksi Teknik Informasi & Medsos", fungsi: "Pengelola Media Publikasi & Teknologi Informasi.", tugas: ["Mengelola website dan media sosial DKM", "Mempublikasikan dokumentasi kegiatan masjid"] },
       admin: { title: "Seksi Administrasi & Dokumentasi", fungsi: "Pengarsip Data & Dokumen Fisik/Digital.", tugas: ["Mendokumentasikan seluruh berkas & LPJ", "Membantu kerapian sistem kearsipan DKM"] },
       wakil2: { title: "Wakil Ketua II / Bidang Imaroh", fungsi: "Koordinator Peribadatan, Dakwah, & Kepemudaan.", tugas: ["Mengoordinasikan seksi ibadah, PHBI, & remaja", "Memakmurkan masjid lewat kegiatan syiar Islam"] },
       ibadah: { title: "Seksi Peribadatan", fungsi: "Penanggung Jawab Kelancaran Sholat & Kajian.", tugas: ["Mengatur jadwal imam, khatib, & muadzin", "Memastikan sarana peribadatan siap digunakan"] },
       phbi: { title: "Seksi PHBI & Dakwah", fungsi: "Pelaksana Peringatan Hari Besar Islam & Pengajian.", tugas: ["Menyelenggarakan peringatan hari besar Islam", "Mengorganisir majelis ta'lim dan tabligh akbar"] },
       remaja: { title: "Seksi Remaja & Pemuda Masjid", fungsi: "Penggerak Potensi Generasi Muda Masjid.", tugas: ["Merangkul pemuda dalam kegiatan kemasjidan", "Menyelenggarakan pembinaan karakter islami remaja"] },
-      wakil3: { title: "Wakil Ketua III / Bidang Ri'ayah", fungsi: "Koordinator Pemeliharaan Bangunan & Fasilitas.", tugas: ["Mengoordinasikan pemeliharaan aset & keamanan", "Memastikan kebersihan dan kenyamanan lingkungan masjid"] },
-      bangunan: { title: "Seksi Pemeliharaan Bangunan", fungsi: "Penanggung Jawab Fisik & Infrastruktur Masjid.", tugas: ["Merawat dan memperbaiki fisik sarana masjid", "Mengawasi renovasi serta pemeliharaan berkala"] },
-      alat: { title: "Seksi Peralatan & Perlengkapan", fungsi: "Pengelola Inventaris Peralatan Masjid.", tugas: ["Mendata dan merawat perlengkapan sound system/karpet/alat masjid", "Menyiapkan peralatan saat acara masjid"] },
-      keamanan: { title: "Seksi Keamanan", fungsi: "Penjaga Ketertiban & Keamanan Masjid.", tugas: ["Menjaga keamanan area masjid saat ibadah", "Mengatur ketertiban parkir dan lingkungan masjid"] }
+      wakil3: { title: "Wakil Ketua III / Bidang Ri'ayah", fungsi: "Koordinator Pemeliharaan, Peralatan, dan Keamanan.", tugas: ["Mengoordinasikan seksi bangunan, alat, dan keamanan", "Menjaga kebersihan, keindahan, dan kenyamanan masjid"] },
+      bangunan: { title: "Seksi Pemeliharaan Bangunan", fungsi: "Penanggung Jawab Sarana Fisik & Bangunan.", tugas: ["Memelihara keutuhan & kebersihan fasilitas fisik masjid", "Melakukan renovasi/perbaikan ringan jika ada kerusakan"] },
+      alat: { title: "Seksi Peralatan & Perlengkapan", fungsi: "Pengelola Inventaris & Perbekalan Masjid.", tugas: ["Mendata dan merawat seluruh barang inventaris masjid", "Menyiapkan perlengkapan sound system & acara"] },
+      keamanan: { title: "Seksi Keamanan", fungsi: "Penjaga Ketertiban & Keamanan Lingkungan Masjid.", tugas: ["Menjaga keamanan area masjid saat kegiatan/ibadah", "Mengatur parkir dan ketertiban jamaah"] }
     };
 
     function showInfo(key) {
-      const data = dkmData[key];
-      if (!data) return;
-
-      document.getElementById('modalTitle').textContent = data.title;
-      document.getElementById('modalFungsi').textContent = data.fungsi;
+      const info = dkmData[key];
+      if (!info) return;
+      document.getElementById('modalTitle').innerText = info.title;
+      document.getElementById('modalFungsi').innerText = info.fungsi;
       
       const ul = document.getElementById('modalTugas');
       ul.innerHTML = '';
-      data.tugas.forEach(t => {
+      info.tugas.forEach(t => {
         const li = document.createElement('li');
-        li.textContent = t;
+        li.innerText = t;
         ul.appendChild(li);
       });
 
@@ -1896,21 +1882,6 @@ for (let i = 0; i < prayers.length; i++) {
 
     function closeModalDirect() {
       document.getElementById('dkmModal').classList.remove('active');
-    }
-
-    /* Modal Gambar */
-    function openImageModal(src, caption) {
-      const modal = document.getElementById('imgModal');
-      const img = document.getElementById('modalImg');
-      const cap = document.getElementById('modalCaption');
-      
-      img.src = src;
-      cap.textContent = caption || '';
-      modal.classList.add('active');
-    }
-
-    function closeImageModal() {
-      document.getElementById('imgModal').classList.remove('active');
     }
   </script>
 </body>
