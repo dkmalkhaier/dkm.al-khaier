@@ -1880,5 +1880,164 @@ const jamSholat = formatTime(p.prayerMinutes);
       document.getElementById('dkmModal').classList.remove('active');
     }
   </script>
+
+<!-- ==========================================
+     STYLING WIDGET DONATUR MELAYANG (CSS)
+     ========================================== -->
+<style>
+  .floating-donatur-box {
+    position: fixed;
+    bottom: 20px;
+    left: 20px; /* Ubah ke 'right: 20px' jika ingin pindah ke sudut kanan bawah */
+    width: 240px;
+    height: 130px;
+    background: #ffffff;
+    border-left: 4px solid #2d6a4f;
+    border-radius: 8px;
+    box-shadow: 0 4px 15px rgba(0,0,0,0.15);
+    padding: 10px;
+    overflow: hidden;
+    z-index: 9999;
+    font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+  }
+
+  .floating-donatur-header {
+    font-size: 11px;
+    font-weight: bold;
+    color: #1b4332;
+    border-bottom: 1px solid #eeeeee;
+    padding-bottom: 4px;
+    margin-bottom: 6px;
+    text-transform: uppercase;
+    letter-spacing: 0.5px;
+  }
+
+  /* Area Teks Melayang */
+  .floating-donatur-viewport {
+    height: 95px;
+    overflow: hidden;
+    position: relative;
+  }
+
+  .floating-donatur-list {
+    position: absolute;
+    width: 100%;
+    animation: scrollUpSheet 12s linear infinite;
+  }
+
+  /* Animasi berhenti otomatis saat kursor/layar disentuh */
+  .floating-donatur-box:hover .floating-donatur-list {
+    animation-play-state: paused;
+  }
+
+  .floating-item {
+    font-size: 11px;
+    color: #333333;
+    margin-bottom: 10px;
+    line-height: 1.3;
+    border-bottom: 1px dashed #f0f0f0;
+    padding-bottom: 6px;
+  }
+
+  .floating-item .nama {
+    font-weight: bold;
+    color: #2d6a4f; /* Kolom D (Nama) */
+    display: block;
+  }
+
+  .floating-item .detail-row {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    margin-top: 2px;
+  }
+
+  .floating-item .tanggal {
+    color: #888888; /* Kolom B (Tanggal) */
+    font-size: 10px;
+  }
+
+  .floating-item .nominal {
+    color: #d4af37; /* Kolom E (Nominal) */
+    font-weight: 600;
+    font-size: 11px;
+  }
+
+  /* Keyframe Animasi Vertikal Bawah ke Atas */
+  @keyframes scrollUpSheet {
+    0% { transform: translateY(100%); }
+    100% { transform: translateY(-100%); }
+  }
+</style>
+
+<!-- ==========================================
+     STRUKTUR TAMPILAN (HTML)
+     ========================================== -->
+<div class="floating-donatur-box">
+  <div class="floating-donatur-header">💚 Donatur Terakhir</div>
+  <div class="floating-donatur-viewport">
+    <div class="floating-donatur-list" id="donaturContainer">
+      <div class="floating-item">Memuat data donatur...</div>
+    </div>
+  </div>
+</div>
+
+<!-- ==========================================
+     LOGIKA PENARIKAN DATA SPREADSHEET (JS)
+     ========================================== -->
+<script>
+  // URL CSV Google Sheets milik Anda
+  const sheetCsvUrl = 'https://docs.google.com/spreadsheets/d/e/2PACX-1vS83sG1hh3_jMjPC0dzTtay76-fRFqqiCFzB40NgLIor88940hvw_0pZBdpfwRFPQtCvoapmd4ovB0s/pub?gid=1734635535&single=true&output=csv';
+
+  async function fetchDonaturData() {
+    try {
+      const response = await fetch(sheetCsvUrl);
+      const data = await response.text();
+      
+      // Memecah CSV menjadi baris-baris data
+      const rows = data.split('\n').slice(1); // Potong baris 1 (Header)
+      const container = document.getElementById('donaturContainer');
+      
+      let htmlContent = '';
+      
+      rows.forEach(row => {
+        const columns = row.split(',');
+        
+        if (columns.length >= 4) {
+          // MEMANGGIL KOLOM B, D, DAN E SESUAI PETUNJUK:
+          const tanggal = columns[1] ? columns[1].replace(/"/g, '').trim() : ''; // Kolom B (Tgl)
+          const nama    = columns[3] ? columns[3].replace(/"/g, '').trim() : ''; // Kolom D (Nama)
+          const nominal = columns[4] ? columns[4].replace(/"/g, '').trim() : ''; // Kolom E (Nominal)
+          
+          if (nama !== '') {
+            htmlContent += `
+              <div class="floating-item">
+                <span class="nama">${nama}</span>
+                <div class="detail-row">
+                  <span class="tanggal">${tanggal}</span>
+                  <span class="nominal">${nominal}</span>
+                </div>
+              </div>
+            `;
+          }
+        }
+      });
+
+      if (htmlContent !== '') {
+        container.innerHTML = htmlContent;
+      } else {
+        container.innerHTML = '<div class="floating-item">Belum ada data donatur.</div>';
+      }
+    } catch (error) {
+      console.error('Gagal mengambil data dari Google Sheets:', error);
+      document.getElementById('donaturContainer').innerHTML = 
+        '<div class="floating-item">Gagal memuat data.</div>';
+    }
+  }
+
+  // Jalankan fungsi saat halaman selesai dimuat
+  document.addEventListener('DOMContentLoaded', fetchDonaturData);
+</script>
+  
 </body>
 </html>
