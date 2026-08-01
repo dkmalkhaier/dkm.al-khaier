@@ -1882,242 +1882,513 @@ const jamSholat = formatTime(p.prayerMinutes);
   </script>
 
 <!-- ==========================================
-     STYLING DONATUR MELAYANG (KHUSUS MOBILE/HP)
+
+     STYLING DONATUR MELAYANG (CSS)
+
      ========================================== -->
+
 <style>
-  /* KOTAK WIDGET UTAMA (DILOCK DENGAN INSET/BOTTOM SPECIFIC) */
+
+  /* KOTAK WIDGET UTAMA */
+
   .floating-donatur-box {
+
     position: fixed;
-    top: 40px;     /* Jarak dari atas layar HP */
-    bottom: 70px;  /* BATAS TERBAWAH: Dikunci 70px di atas dasar HP (Persis di atas Menu) */
-    left: 15px;    /* Jarak dari pinggir kiri */
+
+    top: 0;
+
+    bottom: 0;
+
+    left: 20px; /* Jarak dari pinggir kiri layar */
+
     width: 230px;
+
+    height: 100vh;
+
     
+
+    /* TRANSPARAN FULL */
+
     background: transparent !important;
+
     box-shadow: none !important;
+
     border: none !important;
+
     
+
     padding: 0;
+
     overflow: hidden;
+
     z-index: 9999;
+
     font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
-    pointer-events: none;
+
+    pointer-events: none; /* Agar klik tombol/link di belakangnya tetap berfungsi */
+
     
+
+    /* Animasi tayang 45 detik + jeda 45 detik */
+
     animation: boxFadeCycle 90s infinite;
+
   }
 
-  /* HEADER & JAM TANGGAL */
+
+
+  /* JUDUL PENGUMUMAN + JAM & TANGGAL (FULL TRANSPARAN) */
+
   .floating-donatur-header {
-    position: relative; /* Diubah ke relative agar tidak menumpuk */
+
+    position: absolute;
+
+    top: 40px; /* Jarak dari batas paling atas layar */
+
+    left: 0;
+
     width: 100%;
+
     z-index: 10;
+
     font-size: 11px;
+
     font-weight: bold;
-    color: #b71c1c;
-    border-bottom: 2px solid #d32f2f;
+
+    color: #1b4332;
+
+    border-bottom: 2px solid #2d6a4f;
+
     padding-bottom: 5px;
+
+    
+
     background: transparent !important;
+
+    backdrop-filter: none !important;
+
     pointer-events: auto;
+
   }
+
+
 
   .floating-donatur-header .title-text {
+
     text-transform: uppercase;
+
     letter-spacing: 0.5px;
+
     display: block;
+
     margin-bottom: 2px;
+
     text-shadow: 0 1px 3px rgba(255, 255, 255, 0.9);
+
   }
+
+
 
   .floating-donatur-header .datetime-text {
+
     font-size: 9.5px;
+
     font-weight: normal;
-    color: #c62828;
+
+    color: #444444;
+
     display: flex;
+
     justify-content: space-between;
+
     text-shadow: 0 1px 3px rgba(255, 255, 255, 0.9);
+
   }
 
-  /* KANTONG TEMPAT TEKS NAIK (DIBATASI DARI BAWAH JAM SAMPAI ATAS MENU HP) */
+
+
+  /* AREA JALAN TEKS (DIBATASI DARI BAWAH JAM DENGAN BATAS BAWAH DI ATAS MENU) */
+
   .floating-donatur-viewport {
-    position: relative;
+
+    position: absolute;
+
+    top: 70px;    /* BATAS ATAS: Di bawah Jam & Tanggal */
+
+    bottom: 20px; /* BATAS BAWAH: Persis di atas daftar menu (Ubah angka 60px jika kurang pas) */
+
+    left: 0;
+
     width: 100%;
-    height: calc(100% - 45px); /* Mengisi sisa ruang tepat di bawah Header */
-    overflow: hidden !important; /* MENGUNCI TEKS KELUAR BATAS ATAS/BAWAH */
+
+    overflow: hidden !important; /* Mengunci teks agar tidak tembus ke atas/bawah */
+
     z-index: 1;
+
   }
+
+
 
   .floating-donatur-list {
+
     position: absolute;
-    top: 0;
-    left: 0;
+
     width: 100%;
+
     pointer-events: auto;
-    /* Animasi pergerakan naik */
-    animation: scrollInsideViewport 90s linear infinite;
+
+    /* Siklus 90s (45s jalan naik + 45s jeda) */
+
+    animation: scrollLimitedHeight 90s linear infinite;
+
   }
+
+
+
+  /* Animasi berhenti otomatis saat kursor/layar disentuh */
 
   .floating-donatur-list:hover {
+
     animation-play-state: paused;
+
   }
 
-  /* ITEM DONATUR (WARNA MERAH & RAPAT) */
+
+
   .floating-item {
+
     font-size: 11px;
-    color: #d32f2f;
+
+    color: #222222;
+
     margin-bottom: 6px;
+
     line-height: 1.1;
-    border-bottom: 1px dashed rgba(211, 47, 47, 0.3);
+
+    border-bottom: 1px dashed rgba(0, 0, 0, 0.2);
+
     padding-bottom: 4px;
+
   }
+
+
 
   .floating-item .nama {
+
     font-weight: bold;
-    color: #b71c1c;
-    display: block;
-    margin-bottom: 1px;
-    text-shadow: 0 1px 2px rgba(255, 255, 255, 0.9);
-  }
+
+  color: #1b4332;
+
+  display: block;
+
+  margin-bottom: 1px; /* Jarak dari Nama ke Tanggal/Nominal */
+
+  text-shadow: 0 1px 2px rgba(255, 255, 255, 0.9);
+
+}
+
+
 
   .floating-item .detail-row {
+
     display: flex;
-    justify-content: flex-start;
+
+    justify-content: space-between;
+
     align-items: center;
-    gap: 6px; /* JARAK RAPAT TANGGAL KE RUPIAH */
+
+    gap: 8px;                    /* JARAK ANTARA TANGGAL DAN RUPIAH */
+
     margin-top: 1px;
+
   }
+
+
 
   .floating-item .tanggal {
-    color: #e53935;
+
+    color: #444444;
+
     font-size: 9.5px;
+
     text-shadow: 0 1px 2px rgba(255, 255, 255, 0.9);
+
   }
+
+
 
   .floating-item .nominal {
-    color: #b71c1c;
+
+    color: #b58900;
+
     font-weight: bold;
+
     font-size: 10.5px;
+
     text-shadow: 0 1px 2px rgba(255, 255, 255, 0.9);
+
   }
+
+
 
   /* ==========================================
-     ANIMASI PERGERAKAN KHUSUS CONTAINER INTERNAL
+
+     ANIMASI PERGERAKAN TEKS
+
      ========================================== */
-  @keyframes scrollInsideViewport {
+
+
+
+  /* Berjalan naik dari ATAS MENU (bottom: 60px) sampai HILANG DI BAWAH JAM (top: 65px) */
+
+  @keyframes scrollLimitedHeight {
+
     0% { 
-      /* TEKS MULAI NAIK DARI BATAS BAWAH KANTONG (ATAS MENU HP), BUKAN DARI DASAR HP */
-      transform: translateY(100%); 
+
+      transform: translateY(100%); /* Mulai muncul dari persis atas menu */
+
     }
+
     50% { 
-      /* NAIK SAMPAI HILANG TEPAT DI BAWAH HEADER JAM */
-      transform: translateY(-100%); 
+
+      transform: translateY(-100%); /* Naik sampai hilang persis di bawah garis jam pada detik ke-45 */
+
     }
+
     100% { 
-      transform: translateY(-100%); 
+
+      transform: translateY(-100%); /* Jeda 45 detik berikutnya */
+
     }
+
   }
+
+
+
+  /* Animasi Memudar saat jeda 45 detik */
 
   @keyframes boxFadeCycle {
+
     0%, 48% { 
+
       opacity: 1; 
+
       visibility: visible;
+
     }
+
     50%, 98% { 
+
       opacity: 0; 
+
       visibility: hidden;
+
     }
+
     100% { 
+
       opacity: 1; 
+
       visibility: visible;
+
     }
+
   }
+
 </style>
 
-<!-- STRUKTUR HTML -->
+
+
+<!-- ==========================================
+
+     STRUKTUR TAMPILAN (HTML)
+
+     ========================================== -->
+
 <div class="floating-donatur-box">
+
   
+
+  <!-- BATAS ATAS: HEADER & JAM TANGGAL REALTIME -->
+
   <div class="floating-donatur-header">
-    <span class="title-text">❤️ Jazakumullahu Khairan</span>
+
+    <span class="title-text">💚 Jazakumullahu Khairan</span>
+
     <div class="datetime-text">
+
       <span id="donaturDate">--/--/----</span>
+
       <span id="donaturClock">00:00:00 WIB</span>
+
     </div>
+
   </div>
 
+
+
+  <!-- AREA JALAN TEKS (BATAS ATAS = 65px, BATAS BAWAH = 60px) -->
+
   <div class="floating-donatur-viewport">
+
     <div class="floating-donatur-list" id="donaturContainer">
+
       <div class="floating-item">Memuat data donatur...</div>
+
     </div>
+
   </div>
+
+
 
 </div>
 
-<!-- SCRIPT JS (TETAP SAMA) -->
+
+
+<!-- ==========================================
+
+     LOGIKA PENARIKAN DATA SPREADSHEET & JAM (JS)
+
+     ========================================== -->
+
 <script>
+
   const sheetCsvUrl = 'https://docs.google.com/spreadsheets/d/e/2PACX-1vS83sG1hh3_jMjPC0dzTtay76-fRFqqiCFzB40NgLIor88940hvw_0pZBdpfwRFPQtCvoapmd4ovB0s/pub?gid=1734635535&single=true&output=csv';
 
+
+
   function updateRealtimeClock() {
+
     const now = new Date();
-    const optionsDate = { day: '2-digit', month: 'short', year: 'numeric' };
-    const dateStr = now.toLocaleDateString('id-ID', optionsDate);
+
     
+
+    const optionsDate = { day: '2-digit', month: 'short', year: 'numeric' };
+
+    const dateStr = now.toLocaleDateString('id-ID', optionsDate);
+
+    
+
     const hours = String(now.getHours()).padStart(2, '0');
+
     const minutes = String(now.getMinutes()).padStart(2, '0');
+
     const seconds = String(now.getSeconds()).padStart(2, '0');
+
     const timeStr = `${hours}:${minutes}:${seconds} WIB`;
 
+
+
     document.getElementById('donaturDate').textContent = dateStr;
+
     document.getElementById('donaturClock').textContent = timeStr;
+
   }
+
+
 
   async function fetchDonaturData() {
+
     try {
+
       const response = await fetch(sheetCsvUrl);
+
       const data = await response.text();
+
+      
+
       const rows = data.split('\n').slice(1);
+
       const container = document.getElementById('donaturContainer');
+
       
+
       let htmlContent = '';
+
       
+
       rows.forEach(row => {
+
         const columns = row.split(',');
+
+        
+
         if (columns.length >= 4) {
+
           const tanggal = columns[1] ? columns[1].replace(/"/g, '').trim() : ''; 
+
           const nama    = columns[3] ? columns[3].replace(/"/g, '').trim() : ''; 
+
           const nominal = columns[4] ? columns[4].replace(/"/g, '').trim() : ''; 
+
           
+
           if (nama !== '') {
+
             htmlContent += `
+
               <div class="floating-item">
+
                 <span class="nama">${nama}</span>
+
                 <div class="detail-row">
+
                   <span class="tanggal">${tanggal}</span>
+
                   <span class="nominal">${nominal}</span>
+
                 </div>
+
               </div>
+
             `;
+
           }
+
         }
+
       });
 
+
+
       if (htmlContent !== '') {
+
         container.innerHTML = htmlContent;
+
       } else {
+
         container.innerHTML = '<div class="floating-item">Belum ada data donatur.</div>';
+
       }
+
     } catch (error) {
+
       console.error('Gagal mengambil data dari Google Sheets:', error);
+
       document.getElementById('donaturContainer').innerHTML = 
+
         '<div class="floating-item">Gagal memuat data.</div>';
+
     }
+
   }
 
+
+
   document.addEventListener('DOMContentLoaded', () => {
+
     fetchDonaturData();
+
     updateRealtimeClock();
+
     setInterval(updateRealtimeClock, 1000);
+
   });
 
+
+
   setInterval(fetchDonaturData, 180000);
+
 </script>
   
 </body>
