@@ -1948,7 +1948,7 @@ const jamSholat = formatTime(p.prayerMinutes);
   .floating-donatur-viewport {
     position: absolute;
     top: 70px;    /* BATAS ATAS: Di bawah Jam & Tanggal */
-    bottom: 50px; /* BATAS BAWAH: Persis di atas daftar menu (Ubah angka 60px jika kurang pas) */
+    bottom: 20px; /* BATAS BAWAH: Persis di atas daftar menu (Ubah angka 60px jika kurang pas) */
     left: 0;
     width: 100%;
     overflow: hidden !important; /* Mengunci teks agar tidak tembus ke atas/bawah */
@@ -1989,19 +1989,20 @@ const jamSholat = formatTime(p.prayerMinutes);
     display: flex;
     justify-content: space-between;
     align-items: center;
-    margin-top: 0px;
+    gap: 8px;                    /* JARAK ANTARA TANGGAL DAN RUPIAH */
+    margin-top: 1px;
   }
 
   .floating-item .tanggal {
     color: #444444;
-    font-size: 10px;
+    font-size: 9.5px;
     text-shadow: 0 1px 2px rgba(255, 255, 255, 0.9);
   }
 
   .floating-item .nominal {
     color: #b58900;
     font-weight: bold;
-    font-size: 11px;
+    font-size: 10.5px;
     text-shadow: 0 1px 2px rgba(255, 255, 255, 0.9);
   }
 
