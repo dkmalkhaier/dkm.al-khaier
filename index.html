@@ -1890,7 +1890,7 @@ const jamSholat = formatTime(p.prayerMinutes);
     bottom: 20px;
     left: 20px; /* Ubah ke 'right: 20px' jika ingin di pojok kanan bawah */
     width: 230px;
-    height: 120px;
+    height: 125px;
     
     /* TRANSPARAN FULL (TANPA LATAR & TANPA KOTAK) */
     background: transparent !important;
@@ -1900,7 +1900,7 @@ const jamSholat = formatTime(p.prayerMinutes);
     border: none !important;
     
     padding: 0;
-    overflow: hidden;
+    overflow: hidden; /* Mengunci agar teks tidak keluar kotak */
     z-index: 9999;
     font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
     
@@ -1908,23 +1908,27 @@ const jamSholat = formatTime(p.prayerMinutes);
     animation: boxFadeCycle 90s infinite;
   }
 
+  /* HEADER / BATAS PENGUMUMAN (DILINDUNGI AGAR TEKS TIDAK MENUTUPI JUDUL) */
   .floating-donatur-header {
+    position: relative;
+    z-index: 2; /* Memastikan judul selalu berada di atas teks berjalan */
     font-size: 11px;
     font-weight: bold;
     color: #1b4332; /* Warna hijau tua khas DKM */
-    border-bottom: 1px solid rgba(27, 67, 50, 0.2);
+    border-bottom: 1px solid rgba(27, 67, 50, 0.3);
     padding-bottom: 4px;
-    margin-bottom: 6px;
+    margin-bottom: 4px;
     text-transform: uppercase;
     letter-spacing: 0.5px;
-    text-shadow: 0 1px 2px rgba(255, 255, 255, 0.8); /* Agar pembacaan jelas di latar manapun */
+    text-shadow: 0 1px 2px rgba(255, 255, 255, 0.9);
   }
 
-  /* Area Teks Melayang */
+  /* AREA VIEWPORT (BATAS TAMPILAN TEKS MELAYANG) */
   .floating-donatur-viewport {
     height: 95px;
-    overflow: hidden;
+    overflow: hidden !important; /* MEMBATASI TEKS: Teks akan terpotong & hilang tepat di garis ini */
     position: relative;
+    z-index: 1;
   }
 
   .floating-donatur-list {
@@ -1978,7 +1982,7 @@ const jamSholat = formatTime(p.prayerMinutes);
 
   /* ==========================================
      ANIMASI PERPUTARAN TAYANG (45s) & JEDA (45s)
-     ========================================== -->
+     ========================================== */
 
   /* 1. Animasi Teks Berjalan dari Bawah ke Atas dalam 45 Detik Pertama */
   @keyframes scrollCycle {
@@ -2014,7 +2018,7 @@ const jamSholat = formatTime(p.prayerMinutes);
      STRUKTUR TAMPILAN (HTML)
      ========================================== -->
 <div class="floating-donatur-box">
-  <div class="floating-donatur-header">💚 Donatur Terakhir</div>
+  <div class="floating-donatur-header">💚 Terimakasih Para Donatur</div>
   <div class="floating-donatur-viewport">
     <div class="floating-donatur-list" id="donaturContainer">
       <div class="floating-item">Memuat data donatur...</div>
