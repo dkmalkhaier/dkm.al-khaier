@@ -1948,7 +1948,7 @@ const jamSholat = formatTime(p.prayerMinutes);
   .floating-donatur-viewport {
     position: absolute;
     top: 70px;    /* BATAS ATAS: Di bawah Jam & Tanggal */
-    bottom: 10px; /* BATAS BAWAH: Persis di atas daftar menu (Ubah angka 60px jika kurang pas) */
+    bottom: 30px; /* BATAS BAWAH: Persis di atas daftar menu (Ubah angka 60px jika kurang pas) */
     left: 0;
     width: 100%;
     overflow: hidden !important; /* Mengunci teks agar tidak tembus ke atas/bawah */
@@ -2012,7 +2012,7 @@ const jamSholat = formatTime(p.prayerMinutes);
   /* Berjalan naik dari ATAS MENU (bottom: 60px) sampai HILANG DI BAWAH JAM (top: 65px) */
   @keyframes scrollLimitedHeight {
     0% { 
-      transform: translateY(100%); /* Mulai muncul dari persis atas menu */
+      transform: translateY(100vh); /* Mulai muncul dari persis atas menu */
     }
     50% { 
       transform: translateY(-100%); /* Naik sampai hilang persis di bawah garis jam pada detik ke-45 */
