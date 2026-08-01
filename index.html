@@ -1778,39 +1778,35 @@
       }
 
       // Logika Informasi Waktu Sholat di Tampilan HP (Mobile)
+       // Logika Informasi Waktu Sholat di Tampilan HP (Mobile)
       const mobileInfo = document.getElementById('mobile-prayer-info');
       let statusText = "";
 
       if (mobileInfo) {
+        // Cek Sholat Fardhu (Subuh, Dzuhur, Ashar, Maghrib, Isya)
         const fardhuPrayers = prayerData.filter(p => p.name !== "Terbit (Syuruq)");
 
-        const formatTime = (minutes) => {
-          const h = String(Math.floor(minutes / 60)).padStart(2, '0');
-          const m = String(minutes % 60).padStart(2, '0');
-          return `${h}:${m}`;
-        };
-
-        for (let i = 0; i < fardhuPrayers.length; i++) {
-          const p = fardhuPrayers[i];
-          const jamSholat = formatTime(p.prayerMinutes);
+        for (let p of fardhuPrayers) {
           const diff = p.prayerMinutes - currentMinutes;
 
-          const nextPrayer = fardhuPrayers[(i + 1) % fardhuPrayers.length];
-          let nextPrayerMinutes = nextPrayer.prayerMinutes;
-          if (i === fardhuPrayers.length - 1) {
-            nextPrayerMinutes += 1440; // Tambah 24 jam untuk Isya -> Subuh
-          }
-          const endLimitMinutes = nextPrayerMinutes - 30;
+  // Fungsi bantuan untuk format 2 digit (misal: 4 -> "04")
+const formatTime = (minutes) => {
+  const h = String(Math.floor(minutes / 60)).padStart(2, '0');
+  const m = String(minutes % 60).padStart(2, '0');
+  return `${h}:${m}`;
+};
 
-          // 1. Menuju waktu sholat (30 menit sebelum sholat p)
-          if (diff > 0 && diff <= 30) {
+const jamSholat = formatTime(p.prayerMinutes);
+
+          // 15 menit sebelum sholat
+          if (diff > 0 && diff <= 15) {
             statusText = `<i class="fa-solid fa-bell"></i> Menuju Waktu ${p.name} (${jamSholat})`;
-            break;
+    break;
           } 
-          // 2. Memasuki waktu sholat
-          else if (currentMinutes >= p.prayerMinutes && currentMinutes < endLimitMinutes) {
+          // Waktu sholat s/d 30 menit setelahnya
+          else if (currentMinutes >= p.prayerMinutes && currentMinutes <= (p.prayerMinutes + 30)) {
             statusText = `<i class="fa-solid fa-volume-high"></i> Memasuki Waktu ${p.name} (${jamSholat})`;
-            break;
+    break;
           }
         }
 
