@@ -1971,24 +1971,25 @@ const jamSholat = formatTime(p.prayerMinutes);
   .floating-item {
     font-size: 11px;
     color: #222222;
-    margin-bottom: 12px;
-    line-height: 1.3;
+    margin-bottom: 6px;
+    line-height: 1.1;
     border-bottom: 1px dashed rgba(0, 0, 0, 0.2);
-    padding-bottom: 6px;
+    padding-bottom: 4px;
   }
 
   .floating-item .nama {
     font-weight: bold;
-    color: #1b4332;
-    display: block;
-    text-shadow: 0 1px 2px rgba(255, 255, 255, 0.9);
-  }
+  color: #1b4332;
+  display: block;
+  margin-bottom: 1px; /* Jarak dari Nama ke Tanggal/Nominal */
+  text-shadow: 0 1px 2px rgba(255, 255, 255, 0.9);
+}
 
   .floating-item .detail-row {
     display: flex;
     justify-content: space-between;
     align-items: center;
-    margin-top: 2px;
+    margin-top: 0px;
   }
 
   .floating-item .tanggal {
