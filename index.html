@@ -1890,11 +1890,10 @@ const jamSholat = formatTime(p.prayerMinutes);
     position: fixed;
     top: 0;
     bottom: 0;
-    left: 20px; /* Jarak dari pinggir kiri layar */
+    left: 15px; /* Jarak dari pinggir kiri layar */
     width: 230px;
     height: 100vh;
     
-    /* TRANSPARAN FULL */
     background: transparent !important;
     box-shadow: none !important;
     border: none !important;
@@ -1903,23 +1902,22 @@ const jamSholat = formatTime(p.prayerMinutes);
     overflow: hidden;
     z-index: 9999;
     font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
-    pointer-events: none; /* Agar klik tombol/link di belakangnya tetap berfungsi */
+    pointer-events: none;
     
-    /* Animasi tayang 45 detik + jeda 45 detik */
     animation: boxFadeCycle 90s infinite;
   }
 
-  /* JUDUL PENGUMUMAN + JAM & TANGGAL (FULL TRANSPARAN) */
+  /* JUDUL PENGUMUMAN + JAM & TANGGAL (FULL TRANSPARAN & TEKS MERAH) */
   .floating-donatur-header {
     position: absolute;
-    top: 40px; /* Jarak dari batas paling atas layar */
+    top: 40px; /* Jarak dari paling atas layar */
     left: 0;
     width: 100%;
     z-index: 10;
     font-size: 11px;
     font-weight: bold;
-    color: #1b4332;
-    border-bottom: 2px solid #2d6a4f;
+    color: #b71c1c; /* Merah Tua */
+    border-bottom: 2px solid #d32f2f; /* Garis batas bawah merah */
     padding-bottom: 5px;
     
     background: transparent !important;
@@ -1938,20 +1936,20 @@ const jamSholat = formatTime(p.prayerMinutes);
   .floating-donatur-header .datetime-text {
     font-size: 9.5px;
     font-weight: normal;
-    color: #444444;
+    color: #c62828; /* Merah */
     display: flex;
     justify-content: space-between;
     text-shadow: 0 1px 3px rgba(255, 255, 255, 0.9);
   }
 
-  /* AREA JALAN TEKS (DIBATASI DARI BAWAH JAM DENGAN BATAS BAWAH DI ATAS MENU) */
+  /* AREA KANTONG JALAN TEKS (BATAS DARI ATAS MENU HP SAMPAI BAWAH JAM) */
   .floating-donatur-viewport {
     position: absolute;
-    top: 70px;    /* BATAS ATAS: Di bawah Jam & Tanggal */
-    bottom: 20px; /* BATAS BAWAH: Persis di atas daftar menu (Ubah angka 60px jika kurang pas) */
+    top: 85px;    /* BATAS ATAS: Menghilang persis di bawah garis jam */
+    bottom: 60px; /* BATAS BAWAH: Di atas menu HP (Sesuaikan angka 60px ini dengan tinggi menu HP Anda) */
     left: 0;
     width: 100%;
-    overflow: hidden !important; /* Mengunci teks agar tidak tembus ke atas/bawah */
+    overflow: hidden !important; /* Mengunci agar teks tidak tembus keluar kantong ini */
     z-index: 1;
   }
 
@@ -1959,48 +1957,48 @@ const jamSholat = formatTime(p.prayerMinutes);
     position: absolute;
     width: 100%;
     pointer-events: auto;
-    /* Siklus 90s (45s jalan naik + 45s jeda) */
     animation: scrollLimitedHeight 90s linear infinite;
   }
 
-  /* Animasi berhenti otomatis saat kursor/layar disentuh */
   .floating-donatur-list:hover {
     animation-play-state: paused;
   }
 
+  /* ITEM DAFTAR DONATUR (FONT WARNA MERAH) */
   .floating-item {
     font-size: 11px;
-    color: #222222;
+    color: #d32f2f;
     margin-bottom: 6px;
     line-height: 1.1;
-    border-bottom: 1px dashed rgba(0, 0, 0, 0.2);
+    border-bottom: 1px dashed rgba(211, 47, 47, 0.3); /* Garis putus-putus merah transparan */
     padding-bottom: 4px;
   }
 
   .floating-item .nama {
     font-weight: bold;
-  color: #1b4332;
-  display: block;
-  margin-bottom: 1px; /* Jarak dari Nama ke Tanggal/Nominal */
-  text-shadow: 0 1px 2px rgba(255, 255, 255, 0.9);
-}
+    color: #b71c1c; /* Nama: Merah Gelap/Tua */
+    display: block;
+    margin-bottom: 1px;
+    text-shadow: 0 1px 2px rgba(255, 255, 255, 0.9);
+  }
 
+  /* KONTROL JARAK TANGGAL DAN NOMINAL (DIBUAT RAPAT) */
   .floating-item .detail-row {
     display: flex;
-    justify-content: space-between;
+    justify-content: flex-start; /* Merapat ke kiri */
     align-items: center;
-    gap: 8px;                    /* JARAK ANTARA TANGGAL DAN RUPIAH */
+    gap: 6px;                    /* JARAK RAPAT ANTARA TANGGAL & RUPIAH */
     margin-top: 1px;
   }
 
   .floating-item .tanggal {
-    color: #444444;
+    color: #e53935; /* Tanggal: Merah Cerah */
     font-size: 9.5px;
     text-shadow: 0 1px 2px rgba(255, 255, 255, 0.9);
   }
 
   .floating-item .nominal {
-    color: #b58900;
+    color: #b71c1c; /* Nominal: Merah Tua Tebal */
     font-weight: bold;
     font-size: 10.5px;
     text-shadow: 0 1px 2px rgba(255, 255, 255, 0.9);
@@ -2010,20 +2008,20 @@ const jamSholat = formatTime(p.prayerMinutes);
      ANIMASI PERGERAKAN TEKS
      ========================================== */
 
-  /* Berjalan naik dari ATAS MENU (bottom: 60px) sampai HILANG DI BAWAH JAM (top: 65px) */
+  /* Mulai persis dari bawah kantong viewport (di atas menu HP) hingga hilang di bawah jam */
   @keyframes scrollLimitedHeight {
     0% { 
-      transform: translateY(100%); /* Mulai muncul dari persis atas menu */
+      transform: translateY(100%); /* Mulai dari batas paling bawah viewport (di atas menu) */
     }
     50% { 
-      transform: translateY(-100%); /* Naik sampai hilang persis di bawah garis jam pada detik ke-45 */
+      transform: translateY(-100%); /* Naik sampai habis di bawah jam */
     }
     100% { 
-      transform: translateY(-100%); /* Jeda 45 detik berikutnya */
+      transform: translateY(-100%); /* Jeda */
     }
   }
 
-  /* Animasi Memudar saat jeda 45 detik */
+  /* Animasi Memudar saat jeda */
   @keyframes boxFadeCycle {
     0%, 48% { 
       opacity: 1; 
@@ -2045,16 +2043,14 @@ const jamSholat = formatTime(p.prayerMinutes);
      ========================================== -->
 <div class="floating-donatur-box">
   
-  <!-- BATAS ATAS: HEADER & JAM TANGGAL REALTIME -->
   <div class="floating-donatur-header">
-    <span class="title-text">💚 Jazakumullahu Khairan</span>
+    <span class="title-text">❤️ Jazakumullahu Khairan</span>
     <div class="datetime-text">
       <span id="donaturDate">--/--/----</span>
       <span id="donaturClock">00:00:00 WIB</span>
     </div>
   </div>
 
-  <!-- AREA JALAN TEKS (BATAS ATAS = 65px, BATAS BAWAH = 60px) -->
   <div class="floating-donatur-viewport">
     <div class="floating-donatur-list" id="donaturContainer">
       <div class="floating-item">Memuat data donatur...</div>
