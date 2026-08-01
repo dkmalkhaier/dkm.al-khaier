@@ -1882,17 +1882,16 @@ const jamSholat = formatTime(p.prayerMinutes);
   </script>
 
 <!-- ==========================================
-     STYLING DONATUR MELAYANG (CSS)
+     STYLING DONATUR MELAYANG (KHUSUS MOBILE/HP)
      ========================================== -->
 <style>
-  /* KOTAK WIDGET UTAMA */
+  /* KOTAK WIDGET UTAMA (DILOCK DENGAN INSET/BOTTOM SPECIFIC) */
   .floating-donatur-box {
     position: fixed;
-    top: 0;
-    bottom: 0;
-    left: 15px; /* Jarak dari pinggir kiri layar */
+    top: 40px;     /* Jarak dari atas layar HP */
+    bottom: 70px;  /* BATAS TERBAWAH: Dikunci 70px di atas dasar HP (Persis di atas Menu) */
+    left: 15px;    /* Jarak dari pinggir kiri */
     width: 230px;
-    height: 100vh;
     
     background: transparent !important;
     box-shadow: none !important;
@@ -1907,21 +1906,17 @@ const jamSholat = formatTime(p.prayerMinutes);
     animation: boxFadeCycle 90s infinite;
   }
 
-  /* JUDUL PENGUMUMAN + JAM & TANGGAL (FULL TRANSPARAN & TEKS MERAH) */
+  /* HEADER & JAM TANGGAL */
   .floating-donatur-header {
-    position: absolute;
-    top: 40px; /* Jarak dari paling atas layar */
-    left: 0;
+    position: relative; /* Diubah ke relative agar tidak menumpuk */
     width: 100%;
     z-index: 10;
     font-size: 11px;
     font-weight: bold;
-    color: #b71c1c; /* Merah Tua */
-    border-bottom: 2px solid #d32f2f; /* Garis batas bawah merah */
+    color: #b71c1c;
+    border-bottom: 2px solid #d32f2f;
     padding-bottom: 5px;
-    
     background: transparent !important;
-    backdrop-filter: none !important;
     pointer-events: auto;
   }
 
@@ -1936,92 +1931,91 @@ const jamSholat = formatTime(p.prayerMinutes);
   .floating-donatur-header .datetime-text {
     font-size: 9.5px;
     font-weight: normal;
-    color: #c62828; /* Merah */
+    color: #c62828;
     display: flex;
     justify-content: space-between;
     text-shadow: 0 1px 3px rgba(255, 255, 255, 0.9);
   }
 
-  /* AREA KANTONG JALAN TEKS (BATAS DARI ATAS MENU HP SAMPAI BAWAH JAM) */
+  /* KANTONG TEMPAT TEKS NAIK (DIBATASI DARI BAWAH JAM SAMPAI ATAS MENU HP) */
   .floating-donatur-viewport {
-    position: absolute;
-    top: 85px;    /* BATAS ATAS: Menghilang persis di bawah garis jam */
-    bottom: 20px; /* BATAS BAWAH: Di atas menu HP (Sesuaikan angka 60px ini dengan tinggi menu HP Anda) */
-    left: 0;
+    position: relative;
     width: 100%;
-    overflow: hidden !important; /* Mengunci agar teks tidak tembus keluar kantong ini */
+    height: calc(100% - 45px); /* Mengisi sisa ruang tepat di bawah Header */
+    overflow: hidden !important; /* MENGUNCI TEKS KELUAR BATAS ATAS/BAWAH */
     z-index: 1;
   }
 
   .floating-donatur-list {
     position: absolute;
+    top: 0;
+    left: 0;
     width: 100%;
     pointer-events: auto;
-    animation: scrollLimitedHeight 90s linear infinite;
+    /* Animasi pergerakan naik */
+    animation: scrollInsideViewport 90s linear infinite;
   }
 
   .floating-donatur-list:hover {
     animation-play-state: paused;
   }
 
-  /* ITEM DAFTAR DONATUR (FONT WARNA MERAH) */
+  /* ITEM DONATUR (WARNA MERAH & RAPAT) */
   .floating-item {
     font-size: 11px;
     color: #d32f2f;
-    margin-bottom: 3px;
+    margin-bottom: 6px;
     line-height: 1.1;
-    border-bottom: 0 1px dashed rgba(211, 47, 47, 0.3); /* Garis putus-putus merah transparan */
-    padding-bottom: 2px;
+    border-bottom: 1px dashed rgba(211, 47, 47, 0.3);
+    padding-bottom: 4px;
   }
 
   .floating-item .nama {
     font-weight: bold;
-    color: #b71c1c; /* Nama: Merah Gelap/Tua */
+    color: #b71c1c;
     display: block;
     margin-bottom: 1px;
     text-shadow: 0 1px 2px rgba(255, 255, 255, 0.9);
   }
 
-  /* KONTROL JARAK TANGGAL DAN NOMINAL (DIBUAT RAPAT) */
   .floating-item .detail-row {
     display: flex;
-    justify-content: flex-start; /* Merapat ke kiri */
+    justify-content: flex-start;
     align-items: center;
-    gap: 6px;                    /* JARAK RAPAT ANTARA TANGGAL & RUPIAH */
+    gap: 6px; /* JARAK RAPAT TANGGAL KE RUPIAH */
     margin-top: 1px;
   }
 
   .floating-item .tanggal {
-    color: #e53935; /* Tanggal: Merah Cerah */
+    color: #e53935;
     font-size: 9.5px;
     text-shadow: 0 1px 2px rgba(255, 255, 255, 0.9);
   }
 
   .floating-item .nominal {
-    color: #b71c1c; /* Nominal: Merah Tua Tebal */
+    color: #b71c1c;
     font-weight: bold;
     font-size: 10.5px;
     text-shadow: 0 1px 2px rgba(255, 255, 255, 0.9);
   }
 
   /* ==========================================
-     ANIMASI PERGERAKAN TEKS
+     ANIMASI PERGERAKAN KHUSUS CONTAINER INTERNAL
      ========================================== */
-
-  /* Mulai persis dari bawah kantong viewport (di atas menu HP) hingga hilang di bawah jam */
-  @keyframes scrollLimitedHeight {
+  @keyframes scrollInsideViewport {
     0% { 
-      transform: translateY(100%); /* Mulai dari batas paling bawah viewport (di atas menu) */
+      /* TEKS MULAI NAIK DARI BATAS BAWAH KANTONG (ATAS MENU HP), BUKAN DARI DASAR HP */
+      transform: translateY(100%); 
     }
     50% { 
-      transform: translateY(-100%); /* Naik sampai habis di bawah jam */
+      /* NAIK SAMPAI HILANG TEPAT DI BAWAH HEADER JAM */
+      transform: translateY(-100%); 
     }
     100% { 
-      transform: translateY(-100%); /* Jeda */
+      transform: translateY(-100%); 
     }
   }
 
-  /* Animasi Memudar saat jeda */
   @keyframes boxFadeCycle {
     0%, 48% { 
       opacity: 1; 
@@ -2038,9 +2032,7 @@ const jamSholat = formatTime(p.prayerMinutes);
   }
 </style>
 
-<!-- ==========================================
-     STRUKTUR TAMPILAN (HTML)
-     ========================================== -->
+<!-- STRUKTUR HTML -->
 <div class="floating-donatur-box">
   
   <div class="floating-donatur-header">
@@ -2059,15 +2051,12 @@ const jamSholat = formatTime(p.prayerMinutes);
 
 </div>
 
-<!-- ==========================================
-     LOGIKA PENARIKAN DATA SPREADSHEET & JAM (JS)
-     ========================================== -->
+<!-- SCRIPT JS (TETAP SAMA) -->
 <script>
   const sheetCsvUrl = 'https://docs.google.com/spreadsheets/d/e/2PACX-1vS83sG1hh3_jMjPC0dzTtay76-fRFqqiCFzB40NgLIor88940hvw_0pZBdpfwRFPQtCvoapmd4ovB0s/pub?gid=1734635535&single=true&output=csv';
 
   function updateRealtimeClock() {
     const now = new Date();
-    
     const optionsDate = { day: '2-digit', month: 'short', year: 'numeric' };
     const dateStr = now.toLocaleDateString('id-ID', optionsDate);
     
@@ -2084,7 +2073,6 @@ const jamSholat = formatTime(p.prayerMinutes);
     try {
       const response = await fetch(sheetCsvUrl);
       const data = await response.text();
-      
       const rows = data.split('\n').slice(1);
       const container = document.getElementById('donaturContainer');
       
@@ -2092,7 +2080,6 @@ const jamSholat = formatTime(p.prayerMinutes);
       
       rows.forEach(row => {
         const columns = row.split(',');
-        
         if (columns.length >= 4) {
           const tanggal = columns[1] ? columns[1].replace(/"/g, '').trim() : ''; 
           const nama    = columns[3] ? columns[3].replace(/"/g, '').trim() : ''; 
