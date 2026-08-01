@@ -1882,10 +1882,10 @@ const jamSholat = formatTime(p.prayerMinutes);
   </script>
 
 <!-- ==========================================
-     STYLING DONATUR MELAYANG FULL TRANSPARAN (CSS)
+     STYLING DONATUR MELAYANG (CSS)
      ========================================== -->
 <style>
-  /* KOTAK WIDGET UTAMA (POSISI KIRI BAWAH & SISI ATAS DIKUNCI) */
+  /* KOTAK WIDGET UTAMA */
   .floating-donatur-box {
     position: fixed;
     top: 0;
@@ -1922,7 +1922,6 @@ const jamSholat = formatTime(p.prayerMinutes);
     border-bottom: 2px solid #2d6a4f;
     padding-bottom: 5px;
     
-    /* FULL TRANSPARAN (Tanpa background & tanpa blur) */
     background: transparent !important;
     backdrop-filter: none !important;
     pointer-events: auto;
@@ -1933,10 +1932,9 @@ const jamSholat = formatTime(p.prayerMinutes);
     letter-spacing: 0.5px;
     display: block;
     margin-bottom: 2px;
-    text-shadow: 0 1px 3px rgba(255, 255, 255, 0.9); /* Bayangan putih halus agar tetap terbaca jelas */
+    text-shadow: 0 1px 3px rgba(255, 255, 255, 0.9);
   }
 
-  /* BARIS JAM & TANGGAL (FULL TRANSPARAN) */
   .floating-donatur-header .datetime-text {
     font-size: 9.5px;
     font-weight: normal;
@@ -1946,14 +1944,14 @@ const jamSholat = formatTime(p.prayerMinutes);
     text-shadow: 0 1px 3px rgba(255, 255, 255, 0.9);
   }
 
-  /* AREA JALAN TEKS (DIBATASI DARI BAWAH JUDUL KEBUTUSAN SAMPAI PALING BAWAH LAYAR) */
+  /* AREA JALAN TEKS (DIBATASI DARI BAWAH JAM DENGAN BATAS BAWAH DI ATAS MENU) */
   .floating-donatur-viewport {
     position: absolute;
-    top: 65px; /* JARAK BATAS ATAS: Teks akan terpotong & menghilang persis di bawah garis Jam/Tanggal ini */
-    bottom: 0;
+    top: 65px;    /* BATAS ATAS: Di bawah Jam & Tanggal */
+    bottom: 60px; /* BATAS BAWAH: Persis di atas daftar menu (Ubah angka 60px jika kurang pas) */
     left: 0;
     width: 100%;
-    overflow: hidden !important; /* Mengunci teks agar tidak tembus ke atas header */
+    overflow: hidden !important; /* Mengunci teks agar tidak tembus ke atas/bawah */
     z-index: 1;
   }
 
@@ -1981,7 +1979,7 @@ const jamSholat = formatTime(p.prayerMinutes);
 
   .floating-item .nama {
     font-weight: bold;
-    color: #1b4332; /* Kolom D (Nama) */
+    color: #1b4332;
     display: block;
     text-shadow: 0 1px 2px rgba(255, 255, 255, 0.9);
   }
@@ -1994,13 +1992,13 @@ const jamSholat = formatTime(p.prayerMinutes);
   }
 
   .floating-item .tanggal {
-    color: #444444; /* Kolom B (Tanggal) */
+    color: #444444;
     font-size: 10px;
     text-shadow: 0 1px 2px rgba(255, 255, 255, 0.9);
   }
 
   .floating-item .nominal {
-    color: #b58900; /* Kolom E (Nominal) */
+    color: #b58900;
     font-weight: bold;
     font-size: 11px;
     text-shadow: 0 1px 2px rgba(255, 255, 255, 0.9);
@@ -2010,20 +2008,20 @@ const jamSholat = formatTime(p.prayerMinutes);
      ANIMASI PERGERAKAN TEKS
      ========================================== */
 
-  /* 1. Berjalan naik dari bawah dan HILANG tepat saat menyentuh batas jam & tanggal */
+  /* Berjalan naik dari ATAS MENU (bottom: 60px) sampai HILANG DI BAWAH JAM (top: 65px) */
   @keyframes scrollLimitedHeight {
     0% { 
-      transform: translateY(100vh); /* Mulai melayang dari bawah luar layar */
+      transform: translateY(100%); /* Mulai muncul dari persis atas menu */
     }
     50% { 
-      transform: translateY(-100%); /* Naik sampai hilang persis di bawah batas jam/tanggal pada detik ke-45 */
+      transform: translateY(-100%); /* Naik sampai hilang persis di bawah garis jam pada detik ke-45 */
     }
     100% { 
-      transform: translateY(-100%); /* Diam/jeda selama 45 detik berikutnya */
+      transform: translateY(-100%); /* Jeda 45 detik berikutnya */
     }
   }
 
-  /* 2. Animasi Memudar saat jeda 45 detik */
+  /* Animasi Memudar saat jeda 45 detik */
   @keyframes boxFadeCycle {
     0%, 48% { 
       opacity: 1; 
@@ -2045,7 +2043,7 @@ const jamSholat = formatTime(p.prayerMinutes);
      ========================================== -->
 <div class="floating-donatur-box">
   
-  <!-- BATAS ATAS: HEADER & JAM TANGGAL REALTIME (FULL TRANSPARAN) -->
+  <!-- BATAS ATAS: HEADER & JAM TANGGAL REALTIME -->
   <div class="floating-donatur-header">
     <span class="title-text">💚 Jazakumullahu Khairan</span>
     <div class="datetime-text">
@@ -2054,7 +2052,7 @@ const jamSholat = formatTime(p.prayerMinutes);
     </div>
   </div>
 
-  <!-- AREA KANTONG TEMPAT TEKS MELAYANG (DIPOTONG DI BATAS ATAS) -->
+  <!-- AREA JALAN TEKS (BATAS ATAS = 65px, BATAS BAWAH = 60px) -->
   <div class="floating-donatur-viewport">
     <div class="floating-donatur-list" id="donaturContainer">
       <div class="floating-item">Memuat data donatur...</div>
@@ -2069,15 +2067,12 @@ const jamSholat = formatTime(p.prayerMinutes);
 <script>
   const sheetCsvUrl = 'https://docs.google.com/spreadsheets/d/e/2PACX-1vS83sG1hh3_jMjPC0dzTtay76-fRFqqiCFzB40NgLIor88940hvw_0pZBdpfwRFPQtCvoapmd4ovB0s/pub?gid=1734635535&single=true&output=csv';
 
-  // 1. Fungsi Update Jam & Tanggal Otomatis Realtime
   function updateRealtimeClock() {
     const now = new Date();
     
-    // Format Tanggal
     const optionsDate = { day: '2-digit', month: 'short', year: 'numeric' };
     const dateStr = now.toLocaleDateString('id-ID', optionsDate);
     
-    // Format Jam
     const hours = String(now.getHours()).padStart(2, '0');
     const minutes = String(now.getMinutes()).padStart(2, '0');
     const seconds = String(now.getSeconds()).padStart(2, '0');
@@ -2087,7 +2082,6 @@ const jamSholat = formatTime(p.prayerMinutes);
     document.getElementById('donaturClock').textContent = timeStr;
   }
 
-  // 2. Fungsi Ambil Data Spreadsheet
   async function fetchDonaturData() {
     try {
       const response = await fetch(sheetCsvUrl);
@@ -2132,14 +2126,12 @@ const jamSholat = formatTime(p.prayerMinutes);
     }
   }
 
-  // Jalankan saat pertama kali dibuka
   document.addEventListener('DOMContentLoaded', () => {
     fetchDonaturData();
     updateRealtimeClock();
-    setInterval(updateRealtimeClock, 1000); // Update jam setiap 1 detik
+    setInterval(updateRealtimeClock, 1000);
   });
 
-  // Perbarui spreadsheet setiap 3 menit
   setInterval(fetchDonaturData, 180000);
 </script>
   
