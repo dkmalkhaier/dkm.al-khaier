@@ -1882,7 +1882,7 @@ const jamSholat = formatTime(p.prayerMinutes);
   </script>
 
 <!-- ==========================================
-     STYLING DONATUR MELAYANG BATAS ATAS (CSS)
+     STYLING DONATUR MELAYANG FULL TRANSPARAN (CSS)
      ========================================== -->
 <style>
   /* KOTAK WIDGET UTAMA (POSISI KIRI BAWAH & SISI ATAS DIKUNCI) */
@@ -1909,20 +1909,22 @@ const jamSholat = formatTime(p.prayerMinutes);
     animation: boxFadeCycle 90s infinite;
   }
 
-  /* JUDUL PENGUMUMAN + JAM & TANGGAL (BATAS ATAS TEKS) */
+  /* JUDUL PENGUMUMAN + JAM & TANGGAL (FULL TRANSPARAN) */
   .floating-donatur-header {
     position: absolute;
     top: 20px; /* Jarak dari batas paling atas layar */
     left: 0;
     width: 100%;
-    z-index: 10; /* Memastikan header selalu di paling atas menutupi teks */
+    z-index: 10;
     font-size: 11px;
     font-weight: bold;
     color: #1b4332;
     border-bottom: 2px solid #2d6a4f;
     padding-bottom: 5px;
-    background: rgba(255, 255, 255, 0.95); /* Latar belakang untuk menutup teks yang lewat di belakangnya */
-    backdrop-filter: blur(4px);
+    
+    /* FULL TRANSPARAN (Tanpa background & tanpa blur) */
+    background: transparent !important;
+    backdrop-filter: none !important;
     pointer-events: auto;
   }
 
@@ -1931,25 +1933,27 @@ const jamSholat = formatTime(p.prayerMinutes);
     letter-spacing: 0.5px;
     display: block;
     margin-bottom: 2px;
+    text-shadow: 0 1px 3px rgba(255, 255, 255, 0.9); /* Bayangan putih halus agar tetap terbaca jelas */
   }
 
-  /* BARIS JAM & TANGGAL */
+  /* BARIS JAM & TANGGAL (FULL TRANSPARAN) */
   .floating-donatur-header .datetime-text {
     font-size: 9.5px;
     font-weight: normal;
     color: #444444;
     display: flex;
     justify-content: space-between;
+    text-shadow: 0 1px 3px rgba(255, 255, 255, 0.9);
   }
 
   /* AREA JALAN TEKS (DIBATASI DARI BAWAH JUDUL KEBUTUSAN SAMPAI PALING BAWAH LAYAR) */
   .floating-donatur-viewport {
     position: absolute;
-    top: 65px; /* JARAK BATAS ATAS: Teks akan menghilang persis di bawah Jam & Tanggal ini */
+    top: 65px; /* JARAK BATAS ATAS: Teks akan terpotong & menghilang persis di bawah garis Jam/Tanggal ini */
     bottom: 0;
     left: 0;
     width: 100%;
-    overflow: hidden !important; /* Mengunci teks agar terpotong di batas ini */
+    overflow: hidden !important; /* Mengunci teks agar tidak tembus ke atas header */
     z-index: 1;
   }
 
@@ -2041,7 +2045,7 @@ const jamSholat = formatTime(p.prayerMinutes);
      ========================================== -->
 <div class="floating-donatur-box">
   
-  <!-- BATAS ATAS: HEADER & JAM TANGGAL REALTIME -->
+  <!-- BATAS ATAS: HEADER & JAM TANGGAL REALTIME (FULL TRANSPARAN) -->
   <div class="floating-donatur-header">
     <span class="title-text">💚 Donatur Terakhir</span>
     <div class="datetime-text">
@@ -2050,7 +2054,7 @@ const jamSholat = formatTime(p.prayerMinutes);
     </div>
   </div>
 
-  <!-- AREA KANTONG TEMPAT TEKS MELAYANG (DI POTONG DIBATAS ATAS) -->
+  <!-- AREA KANTONG TEMPAT TEKS MELAYANG (DIPOTONG DI BATAS ATAS) -->
   <div class="floating-donatur-viewport">
     <div class="floating-donatur-list" id="donaturContainer">
       <div class="floating-item">Memuat data donatur...</div>
