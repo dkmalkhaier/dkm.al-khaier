@@ -1882,74 +1882,96 @@ const jamSholat = formatTime(p.prayerMinutes);
   </script>
 
 <!-- ==========================================
-     STYLING WIDGET DONATUR TRANSPARAN FULL (CSS)
+     STYLING DONATUR MELAYANG BATAS ATAS (CSS)
      ========================================== -->
 <style>
+  /* KOTAK WIDGET UTAMA (POSISI KIRI BAWAH & SISI ATAS DIKUNCI) */
   .floating-donatur-box {
     position: fixed;
-    bottom: 20px;
-    left: 20px; /* Ubah ke 'right: 20px' jika ingin di pojok kanan bawah */
+    top: 0;
+    bottom: 0;
+    left: 20px; /* Jarak dari pinggir kiri layar */
     width: 230px;
-    height: 125px;
+    height: 100vh;
     
-    /* TRANSPARAN FULL (TANPA LATAR & TANPA KOTAK) */
+    /* TRANSPARAN FULL */
     background: transparent !important;
-    backdrop-filter: none !important;
-    -webkit-backdrop-filter: none !important;
     box-shadow: none !important;
     border: none !important;
     
     padding: 0;
-    overflow: hidden; /* Mengunci agar teks tidak keluar kotak */
+    overflow: hidden;
     z-index: 9999;
     font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+    pointer-events: none; /* Agar klik tombol/link di belakangnya tetap berfungsi */
     
     /* Animasi tayang 45 detik + jeda 45 detik */
     animation: boxFadeCycle 90s infinite;
   }
 
-  /* HEADER / BATAS PENGUMUMAN (DILINDUNGI AGAR TEKS TIDAK MENUTUPI JUDUL) */
+  /* JUDUL PENGUMUMAN + JAM & TANGGAL (BATAS ATAS TEKS) */
   .floating-donatur-header {
-    position: relative;
-    z-index: 2; /* Memastikan judul selalu berada di atas teks berjalan */
+    position: absolute;
+    top: 20px; /* Jarak dari batas paling atas layar */
+    left: 0;
+    width: 100%;
+    z-index: 10; /* Memastikan header selalu di paling atas menutupi teks */
     font-size: 11px;
     font-weight: bold;
-    color: #1b4332; /* Warna hijau tua khas DKM */
-    border-bottom: 1px solid rgba(27, 67, 50, 0.3);
-    padding-bottom: 4px;
-    margin-bottom: 4px;
-    text-transform: uppercase;
-    letter-spacing: 0.5px;
-    text-shadow: 0 1px 2px rgba(255, 255, 255, 0.9);
+    color: #1b4332;
+    border-bottom: 2px solid #2d6a4f;
+    padding-bottom: 5px;
+    background: rgba(255, 255, 255, 0.95); /* Latar belakang untuk menutup teks yang lewat di belakangnya */
+    backdrop-filter: blur(4px);
+    pointer-events: auto;
   }
 
-  /* AREA VIEWPORT (BATAS TAMPILAN TEKS MELAYANG) */
+  .floating-donatur-header .title-text {
+    text-transform: uppercase;
+    letter-spacing: 0.5px;
+    display: block;
+    margin-bottom: 2px;
+  }
+
+  /* BARIS JAM & TANGGAL */
+  .floating-donatur-header .datetime-text {
+    font-size: 9.5px;
+    font-weight: normal;
+    color: #444444;
+    display: flex;
+    justify-content: space-between;
+  }
+
+  /* AREA JALAN TEKS (DIBATASI DARI BAWAH JUDUL KEBUTUSAN SAMPAI PALING BAWAH LAYAR) */
   .floating-donatur-viewport {
-    height: 95px;
-    overflow: hidden !important; /* MEMBATASI TEKS: Teks akan terpotong & hilang tepat di garis ini */
-    position: relative;
+    position: absolute;
+    top: 65px; /* JARAK BATAS ATAS: Teks akan menghilang persis di bawah Jam & Tanggal ini */
+    bottom: 0;
+    left: 0;
+    width: 100%;
+    overflow: hidden !important; /* Mengunci teks agar terpotong di batas ini */
     z-index: 1;
   }
 
   .floating-donatur-list {
     position: absolute;
     width: 100%;
-    /* Total 1 siklus = 90 detik (45 detik jalan + 45 detik jeda) */
-    animation: scrollCycle 90s linear infinite;
+    pointer-events: auto;
+    /* Siklus 90s (45s jalan naik + 45s jeda) */
+    animation: scrollLimitedHeight 90s linear infinite;
   }
 
   /* Animasi berhenti otomatis saat kursor/layar disentuh */
-  .floating-donatur-box:hover,
-  .floating-donatur-box:hover .floating-donatur-list {
+  .floating-donatur-list:hover {
     animation-play-state: paused;
   }
 
   .floating-item {
     font-size: 11px;
     color: #222222;
-    margin-bottom: 10px;
+    margin-bottom: 12px;
     line-height: 1.3;
-    border-bottom: 1px dashed rgba(0, 0, 0, 0.15);
+    border-bottom: 1px dashed rgba(0, 0, 0, 0.2);
     padding-bottom: 6px;
   }
 
@@ -1957,7 +1979,7 @@ const jamSholat = formatTime(p.prayerMinutes);
     font-weight: bold;
     color: #1b4332; /* Kolom D (Nama) */
     display: block;
-    text-shadow: 0 1px 2px rgba(255, 255, 255, 0.8);
+    text-shadow: 0 1px 2px rgba(255, 255, 255, 0.9);
   }
 
   .floating-item .detail-row {
@@ -1968,36 +1990,36 @@ const jamSholat = formatTime(p.prayerMinutes);
   }
 
   .floating-item .tanggal {
-    color: #555555; /* Kolom B (Tanggal) */
+    color: #444444; /* Kolom B (Tanggal) */
     font-size: 10px;
-    text-shadow: 0 1px 2px rgba(255, 255, 255, 0.8);
+    text-shadow: 0 1px 2px rgba(255, 255, 255, 0.9);
   }
 
   .floating-item .nominal {
     color: #b58900; /* Kolom E (Nominal) */
     font-weight: bold;
     font-size: 11px;
-    text-shadow: 0 1px 2px rgba(255, 255, 255, 0.8);
+    text-shadow: 0 1px 2px rgba(255, 255, 255, 0.9);
   }
 
   /* ==========================================
-     ANIMASI PERPUTARAN TAYANG (45s) & JEDA (45s)
+     ANIMASI PERGERAKAN TEKS
      ========================================== */
 
-  /* 1. Animasi Teks Berjalan dari Bawah ke Atas dalam 45 Detik Pertama */
-  @keyframes scrollCycle {
+  /* 1. Berjalan naik dari bawah dan HILANG tepat saat menyentuh batas jam & tanggal */
+  @keyframes scrollLimitedHeight {
     0% { 
-      transform: translateY(100%); 
+      transform: translateY(100vh); /* Mulai melayang dari bawah luar layar */
     }
     50% { 
-      transform: translateY(-100%); /* Selesai tayang di detik ke-45 */
+      transform: translateY(-100%); /* Naik sampai hilang persis di bawah batas jam/tanggal pada detik ke-45 */
     }
     100% { 
-      transform: translateY(-100%); /* Tetap di atas selama jeda 45 detik berikutnya */
+      transform: translateY(-100%); /* Diam/jeda selama 45 detik berikutnya */
     }
   }
 
-  /* 2. Animasi Memudar (Fade Out) saat posisi JEDA / OFF */
+  /* 2. Animasi Memudar saat jeda 45 detik */
   @keyframes boxFadeCycle {
     0%, 48% { 
       opacity: 1; 
@@ -2005,7 +2027,7 @@ const jamSholat = formatTime(p.prayerMinutes);
     }
     50%, 98% { 
       opacity: 0; 
-      visibility: hidden; /* Sembunyi total selama jeda 45 detik */
+      visibility: hidden;
     }
     100% { 
       opacity: 1; 
@@ -2018,26 +2040,56 @@ const jamSholat = formatTime(p.prayerMinutes);
      STRUKTUR TAMPILAN (HTML)
      ========================================== -->
 <div class="floating-donatur-box">
-  <div class="floating-donatur-header">💚 Terimakasih Para Donatur</div>
+  
+  <!-- BATAS ATAS: HEADER & JAM TANGGAL REALTIME -->
+  <div class="floating-donatur-header">
+    <span class="title-text">💚 Donatur Terakhir</span>
+    <div class="datetime-text">
+      <span id="donaturDate">--/--/----</span>
+      <span id="donaturClock">00:00:00 WIB</span>
+    </div>
+  </div>
+
+  <!-- AREA KANTONG TEMPAT TEKS MELAYANG (DI POTONG DIBATAS ATAS) -->
   <div class="floating-donatur-viewport">
     <div class="floating-donatur-list" id="donaturContainer">
       <div class="floating-item">Memuat data donatur...</div>
     </div>
   </div>
+
 </div>
 
 <!-- ==========================================
-     LOGIKA PENARIKAN DATA SPREADSHEET (JS)
+     LOGIKA PENARIKAN DATA SPREADSHEET & JAM (JS)
      ========================================== -->
 <script>
   const sheetCsvUrl = 'https://docs.google.com/spreadsheets/d/e/2PACX-1vS83sG1hh3_jMjPC0dzTtay76-fRFqqiCFzB40NgLIor88940hvw_0pZBdpfwRFPQtCvoapmd4ovB0s/pub?gid=1734635535&single=true&output=csv';
 
+  // 1. Fungsi Update Jam & Tanggal Otomatis Realtime
+  function updateRealtimeClock() {
+    const now = new Date();
+    
+    // Format Tanggal
+    const optionsDate = { day: '2-digit', month: 'short', year: 'numeric' };
+    const dateStr = now.toLocaleDateString('id-ID', optionsDate);
+    
+    // Format Jam
+    const hours = String(now.getHours()).padStart(2, '0');
+    const minutes = String(now.getMinutes()).padStart(2, '0');
+    const seconds = String(now.getSeconds()).padStart(2, '0');
+    const timeStr = `${hours}:${minutes}:${seconds} WIB`;
+
+    document.getElementById('donaturDate').textContent = dateStr;
+    document.getElementById('donaturClock').textContent = timeStr;
+  }
+
+  // 2. Fungsi Ambil Data Spreadsheet
   async function fetchDonaturData() {
     try {
       const response = await fetch(sheetCsvUrl);
       const data = await response.text();
       
-      const rows = data.split('\n').slice(1); // Potong baris header
+      const rows = data.split('\n').slice(1);
       const container = document.getElementById('donaturContainer');
       
       let htmlContent = '';
@@ -2046,9 +2098,9 @@ const jamSholat = formatTime(p.prayerMinutes);
         const columns = row.split(',');
         
         if (columns.length >= 4) {
-          const tanggal = columns[1] ? columns[1].replace(/"/g, '').trim() : ''; // Kolom B
-          const nama    = columns[3] ? columns[3].replace(/"/g, '').trim() : ''; // Kolom D
-          const nominal = columns[4] ? columns[4].replace(/"/g, '').trim() : ''; // Kolom E
+          const tanggal = columns[1] ? columns[1].replace(/"/g, '').trim() : ''; 
+          const nama    = columns[3] ? columns[3].replace(/"/g, '').trim() : ''; 
+          const nominal = columns[4] ? columns[4].replace(/"/g, '').trim() : ''; 
           
           if (nama !== '') {
             htmlContent += `
@@ -2076,10 +2128,14 @@ const jamSholat = formatTime(p.prayerMinutes);
     }
   }
 
-  // Jalankan penarikan data saat halaman dimuat
-  document.addEventListener('DOMContentLoaded', fetchDonaturData);
+  // Jalankan saat pertama kali dibuka
+  document.addEventListener('DOMContentLoaded', () => {
+    fetchDonaturData();
+    updateRealtimeClock();
+    setInterval(updateRealtimeClock, 1000); // Update jam setiap 1 detik
+  });
 
-  // Perbarui data spreadsheet otomatis di background setiap 3 menit
+  // Perbarui spreadsheet setiap 3 menit
   setInterval(fetchDonaturData, 180000);
 </script>
   
