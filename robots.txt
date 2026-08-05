@@ -1,0 +1,4 @@
+User-agent: *
+Allow: /
+
+Sitemap: https://dkmalkhaier.github.io/dkm.al-khaier/sitemap.xml
